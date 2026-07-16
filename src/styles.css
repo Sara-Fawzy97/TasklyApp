@@ -1,6 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@theme {
+  --color-primary: #003d9b;
+  --color-primary-container: #0052CC;
+  --color-surface-highest: #D7E2FF;
+  --color-surface-low: #F1F3FF;
+  --color-background: #F9F9FF;
+  --color-dark-gray: #041B3C;
+  --color-graay: #4F5F7B; 
+  --color-light-gray: #C3C6D6;
+
+  --font-sans: "Inter", sans-serif;
+
+    --text-display-lg: 56px;
+  --text-display-lg--line-height: 56px;
+  --text-display-lg--letter-spacing: -2.8px;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--letter-spacing: 0px;
+
+  --text-title-md: 18px;
+  --text-title-md--line-height: 27px;
+  --text-title-md--letter-spacing: 0px;
+
+  --text-body-md: 14px;
+  --text-body-md--line-height: 22.75px;
+  --text-body-md--letter-spacing: 0px;
+
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 16.5px;
+  --text-label-sm--letter-spacing: 1.1px;
+}
+
+
+body{
+    background-color: aliceblue;
+}
