@@ -11,6 +11,9 @@
   --color-dark-gray: #041B3C;
   --color-graay: #4F5F7B; 
   --color-light-gray: #C3C6D6;
+  --color-error: #BA1A1A;
+  --color-success: #82F9BE;
+  --color-warning: #FFB300
 
   --font-sans: "Inter", sans-serif;
 
