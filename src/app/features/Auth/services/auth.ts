@@ -15,4 +15,12 @@ export class Auth {
   logIn(data:User){
     return this.http.post('/auth/v1/token?grant_type=password',data)
   }
+
+  getProfile (){
+    return this.http.get('/auth/v1/user')
+  }
+
+  logOut(){
+    return this.http.post("/auth/v1/logout","")
+  }
 }
