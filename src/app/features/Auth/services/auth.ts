@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from '../Models/User';
+import { User } from '../../../shared/models/IUser';
+import { loginInfo } from '../Models/loginInfo';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,15 +13,20 @@ export class Auth {
     return this.http.post('/auth/v1/signup',data)
   }
 
-  logIn(data:User){
-    return this.http.post('/auth/v1/token?grant_type=password',data)
+  logIn(data:loginInfo){
+    return this.http.post<User>('/auth/v1/token?grant_type=password',data)
   }
 
   getProfile (){
-    return this.http.get('/auth/v1/user')
+    return this.http.get<User>('/auth/v1/user')
   }
 
   logOut(){
     return this.http.post("/auth/v1/logout","")
+  }
+
+  refreshToken(reToken:string){
+// const refreshToken=localStorage.get()
+return this.http.post('/token?grant_type=refresh_token',reToken)
   }
 }

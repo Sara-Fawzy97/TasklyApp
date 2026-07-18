@@ -23,17 +23,20 @@ errorMsg=signal("")
 
  login(data:FormGroup){
 this.authService.logIn(data.value).subscribe({
-  next:(res:any)=>{
+  next:(res)=>{
     console.log(res)
     localStorage.setItem('accessToken',res.access_token)
-    localStorage.setItem('userName',res.user_metadata.name)
-    localStorage.setItem('jobTitle',res.user_metadata.department)
-    this.router.navigateByUrl('/dashboard');
+    localStorage.setItem('refreshToken',res.refresh_token)
+    // localStorage.setItem('userName',res.user_metadata.name)
+    // localStorage.setItem('jobTitle',res.user_metadata.department)
   },
   error:(err)=> {
     console.log(err)
     this.errorMsg.set('Invalid email or password')
-  },
+  },complete:()=>{
+    this.router.navigateByUrl('/dashboard');
+
+  }
 })
 
  }
