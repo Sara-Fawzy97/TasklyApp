@@ -17,55 +17,60 @@
 
     <!--------------------register Form----------------->
     <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm)" class="w-full pb-4">
-      <div class="mb-6">
+      <div class="">
         <label class="text-graay text-label-sm font-bold pl-1 " for="name">NAME</label><br />
-        <input formControlName="name" type="text" placeholder="Enter your full name" id="name" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4" />
+        <input formControlName="name" type="text" placeholder="Enter your full name" id="name" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2" />
         <p class="text-light-gray text-label-sm px-1">3-50 characters, letters only.</p>
       </div>
         <!-------error handle------>
         @if (signUpForm.get('name')?.errors && signUpForm.get('name')?.touched) {
-        <div>
+        <div class="text-error">
           @if(signUpForm.get('name')?.errors?.['required']){ <p>Name is required</p>}
         </div>
         }
        
         
-      <div class="mb-6">
+      <div class="mt-6">
         <label class="text-graay text-label-sm font-bold pl-1 " for="email">EMAIL</label><br />
-        <input formControlName="email" type="email" placeholder="yourname@company.com" id="email" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4" />
+        <input formControlName="email" type="email" placeholder="yourname@company.com" id="email" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2" />
       </div>
 
       <!-------error handle------>
         @if (signUpForm.get('email')?.errors && signUpForm.get('email')?.touched) {
-        <div>
+        <div class="text-error">
           @if(signUpForm.get('email')?.errors?.['required']){ <p>email is required</p>}
         </div>
         }
 
-      <div>
+      <div class="mt-6">
         <label class="text-graay text-label-sm font-bold pl-1 " for="job">JOB TITLE (OPTIONAL)</label><br />
-        <input formControlName="jobTitle" type="text" placeholder="e.g. Project Manager" id="job" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4" />
+        <input formControlName="jobTitle" type="text" placeholder="e.g. Project Manager" id="job" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2" />
       </div>
 
-      <div class="flex justify-between gap-4">
+      <div class="flex justify-between gap-4 mt-6">
         <div>
+
+           <div>
           <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label><br />
-          <input formControlName="password" type="password" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4"  />
+          <input formControlName="password" type="password" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2"  />
         </div>
         <!-------error handle------>
         @if (signUpForm.get('password')?.errors && signUpForm.get('password')?.touched) {
-        <div>
+        <div class="text-error">
           @if(signUpForm.get('password')?.errors?.['required']){ <p>password is required</p>}
         </div>
         }
 
+        </div>
+       
+        <div>
         <div>
           <label class="text-graay text-label-sm font-bold pl-1 " for="password">CONFIRM PASSWORD</label><br />
           <input formControlName="confirmedPassword" type="password" placeholder="Repeat your password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4" />
         </div>
   <!-------error handle------>
         @if (signUpForm.get('confirmedPassword')?.errors && signUpForm.get('confirmedPassword')?.touched) {
-        <div>
+        <div class="text-error">
           @if(signUpForm.get('confirmedPassword')?.errors?.['required']){ <p>password is required</p>
           }
   @if(signUpForm.get('confirmedPassword')?.value!== signUpForm.get('password')?.value){ <p>password is required</p>
@@ -73,7 +78,7 @@
           
         </div>
         }
-
+</div>
       </div>
         <div class="bg-[#E8EDFF] p-4 rounded-md my-5 text-[#434654] text-xs text-label-sm">
            <p>At least 8 characters</p>
