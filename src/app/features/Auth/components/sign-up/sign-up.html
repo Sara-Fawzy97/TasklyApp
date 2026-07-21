@@ -7,87 +7,118 @@
   </div>
 
 
-<section class="w-xl  bg-white  justify-self-center rounded-lg p-12 mb-48">
+<section class="md:w-xl w-full md:bg-white  md:sectionShadow justify-self-center rounded-lg px-6 md:p-12 md:mb-48">
   <div class="justify-items-center ">
    
-    <div class="text-center w-full mb-5 ">
+    <div class="md:text-center w-full md:mb-5 mt-8 mb-10">
       <h2 class="text-darkGraay text-3xl font-semibold">Create your workspace</h2>
-      <p class="text-graay text-sm  mt-1">Join the editorial approach to task management.</p>
+      <p class="text-graay text-sm  mt-1 hidden md:block ">Join the editorial approach to task management.</p>
+      <p class="md:hidden text-[#434654] text-sm pt-1.5 ">Join the curated environment for institutional trust
+           and task precision.</p>
     </div>
 
     <!--------------------register Form----------------->
     <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm)" class="w-full pb-4">
       <div class="">
         <label class="text-graay text-label-sm font-bold pl-1 " for="name">NAME</label><br />
-        <input formControlName="name" type="text" placeholder="Enter your full name" id="name" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2" />
-        <p class="text-light-gray text-label-sm px-1">3-50 characters, letters only.</p>
+        <input formControlName="name" type="text" placeholder="Enter your full name" id="name" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
+        <p class="text-light-gray text-label-sm px-1 hidden md:block">3-50 characters, letters only.</p>
       </div>
         <!-------error handle------>
-        @if (signUpForm.get('name')?.errors && signUpForm.get('name')?.touched) {
-        <div class="text-error">
-          @if(signUpForm.get('name')?.errors?.['required']){ <p>Name is required</p>}
+        @if (signUpForm.get('name')?.errors && signUpForm.get('name')?.dirty) {
+        <div class="text-error"2>
+          @if(signUpForm.get('name')?.errors?.['required']){ <p>Name is required</p>} 
+          @if(signUpForm.get('name')?.errors?.['pattern']){ <p>The username must contain letters only and be between 3-50 chars</p>} 
         </div>
         }
        
         
       <div class="mt-6">
         <label class="text-graay text-label-sm font-bold pl-1 " for="email">EMAIL</label><br />
-        <input formControlName="email" type="email" placeholder="yourname@company.com" id="email" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2" />
+        <input formControlName="email" type="email" placeholder="yourname@company.com" id="email" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
       </div>
 
       <!-------error handle------>
         @if (signUpForm.get('email')?.errors && signUpForm.get('email')?.touched) {
         <div class="text-error">
           @if(signUpForm.get('email')?.errors?.['required']){ <p>email is required</p>}
+          @if(signUpForm.get('email')?.errors?.['email']){ <p>email has invalid format</p>}
         </div>
         }
+       
 
       <div class="mt-6">
         <label class="text-graay text-label-sm font-bold pl-1 " for="job">JOB TITLE (OPTIONAL)</label><br />
-        <input formControlName="jobTitle" type="text" placeholder="e.g. Project Manager" id="job" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2" />
+        <input formControlName="jobTitle" type="text" placeholder="e.g. Project Manager" id="job" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
       </div>
 
-      <div class="flex justify-between gap-4 mt-6">
+      <div class="md:flex justify-between gap-4 ">
         <div>
 
-           <div>
+           <div class="mt-6 relative">
           <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label><br />
-          <input formControlName="password" type="password" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2"  />
-        </div>
+          <input formControlName="password"  [type]="showPassord? 'text':'password'" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2"  />
+     
+          <button (click)="toggleShowPassword()">
+       <img  [src]="!showPassord? ' ../../../../../assets/eyeIcon.png':'../../../../../assets/eyeIcon2.png'" alt="" class="absolute bottom-4 right-4 hover:cursor-pointer" >
+      </button>
+     
+    </div>
         <!-------error handle------>
         @if (signUpForm.get('password')?.errors && signUpForm.get('password')?.touched) {
         <div class="text-error">
           @if(signUpForm.get('password')?.errors?.['required']){ <p>password is required</p>}
+          @if(signUpForm.get('password')?.errors?.['pattern']){ <p>Password is invalid</p>}
         </div>
         }
 
         </div>
        
         <div>
-        <div>
-          <label class="text-graay text-label-sm font-bold pl-1 " for="password">CONFIRM PASSWORD</label><br />
-          <input formControlName="confirmedPassword" type="password" placeholder="Repeat your password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4" />
+        <div class="mt-6">
+          <label class="text-graay text-label-sm font-bold pl-1 mt-6" for="password">CONFIRM PASSWORD</label><br />
+          <input formControlName="confirmedPassword" type="password" placeholder="Repeat your password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
         </div>
   <!-------error handle------>
         @if (signUpForm.get('confirmedPassword')?.errors && signUpForm.get('confirmedPassword')?.touched) {
         <div class="text-error">
           @if(signUpForm.get('confirmedPassword')?.errors?.['required']){ <p>password is required</p>
           }
-  @if(signUpForm.get('confirmedPassword')?.value!== signUpForm.get('password')?.value){ <p>password is required</p>
+        
+        </div>
+        <div class="text-error">
+          @if(signUpForm.get('confirmedPassword')?.value!== signUpForm.get('password')?.value){ <p>password dose not match </p>
           }
-          
         </div>
         }
 </div>
       </div>
-        <div class="bg-[#E8EDFF] p-4 rounded-md my-5 text-[#434654] text-xs text-label-sm">
-           <p>At least 8 characters</p>
-           <p>One uppercase, lowercase, and digit</p>
-           <p>One special character</p>
+      <!---------------password validation-------------->
+        <div class="bg-[#E8EDFF] p-4 rounded-md my-5 text-[#434654] text-xs text-label-sm hidden md:block">
+     
+           <label for="chars" class="relative pl-6 text-label-sm">
+            At least 8 characters
+          <input type="checkbox"  [checked]="(password?.value || '').length >= 8" id="chars" class=" absolute w-0 h-0  " disabled > 
+            <span class="checkMark absolute top-0.5 left-0  w-[11.67px] h-[11.67px] bg-transparent border border-[#737685] rounded-2xl"></span>
+           </label><br>
+
+            <label for="digit" class="relative pl-6 text-label-sm">
+       One uppercase, lowercase, and digit
+          <input type="checkbox"  [checked]="/[a-z]/.test(password?.value || '')&&
+    /\d/.test(password?.value || '') &&/[A-Z]/.test(password?.value || '')" id="digit" class=" absolute w-0 h-0  " disabled > 
+            <span class="checkMark absolute top-0.5 left-0  w-[11.67px] h-[11.67px] bg-transparent border border-[#737685] rounded-2xl"></span>
+           </label><br>
+
+            <label for="special" class="relative pl-6 text-label-sm">
+    One special character
+          <input type="checkbox"  [checked]="/[!@#$%^&*]/.test(password?.value || '')" id="special" class=" absolute w-0 h-0  " disabled > 
+            <span class="checkMark absolute top-0.5 left-0  w-[11.67px] h-[11.67px] bg-transparent border border-[#737685] rounded-2xl"></span>
+           </label>
+
       </div>
-      <button type="submit" class="w-full  bg-linear-to-r from-primary to-primary-container text-white rounded-sm text-[16px] font-semibold py-3 cursor-pointer">Create Account</button>
+      <button type="submit" class="w-full  bg-linear-to-r from-primary to-primary-container text-white rounded-lg md:rounded-sm text-[16px] font-semibold py-3 cursor-pointer mt-6">Create Account</button>
     </form>
 
-    <p class=" pt-8 text-graay text-body-md ">Already have an account? <span routerLink="/login" class="text-primary font-semibold pl-1 cursor-pointer">Log in</span></p>
+    <p class=" pb-8  pt-8 text-graay text-body-md ">Already have an account? <span routerLink="/login" class="text-primary font-semibold pl-1 cursor-pointer">Log in</span></p>
   </div>
 </section>

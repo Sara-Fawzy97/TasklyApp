@@ -13,9 +13,11 @@ import { RouterLink } from "@angular/router";
 export class SignUp {
 
 authService= inject(Auth)
+errorMsg=''
+showPassord=false
 
    signUpForm=new FormGroup({
-   name:new FormControl(null,[Validators.required,Validators.min(3),Validators.max(50),Validators.pattern(/^[\p{L}]+(?: [\p{L}]+)*$/u)]),
+   name:new FormControl(null,[Validators.required,Validators.min(3),Validators.max(50),Validators.pattern(/^(?=.{3,50}$)[\p{L}]+(?: [\p{L}]+)*$/u)]),
    jobTitle:new FormControl (null),
    email: new FormControl(null,[Validators.email,Validators.required]),
    password:new FormControl(null,[Validators.required,Validators.pattern( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[^\s]{8,64}$/)]),
@@ -27,10 +29,20 @@ this.authService.signUp(data.value).subscribe({
   next:(res)=>{
     console.log(res)
   },error:(err)=>{
-    console.log(err)
+    console.log(err.error.msg)
+    this.errorMsg=err.msg
   },
 })
 
   console.log(this.signUpForm.value)
  }
+
+ get password(){
+ return this.signUpForm.get('password')
+ }
+
+ toggleShowPassword(){
+this.showPassord=!this.showPassord
+}
+
 }
