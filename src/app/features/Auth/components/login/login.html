@@ -7,7 +7,7 @@
 </section>
 
 <!-----------Form section----------->
-<section class="max-w-[480]  bg-white  justify-self-center rounded-lg p-12  mx-6 my-36.75">
+<section class="max-w-[480]  md:bg-white  justify-self-center rounded-lg md:p-12 pt-20 pb-12 mx-6 md:my-36.75">
   <div class="justify-items-center ">
    
     <div class="text-center w-full mb-5 ">
@@ -15,25 +15,34 @@
       <p class="text-graay text-sm  mt-1">Please enter your details to access your workspace</p>
     </div>
 
-    <!--------------------register Form----------------->
+    <!--------------------login Form----------------->
     <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)" class="w-full pb-4">
    
-      <div class="">
+      <div class="relative">
         <label class="text-graay text-label-sm font-bold pl-1  " for="email">EMAIL</label><br />
-        <input formControlName="email" type="email" placeholder="yourname@company.com" id="email" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2" />
+        <input formControlName="email" type="email" placeholder="yourname@company.com" id="email" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2" />
+       <img src= '../../../../../assets/emailIcon.png' alt="" class="absolute  md:hidden bottom-4 right-4 hover:cursor-pointer" >
+      
       </div>
 
-      <!-------error handle------>
+    <!-------error handle------>
         @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
-        <div>
-          @if(loginForm.get('email')?.errors?.['required']){ <p class="text-error">email is required</p>}
+        <div class="text-error">
+          @if(loginForm.get('email')?.errors?.['required']){ <p>email is required</p>}
+          @if(loginForm.get('email')?.errors?.['email']){ <p>Check Your email address</p>}
         </div>
         }
 
+
    
-        <div class="mt-6">
-          <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label><br />
-          <input formControlName="password" type="password" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-sm py-3.5 px-4 mt-2"  />
+        <div class="mt-6 relative">
+          <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label>
+          
+            <a class="text-primary font-bold md:hidden text-xs float-end pt-1">Forgot?</a>
+          <input formControlName="password"  [type]="showPassord? 'text':'password'" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2"  />
+        <button (click)="toggleShowPassword()">
+       <img  [src]="!showPassord? ' ../../../../../assets/eyeIcon.png':'../../../../../assets/eyeIcon2.png'" alt="" class="absolute bottom-4 right-4 hover:cursor-pointer" >
+      </button>
         </div>
         <!-------error handle------>
         @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
@@ -44,16 +53,18 @@
            <p  class="text-error">{{errorMsg()}}</p>
  <div class="flex justify-between py-9">
             <label>
-            <input type="checkbox" class=" bg-surfaceLow"> Remember Me
+            <input type="checkbox" class=" bg-surfaceLow" formControlName="rememberMe"> Remember Me
             </label>
 
             <a class="text-primary font-medium hidden md:block">Forgot Password?</a>
          </div>
       
       
-      <button type="submit" class="w-full  bg-linear-to-r from-primary to-primary-container text-white rounded-sm text-[16px] font-semibold py-3 cursor-pointer">Log in</button>
+      <button type="submit" class="w-full flex bg-linear-to-r from-primary to-primary-container items-center justify-center gap-2 text-white rounded-lg md:rounded-sm text-[16px] font-semibold py-3 cursor-pointer">Sign in
+        <img src="../../../../../assets/arrow.png" alt="" class="w-3.5 h-3.5">
+      </button>
     </form>
 
-    <p class=" pt-8 text-graay text-body-md ">Don't have an account?  <span routerLink="/" class="text-primary font-semibold pl-1 cursor-pointer">Sign Up</span></p>
+    <p class="pt-44 md:pt-8 text-graay text-body-md ">Don't have an account?  <span routerLink="/" class="text-primary font-semibold pl-1 cursor-pointer" >Sign Up</span></p>
   </div>
 </section>

@@ -14,19 +14,28 @@ export class Login {
 authService=inject(Auth)
 errorMsg=signal("")
  router=inject(Router)
+ showPassord=false
+//  remember=false
 
    loginForm=new FormGroup({
    email: new FormControl(null,[Validators.email,Validators.required]),
    password:new FormControl(null,Validators.required),
-   
+   rememberMe: new FormControl(false),
  })
 
  login(data:FormGroup){
-this.authService.logIn(data.value).subscribe({
-  next:(res)=>{
+    this.authService.logIn(data.value).subscribe({
+    next:(res)=>{
     console.log(res)
-    localStorage.setItem('accessToken',res.access_token)
-    localStorage.setItem('refreshToken',res.refresh_token)
+    const remember=this.loginForm.value.rememberMe
+    if (remember==true){
+        localStorage.setItem('accessToken',res.access_token)
+        localStorage.setItem('refreshToken',res.refresh_token)
+    }else{
+        sessionStorage.setItem('accessToken',res.access_token)
+        sessionStorage.setItem('refreshToken',res.refresh_token)
+    }
+    
     // localStorage.setItem('userName',res.user_metadata.name)
     // localStorage.setItem('jobTitle',res.user_metadata.department)
   },
@@ -41,5 +50,8 @@ this.authService.logIn(data.value).subscribe({
 
  }
 
+  toggleShowPassword(){
+this.showPassord=!this.showPassord
+}
 
 }
