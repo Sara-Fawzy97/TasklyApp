@@ -29,4 +29,12 @@ export class Auth {
 // const refreshToken=localStorage.get()
 return this.http.post('/token?grant_type=refresh_token',reToken)
   }
+
+  forgotPassword(data:FormData){
+    return this.http.post('/auth/v1/recover',data)
+  }
+
+  updatePassword(data:string){
+    return this.http.put('/auth/v1/user',data)
+  }
 }
