@@ -1,4 +1,4 @@
-import { Component, inject, OnInit} from '@angular/core';
+import { Component, inject, OnInit, signal} from '@angular/core';
 import { Auth } from '../../../features/Auth/services/auth';
 import { Router } from '@angular/router';
 
@@ -13,8 +13,8 @@ export class Navbar implements OnInit {
   authService = inject(Auth);
    router=inject(Router)
   
-  userName ="";
-  jobTitle = '';
+  userName =signal("");
+  jobTitle = signal('');
 
   logOutDisplay=false
 
@@ -32,8 +32,8 @@ export class Navbar implements OnInit {
   getUserInfo() {
     this.authService.getProfile().subscribe({
       next: (res) => {
-        this.userName=res.user_metadata.name
-        this.jobTitle=res.user_metadata.department
+        this.userName.set(res.user_metadata.name)
+        this.jobTitle.set(res.user_metadata.department)
         console.log(this.userName)
         console.log(res);
       },
@@ -69,6 +69,7 @@ logOut(){
     },
     complete:()=>{
      localStorage.clear()
+     sessionStorage.clear()
     this.router.navigateByUrl('/login');
     
     }

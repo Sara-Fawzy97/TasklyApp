@@ -1,26 +1,26 @@
 
-<section class="bg-surface-low p-4 h-full"   [class.w-64]="isSidebarOpen" [class.w-20]="!isSidebarOpen" >
+<section class="bg-surface-low p-4 "   [class.w-64]="isSidebarOpen" [class.w-20]="!isSidebarOpen" >
     <div>
-        <img class="" src="../../../../assets/logo.png" alt="">
+        <img class="w-full" src="../../../../assets/logo.png" alt="">
     </div>
 
     <div class="mt-5 flex flex-col justify-between">
         <ul class="" >
           
-                    <li class="py-2.5 px-3 title-md font-medium rounded-sm bg-white"><a routerLink="/"><img  class="inline pr-3" src="../../../../assets/projects.png" alt=""> @if (isSidebarOpen) {<span>Projects</span>}</a></li>
+                    <li class="py-2.5 px-3 title-md font-medium rounded-sm bg-white"><a routerLink="/"><img  class="inline " src="../../../../assets/projects.png" alt=""> @if (isSidebarOpen) {<span class="pl-3">Projects</span>}</a></li>
 
-                    <li class="py-2.5 px-3 title-md font-medium"><a routerLink="/"> <img  class="inline pr-3" src="../../../../assets/epics.png" alt="">
+                    <li class="py-2.5 px-3 title-md font-medium" routerLinkActive="active"><a routerLink="/" > <img  class="inline " src="../../../../assets/epics.png" alt="">
                          @if (isSidebarOpen) {
        
-      <span>Project Epics</span>}</a></li>
-                    <li class="py-2.5 px-3 title-md font-medium "><a routerLink="/">  <img  class="inline pr-3" src="../../../../assets/tasks.png" alt=""> @if (isSidebarOpen) {<span> Project Tasks</span>}</a></li>
-                    <li class="py-2.5 px-3 title-md font-medium "><a routerLink="/"><img  class="inline pr-3" src="../../../../assets/members.png" alt=""> @if (isSidebarOpen) {<span>Project Members</span>}</a></li>
-                    <li class="py-2.5 px-3 title-md font-medium "><a routerLink="/"><img  class="inline pr-3" src="../../../../assets/details.png" alt=""> @if (isSidebarOpen) {<span>Project Details</span>}</a></li>
+      <span class="pl-3">Project Epics</span>}</a></li>
+                    <li class="py-2.5 px-3 title-md font-medium "><a routerLink="/" routerLinkActive="active">  <img  class="inline " src="../../../../assets/tasks.png" alt="" > @if (isSidebarOpen) {<span class="pl-3"> Project Tasks</span>}</a></li>
+                    <li class="py-2.5 px-3 title-md font-medium "><a routerLink="/" routerLinkActive="active"><img  class="inline " src="../../../../assets/members.png" alt=""> @if (isSidebarOpen) {<span class="pl-3">Project Members</span>}</a></li>
+                    <li class="py-2.5 px-3 title-md font-medium "><a routerLink="/" routerLinkActive="active"><img  class="inline" src="../../../../assets/details.png" alt=""> @if (isSidebarOpen) {<span class="pl-3">Project Details</span>}</a></li>
         </ul>
         
         <ul class="border-t border-t-light-gray pt-6 ">
-            <li  class=" py-2.5 px-3 title-md font-medium"> <button (click)="toggleSidebar()">@if (isSidebarOpen) { <img  class="inline pr-3" src="../../../../assets/back.png" alt="">}   @if (!isSidebarOpen) {<img  class="inline pr-3" src="../../../../assets/showSide.png" alt="">} @if (isSidebarOpen) {<span>Collapse</span>}</button></li>
-            <li  class=" text-error py-2.5 px-3 title-md font-medium"><a routerLink="/"> <img  class="inline pr-3" src="../../../../assets/logOut.png" alt="">@if (isSidebarOpen) {<span>Log Out</span>}</a></li>
+            <li  class=" py-2.5 px-3 title-md font-medium"> <button (click)="toggleSidebar()">@if (isSidebarOpen) { <img  class="inline pr-3" src="../../../../assets/back.png" alt="">}   @if (!isSidebarOpen) {<img  class="inline pr-3" src="../../../../assets/showSide.png" alt="">} @if (isSidebarOpen) {<span >Collapse</span>}</button></li>
+            <li  class=" text-error py-2.5 px-3 title-md font-medium"><a routerLink="/"> <img  class="inline " src="../../../../assets/logOut.png" alt="">@if (isSidebarOpen) {<span class="pl-3">Log Out</span>}</a></li>
         </ul>
     </div>
 </section>

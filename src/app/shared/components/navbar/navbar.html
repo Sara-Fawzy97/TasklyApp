@@ -1,11 +1,11 @@
 <nav class="px-8  py-3 w-full border-b border-b-black/10">
   <div class="flex pl-2  border-l border-l-black/10 justify-self-end">
     <div class="pl-4 pr-3 text-right">
-      <h4 class="text-dark-gray font-bold text-body-md">{{userName}}</h4>
-      <p class="text-primary font-bold text-[10px]">{{jobTitle}}</p>
+      <h4 class="text-dark-gray font-bold text-body-md">{{userName()}}</h4>
+      <p class="text-primary font-bold text-[10px]">{{jobTitle()}}</p>
     </div>
     <button (click)="avatarClicked()" class="hover:cursor-pointer relative w-10 h-10 bg-primary text-white text-[16px] font-bold content-center text-center rounded-lg">
-   {{getInitials(userName)}}
+   {{getInitials(userName())}}
    @if(logOutDisplay){
 <div class="dropMenu">
             <button (click)="logOut()" class=" absolute right-0 top-11 bg-white w-max rounded-md text-error py-2.5 px-3 text-base font-medium"><a routerLink="/"> <img  class="inline pr-3" src="../../../../assets/logOut.png" alt=""><span>Log Out</span></a></button>
