@@ -14,7 +14,7 @@ export class ForgotPassword {
 authService=inject(Auth)
 errorMsg=signal("")
  router=inject(Router)
- display=false
+ display=signal(false)
 
      forgotPassForm=new FormGroup({
        email: new FormControl(null,[Validators.email,Validators.required])
@@ -23,8 +23,8 @@ errorMsg=signal("")
      submitForm(data:FormGroup){
       this.authService.forgotPassword(data.value).subscribe({
         next:(res)=>{
-          this.display=true
-          console.log(this.display)
+          this.display.set(true)
+          console.log(this.display())
           console.log(res)
         },error:(err)=>{
           this.errorMsg=err.error.massage
