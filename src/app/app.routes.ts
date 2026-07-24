@@ -5,10 +5,10 @@ import { authGuard } from './core/gaurds/auth-guard';
 // import { Dashboard } from './shared/layout/dashboard/dashboard';
 
 export const routes: Routes = [
-   {path:'', component:SignUp},
+   {path:'sign-up', component:SignUp},
    {path:'login', component:Login},
    // {path:'dashboard',canActivate:[authGuard], component:Dashboard},
-   {path:'dashboard',canActivate:[authGuard],
+   {path:'',canActivate:[authGuard],
        loadChildren: () => import('./shared/layout/dashboard/dashboard.routes').then(m => m.Dashboard_routes) },
 
     
