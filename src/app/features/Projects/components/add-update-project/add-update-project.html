@@ -1,18 +1,30 @@
 <section class="md:p-4">
 <section class=" hidden md:block">
+     @if(isedit()){
+    <p class="text-[#43465499] font-bold gap-2 font-sans text-xs">PROJECTS > PROJECT TITLE ><span class="text-primary">EDIT</span></p>
+    <h2 class="text-4xl font-semibold mt-4">Edit Project</h2>
+     }@else{
     <p class="text-[#43465499] font-bold gap-2 font-sans text-xs">PROJECTS > <span class="text-primary">ADD NEW PROJECT</span></p>
+
     <h2 class="text-4xl font-semibold mt-4">Add New Project</h2>
+
+     }
+    
 </section>
 
 <section class= " md:bg-white mx-6 md:mx-8 p-2 mt-8">
 
 <div class="flex md:px-8 pt-8 pb-8 md:pb-10  border-b border-b-surface-low">
     <img src="../../../../../assets/add.png" alt="" class="w-11.5 h-11 hidden md:block">
-    <div><h2 class=" text-2xl font-semibold">Initialize New Project</h2>
+    <div>
+       @if(isedit()){
+      <h2 class=" text-2xl font-semibold">Edit Project</h2>
+    }@else{
+      <h2 class=" text-2xl font-semibold">Initialize New Project</h2>}
     <p class="text-body-md text-graay">Define the scope and foundational details of your project.</p></div>
 </div>
 
-<form class="md:p-8" [formGroup]="createProj" (ngSubmit)="addNewProj(createProj)">
+<form class="md:p-8" [formGroup]="createProj" (ngSubmit)="onSubmit(createProj)">
     
       <div class="">
         <label class="text-graay text-label-sm font-bold pl-1  " for="name">Project TITLE *</label><br />
@@ -44,8 +56,14 @@ key milestones..." id="description" class="h-37 text-[#737685] bg-surface-highes
         }
 
       <div class="flex  md:flex-row flex-col-reverse justify-between pt-4 mt-8">
-        <button class="py-3 px-6 text-graay font-bold  cursor-pointer ">Back</button>
+        <a class="py-3 px-6 text-graay font-bold  cursor-pointer " routerLink='/dashboard/project'>Back</a>
+        @if(isedit()){
+        <button class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 ">Save Changes</button>
+
+        }@else{
         <button class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 ">Create Project</button>
+
+        }
       </div>
 </form>
 </section>

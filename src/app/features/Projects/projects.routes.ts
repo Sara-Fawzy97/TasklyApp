@@ -6,7 +6,19 @@ export const Projects_routes: Routes = [
 //   { path: 'add', component: AddUpdateProject },
 //   { path: 'update/:id', component: AddUpdateRecipesComponent },
  {
+    path: '',
+    loadComponent: () =>
+      import('./components/list-projects/list-projects')
+        .then(c => c.ListProjects)
+  },
+ {
     path: 'add',
+    loadComponent: () =>
+      import('./components/add-update-project/add-update-project')
+        .then(c => c.AddUpdateProject)
+  },
+  {
+    path: ':id/edit',
     loadComponent: () =>
       import('./components/add-update-project/add-update-project')
         .then(c => c.AddUpdateProject)

@@ -10,7 +10,7 @@ export const Dashboard_routes: Routes = [
 ,  children: [
 
 {
-    path: 'projects',
+    path: 'project',
     loadChildren: () =>
       import('../../../features/Projects/projects.routes')
         .then(m => m.Projects_routes)
