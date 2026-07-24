@@ -7,13 +7,12 @@ import { ResetPassword } from './features/Auth/components/reset-password/reset-p
 // import { Dashboard } from './shared/layout/dashboard/dashboard';
 
 export const routes: Routes = [
+   {path: '', redirectTo: 'login', pathMatch: 'full'},
    {path:'sign-up', component:SignUp},
    {path:'login', component:Login},
-//    {path:'dashboard',canActivate:[authGuard], component:Dashboard},
     {path:'',canActivate:[authGuard],
        loadChildren: () => import('./shared/layout/dashboard/dashboard.routes').then(m => m.Dashboard_routes) },
-   // {path:'dashboard',
-   //     loadChildren: () => import('./shared/layout/dashboard/dashboard').then(m => m.Dashboard) },
+  
    {path:'forgot-password', component:ForgotPassword},
    {path:'reset-password', component:ResetPassword},
 

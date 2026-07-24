@@ -1,10 +1,7 @@
-// import { NgModule } from '@angular/core';
+
 import { Routes } from '@angular/router';
-// import { AddUpdateProject } from './components/add-update-project/add-update-project';
 export const Projects_routes: Routes = [
-//   { path: '', component: RecipesComponent },
-//   { path: 'add', component: AddUpdateProject },
-//   { path: 'update/:id', component: AddUpdateRecipesComponent },
+
  {
     path: '',
     loadComponent: () =>
@@ -17,11 +14,35 @@ export const Projects_routes: Routes = [
       import('./components/add-update-project/add-update-project')
         .then(c => c.AddUpdateProject)
   },
-  {
+   {
     path: ':id/edit',
     loadComponent: () =>
       import('./components/add-update-project/add-update-project')
         .then(c => c.AddUpdateProject)
+  },
+  {
+    path: ':id',
+    children:[
+{
+    path: 'epics',
+    loadChildren: () =>
+      import('../Epics/epics.routes')
+        .then(m => m.Epics_routes)
+  },
+  {
+    path: 'tasks',
+    loadChildren: () =>
+      import('../Tasks/tasks.routes')
+        .then(m => m.Tasks_routes)
+  },
+  {
+    path: 'members',
+    loadChildren: () =>
+      import('../Members/members.routes')
+        .then(m => m.Members_routes)
+
+  },
+]
   },
 ];
 

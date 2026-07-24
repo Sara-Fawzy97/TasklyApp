@@ -43,7 +43,7 @@ errorMsg=signal("")
     console.log(err)
     this.errorMsg.set('Invalid email or password')
   },complete:()=>{
-    this.router.navigateByUrl('/dashboard/project');
+    this.router.navigateByUrl('/project');
 
   }
 })

@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './success-toastr.html',
   styleUrl: './success-toastr.css',
 })
-export class SuccessToastr {}
+export class SuccessToastr {
+
+  
+}

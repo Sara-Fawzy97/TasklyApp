@@ -15,8 +15,11 @@
 <section class= " md:bg-white mx-6 md:mx-8 p-2 mt-8">
 
 <div class="flex md:px-8 pt-8 pb-8 md:pb-10  border-b border-b-surface-low">
-    <img src="../../../../../assets/add.png" alt="" class="w-11.5 h-11 hidden md:block">
-    <div>
+   <div routerLink="add" class="bg-surface-low cursor-pointer rounded-xl p-2 self-center w-12 h-12 content-center place-items-center justify-self-center">
+           <img src="../../../../../assets/add.png" alt="">
+            </div> 
+  <!-- <img src="../../../../../assets/add.png" alt="" class="w-11.5 h-11 hidden md:block"> -->
+    <div class="pl-4">
        @if(isedit()){
       <h2 class=" text-2xl font-semibold">Edit Project</h2>
     }@else{

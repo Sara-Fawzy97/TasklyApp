@@ -2,17 +2,18 @@ import { Component, inject, signal } from '@angular/core';
 import { Projects } from '../../services/projects';
 import { Project } from '../../models/project';
 import { Router, RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-projects',
-  imports: [RouterLink],
+  imports: [RouterLink,DatePipe],
   templateUrl: './list-projects.html',
   styleUrl: './list-projects.css',
 })
 export class ListProjects {
 
 projects = signal<Project[]>([]);
-
+ myDate: Date = new Date(); 
    projeService=inject(Projects)
  router=inject(Router)
  errorDisplayed=signal(false)
@@ -46,7 +47,7 @@ this.isLoading.set(false)
 
    getOneProj(project:Project){
     this.projeService.selectedProject.set(project)
-    this.router.navigate(['dashboard/project/'+project.id+'/edit'])
+    this.router.navigate(['project/'+project.id+'/edit'])
    }
 }
 

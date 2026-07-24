@@ -25,3 +25,33 @@
 .skeleton-footer {
   width: 30%;
 }
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0px;
+
+}
+.pagination li a {
+  display: block;
+  padding: 6.5px ;
+  text-decoration: none;
+  border: 1px solid #C3C6D64D;
+  color: #434654;
+  margin: 0 4px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+
+  .pagination li a.active {
+  background-color: #003d9b;
+  color: white;
+}
+
+.fas{
+  width: 10px;
+  height: 10px;
+}
