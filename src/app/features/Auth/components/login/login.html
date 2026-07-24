@@ -7,7 +7,7 @@
 </section>
 
 <!-----------Form section----------->
-<section class="max-w-[480]  md:bg-white  justify-self-center rounded-lg md:p-12 pt-20 pb-12 mx-6 md:my-36.75">
+<section class="max-w-120  md:bg-white  justify-self-center rounded-lg md:p-12 pt-20 pb-12 mx-6 md:my-36.75">
   <div class="justify-items-center ">
    
     <div class="text-center w-full mb-5 ">
@@ -38,7 +38,7 @@
         <div class="mt-6 relative">
           <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label>
           
-            <a class="text-primary font-bold md:hidden text-xs float-end pt-1">Forgot?</a>
+            <a routerLink="/forgot-password" class="text-primary cursor-pointer font-bold md:hidden text-xs float-end pt-1">Forgot?</a>
           <input formControlName="password"  [type]="showPassord? 'text':'password'" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2"  />
         <button (click)="toggleShowPassword()">
        <img  [src]="!showPassord? ' ../../../../../assets/eyeIcon.png':'../../../../../assets/eyeIcon2.png'" alt="" class="absolute bottom-4 right-4 hover:cursor-pointer" >
@@ -56,7 +56,7 @@
             <input type="checkbox" class=" bg-surfaceLow" formControlName="rememberMe"> Remember Me
             </label>
 
-            <a class="text-primary font-medium hidden md:block">Forgot Password?</a>
+            <a routerLink="/forgot-password" class="text-primary cursor-pointer font-medium hidden md:block">Forgot Password?</a>
          </div>
       
       
