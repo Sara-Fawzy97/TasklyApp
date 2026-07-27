@@ -5,13 +5,14 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { globalInterceptor } from './core/interceptor/global-interceptor';
+import { errorInterceptor } from './core/interceptor/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes,withComponentInputBinding()), provideClientHydration(withEventReplay()),
     provideHttpClient(
-      withInterceptors([globalInterceptor])
+      withInterceptors([globalInterceptor,errorInterceptor])
     )
   ]
 };

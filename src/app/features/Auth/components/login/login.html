@@ -60,7 +60,7 @@
          </div>
       
       
-      <button type="submit" class="w-full flex bg-linear-to-r from-primary to-primary-container items-center justify-center gap-2 text-white rounded-lg md:rounded-sm text-[16px] font-semibold py-3 cursor-pointer">Sign in
+      <button type="submit" [disabled]="!loginForm.valid" class="w-full flex bg-linear-to-r from-primary to-primary-container items-center justify-center gap-2 text-white rounded-lg md:rounded-sm text-[16px] font-semibold py-3 cursor-pointer">Sign in
         <img src="../../../../../assets/arrow.png" alt="" class="w-3.5 h-3.5">
       </button>
     </form>

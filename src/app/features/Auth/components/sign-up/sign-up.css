@@ -8,6 +8,8 @@ button{
 }
 button:disabled{
   opacity: .5;
+  cursor:not-allowed;
+
 }
 
 input[type=checkbox]:checked ~ .checkMark{

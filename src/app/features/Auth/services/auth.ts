@@ -26,10 +26,19 @@ export class Auth {
     return this.http.post("/auth/v1/logout","")
   }
 
-  refreshToken(reToken:string){
-// const refreshToken=localStorage.get()
-return this.http.post('/token?grant_type=refresh_token',reToken)
+  getRefreshToken(){
+  return  localStorage.getItem('refreshToken')
   }
+// const refreshToken=localStorage.getItem('refreshToken')
+
+//   generateNewToken(){
+//    const refreshToken=this.generateNewToken
+// return this.http.post('/token?grant_type=refresh_token',refreshToken).pipe((
+//   tap((res:any)=>{
+//           localStorage.setItem('accessToken',res.access_token)
+//           localStorage.setItem('refreshToken',res.refresh_token)
+// })))
+//   }
 
   forgotPassword(data:FormData){
     return this.http.post('/auth/v1/recover',data)

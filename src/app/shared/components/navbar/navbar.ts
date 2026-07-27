@@ -61,6 +61,9 @@ logOut(){
   this.authService.logOut().subscribe({
     next:(res)=>{
       console.log(res)
+        localStorage.clear()
+     sessionStorage.removeItem('accessToken')
+     sessionStorage.removeItem('refreshToken')
     },
     error:(err)=>{
       this.errorMsg='Logout failed, please try again.'
@@ -68,8 +71,7 @@ logOut(){
 
     },
     complete:()=>{
-     localStorage.clear()
-     sessionStorage.clear()
+   
     this.router.navigateByUrl('/login');
     
     }
