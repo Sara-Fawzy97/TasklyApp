@@ -59,7 +59,7 @@
           <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label><br />
           <input formControlName="password"  [type]="showPassord? 'text':'password'" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2"  />
      
-          <button (click)="toggleShowPassword()">
+          <button type="button" (click)="toggleShowPassword()">
        <img  [src]="!showPassord? ' ../../../../../assets/eyeIcon.png':'../../../../../assets/eyeIcon2.png'" alt="" class="absolute bottom-4 right-4 hover:cursor-pointer" >
       </button>
      
@@ -75,9 +75,9 @@
         </div>
        
         <div>
-        <div class="mt-5">
+        <div class="mt-6">
           <label class="text-graay text-label-sm font-bold pl-1 mt-6" for="password">CONFIRM PASSWORD</label><br />
-          <input formControlName="confirmedPassword" type="password" placeholder="Repeat your password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
+          <input formControlName="confirmedPassword" (input)="signUpForm.get('confirmedPassword')?.updateValueAndValidity()" type="password" placeholder="Repeat your password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
         </div>
   <!-------error handle------>
         @if (signUpForm.get('confirmedPassword')?.errors && signUpForm.get('confirmedPassword')?.touched) {
@@ -86,14 +86,14 @@
           }
         
         </div>
-        <div class="text-error">
-          @if(signUpForm.get('confirmedPassword')?.value!== signUpForm.get('password')?.value){ <p>password dose not match </p>
-          }
-        </div>
+        
         }
+        @if (signUpForm.hasError('passwordMisMatch') && signUpForm.get('confirmedPassword')?.touched) {
+       <p class="text-error">Passwords don't match</p> 
+}
 </div>
       </div>
-      <!---------------password validation-------------->
+      <!---------------password validation checky-------------->
         <div class="bg-[#E8EDFF] p-4 rounded-md my-5 text-[#434654] text-xs text-label-sm hidden md:block">
      
            <label for="chars" class="relative pl-6 text-label-sm">
@@ -116,7 +116,7 @@
            </label>
 
       </div>
-      <button type="submit" class="w-full  bg-linear-to-r from-primary to-primary-container text-white rounded-lg md:rounded-sm text-[16px] font-semibold py-3 cursor-pointer mt-6">Create Account</button>
+      <button [disabled]="!signUpForm.valid" type="submit" class="w-full  bg-linear-to-r from-primary to-primary-container text-white rounded-lg md:rounded-sm text-[16px] font-semibold py-3 cursor-pointer mt-6">Create Account</button>
     </form>
 
     <p class=" pb-8  pt-8 text-graay text-body-md ">Already have an account? <span routerLink="/login" class="text-primary font-semibold pl-1 cursor-pointer">Log in</span></p>

@@ -1,7 +1,10 @@
 
 <section class="bg-surface-low p-4  hidden md:flex flex-col h-screen"   [class.w-64]="isSidebarOpen" [class.w-20]="!isSidebarOpen" >
-    <div>
+    <div class="justify-items-center">
+            @if (isSidebarOpen) {
         <img class="w-full" src="../../../../assets/logo.png" alt="">
+            }     @if (!isSidebarOpen) {
+        <img class="" src="../../../../assets/logo-noText.png" alt="">}
     </div>
 
     <div class="mt-5 flex flex-col flex-1">

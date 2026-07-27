@@ -39,9 +39,9 @@
           <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label>
           
             <a routerLink="/forgot-password" class="text-primary cursor-pointer font-bold md:hidden text-xs float-end pt-1">Forgot?</a>
-          <input formControlName="password"  [type]="showPassord? 'text':'password'" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2"  />
-        <button (click)="toggleShowPassword()">
-       <img  [src]="!showPassord? ' ../../../../../assets/eyeIcon.png':'../../../../../assets/eyeIcon2.png'" alt="" class="absolute bottom-4 right-4 hover:cursor-pointer" >
+          <input formControlName="password"  [type]="showPassword? 'text':'password'" placeholder="Password" id="password" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2"  />
+        <button type="button" (click)="toggleShowPassword()">
+       <img  [src]="!showPassword? ' ../../../../../assets/eyeIcon.png':'../../../../../assets/eyeIcon2.png'" alt="" class="absolute bottom-4 right-4 hover:cursor-pointer" >
       </button>
         </div>
         <!-------error handle------>
