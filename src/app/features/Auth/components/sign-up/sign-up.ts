@@ -55,14 +55,14 @@ export class SignUp {
     this.authService.signUp(data.value).subscribe({
       next: (res) => {
         console.log(res);
-        this.toastService.success('Now, you have a new account!','top-right');
+        this.toastService.success('Congratulations, you have a new account!','top-right');
 
         sessionStorage.setItem('accessToken',res.access_token)
       },
       error: (err) => {
         console.log(err.error.msg);
         this.errorMsg = err.msg;
-        this.toastService.error('Something Wrong !','top-right');
+        this.toastService.error('Something went Wrong !','top-right');
 
       },
       complete: () => {

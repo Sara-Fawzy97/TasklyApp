@@ -23,7 +23,7 @@
         
         <ul class="border-t border-t-light-gray pt-6 mt-auto ">
             <li  class=" py-2.5 px-3 title-md font-medium"> <button (click)="toggleSidebar()">@if (isSidebarOpen) { <img  class="inline pr-3" src="../../../../assets/back.png" alt="">}   @if (!isSidebarOpen) {<img  class="inline pr-3" src="../../../../assets/showSide.png" alt="">} @if (isSidebarOpen) {<span >Collapse</span>}</button></li>
-            <li  class=" text-error py-2.5 px-3 title-md font-medium"><a routerLink="/"> <img  class="inline " src="../../../../assets/logOut.png" alt="">@if (isSidebarOpen) {<span class="pl-3">Log Out</span>}</a></li>
+            <li  class=" text-error py-2.5 px-3 title-md font-medium" ><a routerLink="/" (click)="logOut()"> <img  class="inline " src="../../../../assets/logOut.png" alt="">@if (isSidebarOpen) {<span class="pl-3">Log Out</span>}</a></li>
         </ul>
     </div>
 </section>

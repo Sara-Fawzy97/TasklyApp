@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal} from '@angular/core';
 import { Auth } from '../../../features/Auth/services/auth';
 import { Router } from '@angular/router';
+import { Toastr } from '../../../core/services/toastr';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class Navbar implements OnInit {
   authService = inject(Auth);
+  toastService = inject(Toastr);
+  
    router=inject(Router)
   
   userName =signal("");
@@ -61,11 +64,17 @@ logOut(){
   this.authService.logOut().subscribe({
     next:(res)=>{
       console.log(res)
-        localStorage.clear()
      sessionStorage.removeItem('accessToken')
      sessionStorage.removeItem('refreshToken')
+     
+     localStorage.removeItem('accessToken')
+     localStorage.removeItem('refreshToken')
+        this.toastService.success('Now You are logged out !','top-right');
+
     },
     error:(err)=>{
+        this.toastService.error('Somthing went Wrong !','top-right');
+
       this.errorMsg='Logout failed, please try again.'
       console.log(err)
 

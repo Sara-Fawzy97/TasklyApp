@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Projects } from '../../services/projects';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, RouterLink ,Router } from '@angular/router';
 import { Toastr } from '../../../../core/services/toastr';
 
 @Component({
-  selector: 'app-add-update-project',
-  imports: [ReactiveFormsModule],
+  // imports: [ReactiveFormsModule, RouterLink]ect',
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './add-update-project.html',
   styleUrl: './add-update-project.css',
 })
