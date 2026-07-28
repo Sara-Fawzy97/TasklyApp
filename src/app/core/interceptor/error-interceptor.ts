@@ -11,6 +11,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       catchError((error:HttpErrorResponse)=>{
         if(error.status===401){
           console.log("Error")
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('refreshToken')
         router.navigateByUrl('/');
 
         }

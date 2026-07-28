@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Toastr } from '../../../core/services/toastr';
 
 @Component({
   selector: 'app-success-toastr',
@@ -6,4 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './success-toastr.html',
   styleUrl: './success-toastr.css',
 })
-export class SuccessToastr {}
+export class SuccessToastr {
+
+    toastrService = inject(Toastr);
+}

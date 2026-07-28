@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { SuccessToastr } from "./shared/components/success-toastr/success-toastr";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, SuccessToastr],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

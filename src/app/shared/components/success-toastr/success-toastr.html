@@ -1,1 +1,14 @@
-<p>success-toastr works!</p>
+
+@if (toastrService.toast(); as toast) {
+<div class=" fixed py-4 px-6 rounded-lg mt-10 z-50  " [class.top-4]="toast.position === 'top-right'"
+[class.right-4]="toast.position === 'top-right'" [class.bg-success/50]="toast.type==='success'" [class.bg-error/20]="toast.type==='error'">
+      <div class="flex gap-3">
+@if(toast.type==='success'){
+        <img src="../../../../../assets/toastrIcon.png" alt="" class="w-5 h-5">
+}@else if (toast.type==='error') {
+        <img src="../../../../../assets/error.png" alt="" class="w-5 h-5">
+    }
+        <p class=" text-body-md" [class.text-[#005235]]=" toast.type==='success'" [class.text-error]="toast.type==='error'">  {{ toast.message }}</p>
+      </div>
+    </div>
+}
