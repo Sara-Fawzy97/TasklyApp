@@ -4,3 +4,8 @@ button:last-of-type{
 box-shadow: 0px 10px 15px -3px #003D9B33;
 
 }
+
+button:disabled{
+  opacity: .5;
+  cursor:not-allowed;
+}
