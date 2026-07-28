@@ -44,7 +44,11 @@ export class Auth {
     return this.http.post('/auth/v1/recover',data)
   }
 
-  updatePassword(data:string){
-    return this.http.put('/auth/v1/user',data)
+  updatePassword(data:string,accessToken:string){
+    return this.http.put('/auth/v1/user',data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
   }
 }

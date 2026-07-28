@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { SuccessToastr } from "./shared/components/success-toastr/success-toastr";
+import { Toastr } from './core/services/toastr';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { SuccessToastr } from "./shared/components/success-toastr/success-toastr
 })
 export class App {
   protected readonly title = signal('TasklyApp');
+  toastService = inject(Toastr);
 
   private readonly route=inject(ActivatedRoute)
   private readonly router=inject(Router)
@@ -30,6 +32,9 @@ if(type==='recovery' &&accessToken){
     queryParams:{
       access_token:accessToken}
   })
+}else{
+        this.toastService.error('Invalid or expired reset link. !','top-right');
+  
 }
   });
 }
