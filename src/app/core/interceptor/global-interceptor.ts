@@ -19,6 +19,7 @@ const authToken=localStorage.getItem('accessToken')??sessionStorage.getItem('acc
       , setHeaders:{
         apikey:`${environment.supabaseKey}`,
         Authorization:`Bearer ${authToken}`
+      
       }
     })
 

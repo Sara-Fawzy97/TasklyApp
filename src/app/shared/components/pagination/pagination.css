@@ -1,0 +1,21 @@
+.pagination {
+  display: flex;
+
+}
+.pagination  button {
+  display: block;
+ width: 32px;
+ height: 32px;
+  text-decoration: none;
+  border: 1px solid #C3C6D64D;
+  /* color: #434654; */
+  margin: 0 4px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+.pagination  button:hover{
+  cursor: pointer;
+}

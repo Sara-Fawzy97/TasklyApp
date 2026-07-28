@@ -59,16 +59,24 @@
     </div>
 
     <!----------pagination-------->
-    <div class="flex justify-between pt-12">
-        <p class="text-[#434654] text-xs font-medium">Showing 5 of 24 active projects</p>
-    <ul class="pagination">
-  <li><a  href="#">&laquo;</a></li>
-  <li><a  class="active" href="#">1</a></li>
-  <li><a href="#">2</a></li>
+    <app-pagination
+    [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="projects().length" [totalItems]="totalItems"></app-pagination>
+    <!-- <div class="flex justify-between pt-12 pb-8">
+        <p class="text-[#434654] text-xs font-medium content-center">Showing {{pageSize}} of {{totalItems}} active projects</p>
+    <ul class="pagination gap-2">
+  <li><button    (click)="prevPage()"
+    [disabled]="currentPage === 1" ><</button></li>
+    @for(p of pages; track p){
+        <button (click)="goToPage(p)" [class.bg-primary]="currentPage === p"
+      [class.text-white]="currentPage === p">{{p}}</button>
+    }
   
-  <li><a href="#">&raquo;</a></li>
+  
+  <li><button   (click)="nextPage()"
+    [disabled]="currentPage === totalPages" >></button></li>
 </ul>
-</div>
+</div> -->
+
     <button routerLink="/add" class="hover:cursor-pointer absolute right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">+</button>
 }@else { <!-----------------no Projects--->
     <section class="w-full h-full p-10.75">
