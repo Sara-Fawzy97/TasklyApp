@@ -27,7 +27,7 @@
 @else{
     <!----------project list------->
 @if(projects().length>0){
-<div class=" mt-10 grid grid-cols-1 md:grid-cols-3 gap-6" >
+<div class=" mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-scroll md:overflow-auto" >
 
         @for(p of projects()  ;track p){
             <!-- <button (click)="getOneProj(p)">x</button> -->
@@ -48,8 +48,7 @@
 
         }
 
-
-
+     
         <div class="bg-white hidden md:block rounded-lg justify-items-center content-center p-6">
          <div routerLink="add" class="bg-surface-low cursor-pointer rounded-xl p-2 mb-4 w-12 h-12 content-center place-items-center justify-self-center">
            <img src="../../../../../assets/pluss.png" alt="">
@@ -59,24 +58,9 @@
     </div>
 
     <!----------pagination-------->
-    <app-pagination
+    <app-pagination class="hidden md:block"
     [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="projects().length" [totalItems]="totalItems"></app-pagination>
-    <!-- <div class="flex justify-between pt-12 pb-8">
-        <p class="text-[#434654] text-xs font-medium content-center">Showing {{pageSize}} of {{totalItems}} active projects</p>
-    <ul class="pagination gap-2">
-  <li><button    (click)="prevPage()"
-    [disabled]="currentPage === 1" ><</button></li>
-    @for(p of pages; track p){
-        <button (click)="goToPage(p)" [class.bg-primary]="currentPage === p"
-      [class.text-white]="currentPage === p">{{p}}</button>
-    }
-  
-  
-  <li><button   (click)="nextPage()"
-    [disabled]="currentPage === totalPages" >></button></li>
-</ul>
-</div> -->
-
+   
     <button routerLink="/add" class="hover:cursor-pointer absolute right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">+</button>
 }@else { <!-----------------no Projects--->
     <section class="w-full h-full p-10.75">
@@ -96,6 +80,8 @@ tasks and epics.</p>
 </section>
 }
 }
+   <!-----------to observe scrolling-------------->
+<div #loadMoreTrigger class="h-5 md:hidden"></div>
 
 
 <!-- 
