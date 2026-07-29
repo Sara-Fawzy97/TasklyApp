@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink,RouterLinkActive  } from '@angular/router';
 import { Toastr } from '../../../core/services/toastr';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
@@ -18,9 +18,12 @@ export class Sidebar {
 
   ngOnInit() {
     this.projectId = this.route.firstChild?.firstChild?.snapshot.params['id'];
-    console.log(this.projectId);
+    // console.log(this.projectId);
   }
-
+   
+// ngAfterViewInit(){   
+//    this.projectId = this.route.firstChild?.firstChild?.snapshot.params['id'];
+// }
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
