@@ -37,7 +37,7 @@ export class Navbar implements OnInit {
       next: (res) => {
         this.userName.set(res.user_metadata.name)
         this.jobTitle.set(res.user_metadata.department)
-        console.log(this.userName)
+        console.log(this.userName())
         console.log(res);
       },
     });

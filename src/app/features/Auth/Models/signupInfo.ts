@@ -5,3 +5,12 @@ export interface ISignUp {
   expires_at: number;
   token_type: string;
 }
+
+export interface SignUpReq{
+  email: string,
+  password: string,
+  data: {
+    name: string,
+    department: string
+  }
+}

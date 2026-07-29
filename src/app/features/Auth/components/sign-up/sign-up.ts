@@ -52,7 +52,17 @@ export class SignUp {
   }
 
   signUp(data: FormGroup) {
-    this.authService.signUp(data.value).subscribe({
+
+     const body = {
+    email: data.value.email,
+    password: data.value.password,
+    data: {
+      name: data.value.name,
+      department: data.value.jobTitle
+    }
+  };
+  console.log(data.value);
+    this.authService.signUp(body).subscribe({
       next: (res) => {
         console.log(res);
         this.toastService.success('Congratulations, you have a new account!','top-right');

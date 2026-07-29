@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from '../../../shared/models/IUser';
 import { loginInfo } from '../Models/loginInfo';
-import { ISignUp } from '../Models/signupInfo';
+import { ISignUp, SignUpReq } from '../Models/signupInfo';
 @Injectable({
   providedIn: 'root',
 })
@@ -10,7 +10,7 @@ export class Auth {
 
   private http=inject(HttpClient)
 
-  signUp(data:FormData){
+  signUp(data:SignUpReq){
     return this.http.post<ISignUp>('/auth/v1/signup',data)
   }
 
