@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Project } from '../models/project';
 
@@ -17,9 +17,14 @@ getProject(){
 }
 
 updateProject(data:Project,id:number){
-  return this.http.patch('/rest/v1/projects?id=eq.'+id,data)
+  return this.http.patch(`/rest/v1/projects?id=eq.${id}`,data)
 }
 selectedProject=signal<Project|null>(null)
 
-
+getPaginatedProjects(limit:number,offset:number){
+  return this.http.get<Project[]>( `/rest/v1/rpc/get_projects?limit=${limit}&offset=${offset}`,{
+    headers:new HttpHeaders({Prefer:`count=exact`}),
+     observe: 'response'
+  })
+}
 }
