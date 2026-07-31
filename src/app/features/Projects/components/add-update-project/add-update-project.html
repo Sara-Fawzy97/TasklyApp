@@ -15,10 +15,9 @@
 <section class= " md:bg-white mx-6 md:mx-8 p-2 mt-8">
 
 <div class="flex md:px-8 pt-8 pb-8 md:pb-10  border-b border-b-surface-low">
-   <div routerLink="add" class="bg-surface-low cursor-pointer rounded-xl p-2 self-center w-12 h-12 content-center place-items-center justify-self-center">
+   <div routerLink="add" class="bg-surface-low  rounded-xl p-2 self-center w-12 h-12 content-center place-items-center justify-self-center">
            <img src="../../../../../assets/add.png" alt="">
             </div> 
-  <!-- <img src="../../../../../assets/add.png" alt="" class="w-11.5 h-11 hidden md:block"> -->
     <div class="pl-4">
        @if(isedit()){
       <h2 class=" text-2xl font-semibold">Edit Project</h2>
@@ -30,7 +29,7 @@
 <form class="md:p-8" [formGroup]="createProj" (ngSubmit)="onSubmit(createProj)">
     
       <div class="">
-        <label class="text-graay text-label-sm font-bold pl-1  " for="name">Project TITLE *</label><br />
+        <label class="text-graay text-label-sm font-bold pl-1  " for="name">Project TITLE <span class='text-error'>*</span></label><br />
         <input formControlName="name" type="text" placeholder="Project title" id="name" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2" />
      </div>
       <!-------error handle------>
@@ -54,17 +53,17 @@ key milestones..." id="description" class="h-37 text-[#737685] bg-surface-highes
  <!-------error handle------>
         @if (createProj.get('description')?.errors && createProj.get('description')?.touched) {
         <div class="text-error">
-          @if(createProj.get('description')?.errors?.['max']){ <p>Description must be maximum 100 characters.</p>}
+          @if(createProj.get('description')?.errors?.['maxLength']){ <p>Description must be maximum 100 characters.</p>}
         </div>
         }
 
       <div class="flex  md:flex-row flex-col-reverse justify-between pt-4 mt-8">
-        <a class="py-3 px-6 text-graay font-bold  cursor-pointer " routerLink='/dashboard/project'>Back</a>
+        <a class="py-3 px-6 text-graay font-bold  cursor-pointer" routerLink="/project" >Back</a>
         @if(isedit()){
-        <button class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 ">Save Changes</button>
+        <button class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " [disabled]="!createProj.valid">Save Changes</button>
 
         }@else{
-        <button class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 ">Create Project</button>
+        <button class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " [disabled]="!createProj.valid">Create Project</button>
 
         }
       </div>

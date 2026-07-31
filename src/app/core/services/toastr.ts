@@ -29,29 +29,6 @@ success(message: string, position?: IToastr['position']) {
   });
 }
 
-  //  success(
-  //   message: string,
-  //   position?: IToastr['position']
-  // ) {
-  //   this.show({
-  //     message,
-  //     type: 'success',
-  //     position
-  //   });
-  // }
-
-
-  // success(message: string) {
-  //   this.type.set('success');
-  //   this.message.set(message);
-  //   this.show.set(true);
-
-  //   setTimeout(() => {
-  //     this.show.set(false);
-  //   }, 3000);
-  // }
-
-
    error(
     message: string,
     position?: IToastr['position']
@@ -62,16 +39,7 @@ success(message: string, position?: IToastr['position']) {
       position,
     });
   }
-  // error(message: string) {
-  //   this.type.set('error');
-  //   this.message.set(message);
-  //   this.show.set(true);
-
-  //   setTimeout(() => {
-  //     this.show.set(false);
-  //   }, 3000);
-  // }
-
+ 
    hide() {
     this.toast.set(null);
   }

@@ -7,14 +7,15 @@
   --color-primary: #003d9b;
   --color-primary-container: #0052CC;
   --color-surface-highest: #D7E2FF;
-  --color-surface-low: #F1F3FF;
+  --color-surface-low: #F1F3FF; 
   --color-background: #F9F9FF;
-  --color-dark-gray: #041B3C;
+  --color-dark-gray: #041B3C; 
   --color-graay: #4F5F7B; 
-  --color-light-gray: #C3C6D6;
+  --color-light-gray: #C3C6D6; 
   --color-error: #BA1A1A;
   --color-success: #82F9BE;
-  --color-warning: #FFB300
+  --color-warning: #FFB300;  
+  --color-grayText: #434654;
 
   --font-sans: "Inter", sans-serif;
 

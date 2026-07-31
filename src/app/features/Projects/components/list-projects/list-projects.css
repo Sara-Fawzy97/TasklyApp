@@ -1,3 +1,7 @@
+a :first-of-type{
+  box-shadow: 0px 1px 2px 0px #0000000D;
+
+}
 .skeleton {
   animation: skeleton-loading 1s linear infinite alternate;
 }

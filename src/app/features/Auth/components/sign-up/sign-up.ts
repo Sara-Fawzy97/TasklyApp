@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Auth } from '../../services/auth';
 import { Router, RouterLink } from '@angular/router';
+import { Toastr } from '../../../../core/services/toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,6 +21,7 @@ export class SignUp {
   errorMsg = '';
   showPassord = false;
   router = inject(Router);
+  toastService = inject(Toastr);
 
   signUpForm = new FormGroup(
     {
@@ -50,14 +52,28 @@ export class SignUp {
   }
 
   signUp(data: FormGroup) {
-    this.authService.signUp(data.value).subscribe({
+
+     const body = {
+    email: data.value.email,
+    password: data.value.password,
+    data: {
+      name: data.value.name,
+      department: data.value.jobTitle
+    }
+  };
+  console.log(data.value);
+    this.authService.signUp(body).subscribe({
       next: (res) => {
         console.log(res);
+        this.toastService.success('Congratulations, you have a new account!','top-right');
+
         sessionStorage.setItem('accessToken',res.access_token)
       },
       error: (err) => {
         console.log(err.error.msg);
         this.errorMsg = err.msg;
+        this.toastService.error('Something went Wrong !','top-right');
+
       },
       complete: () => {
         

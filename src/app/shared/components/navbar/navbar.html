@@ -7,8 +7,8 @@
     <button (click)="avatarClicked()" class="hover:cursor-pointer relative w-10 h-10 bg-primary text-white text-[16px] font-bold content-center text-center rounded-lg">
    {{getInitials(userName())}}
    @if(logOutDisplay){
-<div class="dropMenu">
-            <button (click)="logOut()" class=" absolute right-0 top-11 bg-white w-max rounded-md text-error py-2.5 px-3 text-base font-medium"><a routerLink="/"> <img  class="inline pr-3" src="../../../../assets/logOut.png" alt=""><span>Log Out</span></a></button>
+      <div class="dropMenu">
+            <button (click)="logOut()" class=" absolute right-0 top-11 z-50 cursor-pointer hover:bg-error/50  bg-white w-max rounded-md text-error py-2.5 px-3 text-base font-medium"><img  class="inline pr-3" src="../../../../assets/logOut.png" alt=""><span>Log Out</span></button>
 
     </div> 
    }

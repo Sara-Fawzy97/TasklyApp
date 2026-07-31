@@ -36,7 +36,7 @@ toastService = inject(Toastr);
           sessionStorage.setItem('accessToken', res.access_token);
           sessionStorage.setItem('refreshToken', res.refresh_token);
         }
-        this.toastService.success('You are logged successfully','top-right');
+        this.toastService.success('You are logged in successfully','top-right');
 
         // localStorage.setItem('userName',res.user_metadata.name)
         // localStorage.setItem('jobTitle',res.user_metadata.department)
@@ -44,7 +44,7 @@ toastService = inject(Toastr);
       error: (err) => {
         console.log(err);
         this.errorMsg.set('Invalid email or password');
-        this.toastService.error('Somthing Wrong !','top-right');
+        this.toastService.error('Somthing went Wrong !','top-right');
       },
       complete: () => {
         this.router.navigateByUrl('/project');

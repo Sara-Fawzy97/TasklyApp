@@ -1,0 +1,66 @@
+<section  class="md:p-4 px-6">
+
+<section class=" hidden md:block">
+     
+    <p class="text-[#43465499] font-semibold gap-2 font-sans text-xs">PROJECTS > Project Alpha > Epics > <span class="text-dark-gray">New Epic</span></p>
+
+    <h2 class="text-4xl font-bold mt-8">Create New Epic</h2>
+    <p class="text-grayText w-[462.5px] pt-2">Define a major project phase or high-level milestone to group
+related tasks and track architectural progress.</p>
+
+</section>
+
+<div class="bg-white rounded-lg pt-2 pb-4 mt-8" >
+    <form class="p-8"  [formGroup]="createEpicForm" (ngSubmit)="createEpic()">
+
+         <div class="grid grid-cols-4">
+        <label class="text-graay text-label-sm font-bold pl-1 pt-2  " for="title"> TITLE <span class='text-error'>*</span></label>
+        <input formControlName="title" type="text" placeholder="e.g. Structural Foundation Phase" id="title" class="col-span-3 text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2 " />
+     </div>
+      <!--------------error handle-------->
+        @if (createEpicForm.get('title')?.errors && createEpicForm.get('title')?.touched) {
+        <div class="text-error">
+          @if(createEpicForm.get('title')?.errors?.['required']){ <p>
+            Project name is required</p>}
+          @if(createEpicForm.get('title')?.errors?.['pattern']){ <p>Project name must be at least 3 characters and maximum 100 characters.</p>}
+        </div>
+        }
+
+       <div class="grid grid-cols-4   mt-8">
+        <div class="  ">
+        <label class="text-graay text-label-sm font-bold pl-1  " for="description">Description</label>
+            <p class="text-graay/60 font-bold  text-label-sm ">Optional</p>
+        </div>
+         <div class="col-span-3">
+        <textarea formControlName="description" type="text" placeholder="Describe the scope and objectives of this epic... " id="description" class=" h-35 w-full text-[#737685] bg-surface-highest border-0  font-normal rounded-lg md:rounded-sm  px-4 mt-2 " ></textarea><br>
+         <p class="text-graay font-bold  text-label-sm float-end pt-1">0 / 500 characters</p>
+        </div>
+ 
+    </div>
+
+      <div class="grid grid-cols-2 mt-8 gap-8">
+      <div>
+        <label for="cars">Assignee</label>
+
+<select name="cars" id="cars" class=" text-[#737685] py-3  bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  px-4 mt-4">
+    <option selected>Select a member...</option>
+  <option value="volvo">Volvo</option>
+  
+</select>
+      </div>
+
+      <div>
+        <label for="start-date">Deadline</label>
+<input type="date" id="start-date" name="trip-start" class="  text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  py-3 px-4 mt-4" >
+      </div>
+      </div>
+
+      <div class="flex place-self-end mt-8">
+        <a class="py-3 px-6 text-graay font-bold  cursor-pointer" routerLink="/project" >Back</a>
+
+        <button [disabled]="!createEpicForm.valid" class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Epic</button>
+
+      </div>
+    </form>
+</div>
+</section>
