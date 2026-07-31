@@ -25,6 +25,7 @@ export class AddUpdateProject {
   ngOnInit() {
    this.checkPageName()
   }
+  
 checkPageName(){
  this.projectId = this.route.snapshot.params['id'];
     if (this.projectId) {

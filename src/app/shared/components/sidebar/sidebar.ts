@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink,RouterLinkActive  } from '@angular/router';
 import { Toastr } from '../../../core/services/toastr';
 import { Router } from '@angular/router';
+// import { Project } from '../../../features/Projects/models/project';
+import { Sharedservice } from '../../services/sharedservice';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,10 +17,12 @@ export class Sidebar {
   projectId = 0;
   toastService = inject(Toastr);
   router= inject(Router)
+  sharedService=inject(Sharedservice)
 
   ngOnInit() {
     this.projectId = this.route.firstChild?.firstChild?.snapshot.params['id'];
-    // console.log(this.projectId);
+    // this.getOneProj()
+    console.log(this.projectId);
   }
    
 // ngAfterViewInit(){   
@@ -39,4 +43,9 @@ export class Sidebar {
         this.router.navigateByUrl('/project');
 
   }
+
+
+    // getOneProj(project: Project) {
+    //   this.sharedService.selectedProject.set(project);
+    // }
 }
