@@ -1,10 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IEpic } from '../../models/IepicReq';
 import { Toastr } from '../../../../core/services/toastr';
 import { Location } from '@angular/common';
+import { MembersService } from '../../../Members/services/members-service';
+import { IMember } from '../../../Members/models/member';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-add-epic',
   imports: [ReactiveFormsModule],
@@ -20,7 +23,9 @@ export class AddEpic {
    projectId = this.route.snapshot.paramMap.get('id')!;
   router = inject(Router);
 
-
+ngOnInit(){
+  this.getMembers()
+}
 
    createEpicForm = new FormGroup({
     title: new FormControl('', [
@@ -59,4 +64,15 @@ today = new Date().toISOString().split('T')[0];
     }
   })
   }
+memberService=inject(MembersService)
+  private destroyRef = inject(DestroyRef);
+ members=signal<IMember[]>([])
+
+  getMembers(){
+  this.memberService.getProjMembers(this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    next:(res)=>{
+         this.members.set(res)
+    }
+  })
+}
 }

@@ -65,26 +65,29 @@
     </tr>
   </thead>
   <tbody class="bg-white">
-    <tr>
+    @for(m of members();track m){
+      <tr>
       <td class="px-8 py-5">
         <div class="flex gap-4 ">
          <button class="hover:cursor-pointer relative w-12 h-12 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">
-   {{getInitials("Mahmoud Taha")}}
+   {{getInitials(m.metadata.name)}}
   
   </button>
          <div class="">
-      <h4 class="text-dark-gray font-semibold text-body-md">Mahmoud Taha</h4>
-      <p class="text-grayText  text-[12px]">mahmoud.taha.dev@gmail.com</p>
+      <h4 class="text-dark-gray font-semibold text-body-md">{{m.metadata.name}}</h4>
+      <p class="text-grayText  text-[12px]">{{m.metadata.email}}</p>
     </div>
    
       </div>
     </td>
-      <td class="px-8 py-8.5" ><div class="bg-primary-container text-white py-1 px-3 rounded-xl w-fit text-[10px] font-bold">OWNER</div></td>
+      <td class="px-8 py-8.5" ><div class="bg-primary-container text-white py-1 px-3 rounded-xl w-fit text-[10px] font-bold">{{m.role}}</div></td>
       <td class="px-8 py-8.5 justify-items-end">
            <img src="../../../../../assets/actions.png" alt="">
 
       </td>
     </tr>
+    }
+    
   </tbody>
 </table>
     </div>}

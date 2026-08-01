@@ -46,7 +46,10 @@ related tasks and track architectural progress.</p>
 
 <select name="cars" id="cars" class=" text-dark-gray py-3 pr-10  bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  px-4 mt-4">
     <option selected>Select a member...</option>
-  <option value="volvo">Volvo</option>
+    @for(m of members(); track m){
+  <option value="{{m.member_id}}">{{m.metadata.name}}</option>
+
+    }
   
 </select>
  

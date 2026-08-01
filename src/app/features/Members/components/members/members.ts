@@ -1,6 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { MembersService } from '../../services/members-service';
 import { Toastr } from '../../../../core/services/toastr';
+import { ActivatedRoute} from '@angular/router';
+import { IMember } from '../../models/member';
+
 
 @Component({
   selector: 'app-members',
@@ -32,13 +35,19 @@ return  (
   ).toUpperCase();
 }
 
+  route = inject(ActivatedRoute);
+ members=signal<IMember[]>([])
+
 ngOnInit(){
   this.getMembers()
 }
 getMembers(){
-this.memberService.getProjMembers('298be621-59c7-4a62-ad2c-e640ff72135f').subscribe({
+ const projectId = this.route.snapshot.params['id'];
+
+this.memberService.getProjMembers(projectId).subscribe({
   next:(res)=>{
     console.log(res)
+    this.members.set(res)
     this.isLoading.set(false)
   },error:(err)=>{
     this.isLoading.set(false)

@@ -1,8 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { EpicService } from '../../services/epic-service';
 import { IEpicRes } from '../../models/IepicReq';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-all-epics',
@@ -13,10 +14,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 export class AllEpics {
 
     epics = signal<IEpicRes[]>([]);
-  
     isLoading = signal(true);
   myDate: Date = new Date();
+  route = inject(ActivatedRoute);
+epicService=inject(EpicService)
+  projectId = this.route.snapshot.params['id'];
 
+  private destroyRef = inject(DestroyRef);
 
 
 ngOnInit(){
@@ -38,14 +42,13 @@ return  (
     words[1][0]
   ).toUpperCase();
 }
-  route = inject(ActivatedRoute);
-  
-epicService=inject(EpicService)
+
+
+
 
 getEpics(){
- const projectId = this.route.snapshot.params['id'];
 
-this.epicService.getAllEpics(projectId).subscribe({
+this.epicService.getAllEpics(this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
   next:(res)=>{
         this.isLoading.set(false);
     this.epics.set(res)
@@ -53,5 +56,7 @@ this.epicService.getAllEpics(projectId).subscribe({
   }
 })
 }
+
+
 
 }
