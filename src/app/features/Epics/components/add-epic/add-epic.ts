@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IEpic } from '../../models/IepicReq';
 import { Toastr } from '../../../../core/services/toastr';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-add-epic',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './add-epic.html',
   styleUrl: './add-epic.css',
 })
@@ -18,6 +18,7 @@ export class AddEpic {
     private route = inject(ActivatedRoute);
   epicService=inject (EpicService)
    projectId = this.route.snapshot.paramMap.get('id')!;
+  router = inject(Router);
 
 
 
@@ -32,9 +33,12 @@ export class AddEpic {
     deadline:new FormControl (null),
     // project_id:new FormControl('')
   });
+location= inject(Location)
+goBack() {
+  this.location.back();
+} 
 
-
-
+today = new Date().toISOString().split('T')[0];
   createEpic(){
     const body:IEpic={ 
      title: this.createEpicForm.value.title!,
@@ -46,6 +50,12 @@ export class AddEpic {
   this.epicService.createEpic(body).subscribe({
     next:()=>{
       this.toastService.success('Epic created successfully', 'top-right');
+    },error:()=>{
+        this.toastService.error('Something went wrong','top-right');
+    }, complete:()=>{
+      this.createEpicForm.reset()
+        this.router.navigateByUrl('/epics');
+      
     }
   })
   }

@@ -1,3 +1,11 @@
 button :last-of-type{
     border-top: 1px solid #C3C6D61A
 }
+
+select::picker-icon{
+  padding-right: 10px;
+}
+button:disabled{
+  opacity: .5;
+  cursor:not-allowed;
+}

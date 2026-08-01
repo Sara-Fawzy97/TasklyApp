@@ -3,10 +3,11 @@ import { Projects } from '../../services/projects';
 import { Project } from '../../models/project';
 import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Sidebar } from "../../../../shared/components/sidebar/sidebar";
 
 @Component({
   selector: 'app-list-projects',
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, Sidebar],
   templateUrl: './list-projects.html',
   styleUrl: './list-projects.css',
 })

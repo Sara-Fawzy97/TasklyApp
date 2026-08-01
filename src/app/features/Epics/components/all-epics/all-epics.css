@@ -23,3 +23,7 @@
   background-color: #003d9b;
   color: white;
 }
+
+input::placeholder{
+  padding-left: 20px;
+}

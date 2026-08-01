@@ -15,50 +15,52 @@ related tasks and track architectural progress.</p>
 
          <div class="grid grid-cols-4">
         <label class="text-graay text-label-sm font-bold pl-1 pt-2  " for="title"> TITLE <span class='text-error'>*</span></label>
-        <input formControlName="title" type="text" placeholder="e.g. Structural Foundation Phase" id="title" class="col-span-3 text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2 " />
-     </div>
-      <!--------------error handle-------->
+       <div class="col-span-3">
+        <input formControlName="title" type="text" placeholder="e.g. Structural Foundation Phase" id="title" class=" text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2 " /><br>
+     <!--------------error handle-------->
         @if (createEpicForm.get('title')?.errors && createEpicForm.get('title')?.touched) {
         <div class="text-error">
           @if(createEpicForm.get('title')?.errors?.['required']){ <p>
-            Project name is required</p>}
-          @if(createEpicForm.get('title')?.errors?.['pattern']){ <p>Project name must be at least 3 characters and maximum 100 characters.</p>}
+            Title is required</p>}
+          @if(createEpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters and maximum 100 characters.</p>}
         </div>
-        }
+        }</div>
+      </div>
+      
 
        <div class="grid grid-cols-4   mt-8">
         <div class="  ">
-        <label class="text-graay text-label-sm font-bold pl-1  " for="description">Description</label>
-            <p class="text-graay/60 font-bold  text-label-sm ">Optional</p>
+        <label class="text-graay text-label-sm font-bold   " for="description">Description</label>
+            <p class="text-[#43465480]   text-[10px] ">Optional</p>
         </div>
          <div class="col-span-3">
-        <textarea formControlName="description" type="text" placeholder="Describe the scope and objectives of this epic... " id="description" class=" h-35 w-full text-[#737685] bg-surface-highest border-0  font-normal rounded-lg md:rounded-sm  px-4 mt-2 " ></textarea><br>
+        <textarea formControlName="description" type="text" placeholder="Describe the scope and objectives of this epic... " id="description" class=" h-35 w-full text-[#737685] bg-surface-highest border-0  font-normal rounded-lg md:rounded-sm pt-3 px-4 mt-2 " ></textarea><br>
          <p class="text-graay font-bold  text-label-sm float-end pt-1">0 / 500 characters</p>
         </div>
  
     </div>
 
       <div class="grid grid-cols-2 mt-8 gap-8">
-      <div>
-        <label for="cars">Assignee</label>
+      <div >
+        <label for="cars" class="text-grayText text-[11px] font-bold">Assignee</label>
 
-<select name="cars" id="cars" class=" text-[#737685] py-3  bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  px-4 mt-4">
+<select name="cars" id="cars" class=" text-[#041B3C] py-3 pr-10  bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  px-4 mt-4">
     <option selected>Select a member...</option>
   <option value="volvo">Volvo</option>
   
 </select>
+ 
       </div>
 
       <div>
-        <label for="start-date">Deadline</label>
-<input type="date" id="start-date" name="trip-start" class="  text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  py-3 px-4 mt-4" >
+        <label for="start-date" class="text-grayText text-[11px] font-bold">Deadline</label>
+<input type="date" id="start-date" name="trip-start" [min]="today" class="  text-dark-gray bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  py-3 px-4 mt-4" >
       </div>
       </div>
 
       <div class="flex place-self-end mt-8">
-        <a class="py-3 px-6 text-graay font-bold  cursor-pointer" routerLink="/project" >Back</a>
-
-        <button [disabled]="!createEpicForm.valid" class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Epic</button>
+        <button type="button" class="py-3 px-6 text-graay font-bold  cursor-pointer" (click)="goBack()" >Back</button>
+        <button [disabled]="!createEpicForm.valid"  class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Epic</button>
 
       </div>
     </form>

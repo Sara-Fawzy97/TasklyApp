@@ -14,16 +14,39 @@ import { Sharedservice } from '../../services/sharedservice';
 export class Sidebar {
   isSidebarOpen = true;
   route = inject(ActivatedRoute);
-  projectId = 0;
+  projectId = '';
   toastService = inject(Toastr);
   router= inject(Router)
   sharedService=inject(Sharedservice)
 
-  ngOnInit() {
-    this.projectId = this.route.firstChild?.firstChild?.snapshot.params['id'];
-    // this.getOneProj()
-    console.log(this.projectId);
-  }
+  // private route = inject(ActivatedRoute);
+
+ngOnInit() {
+
+ this.router.events.subscribe(() => {
+
+    const match = this.router.url.match(/project\/([^/]+)/);
+
+    if (match) {
+      // this.projectId = match[1];
+       this.projectId = match ? match[1] : '';
+    }
+
+  });
+
+}
+
+  // ngOnInit() {
+  //   this.projectId = this.route.firstChild?.firstChild?.firstChild?.snapshot.params['id'];
+  //   // this.getOneProj()
+  //   console.log(this.projectId);
+  // }
+
+//   ngOnInit() {
+//   this.route.paramMap.subscribe(params => {
+//     this.projectId = params.get('id')!;
+//   });
+// }
    
 // ngAfterViewInit(){   
 //    this.projectId = this.route.firstChild?.firstChild?.snapshot.params['id'];
