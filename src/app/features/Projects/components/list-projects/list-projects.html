@@ -30,14 +30,17 @@
     </div>
   } @else {
     <!----------project list------->
-    @if (projects().length > 0) {
-      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-        @for (p of projects(); track p) {
-          <div class="bg-white p-6 rounded-lg hover:bg-blue-100 cursor-pointer" routerLink="/project/{{p.id}}/epics">
-            <div class="flex justify-between">
-              <h3 class="text-dark-gray text-title-md font-medium">{{ p.name }}</h3>
-              <button class="cursor-pointer" (click)="getOneProj(p)">
-                <img src="../../../../../assets/dots.png" alt="" />
+@if(projects().length>0){
+<div class=" mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-scroll md:overflow-auto" >
+
+        @for(p of projects()  ;track p){
+            <!-- <button (click)="getOneProj(p)">x</button> -->
+             
+            <div class="bg-white p-6 rounded-lg" >
+           <div class="flex justify-between">
+                <h3 class="text-dark-gray text-title-md font-medium" >{{p.name}}</h3>
+            <button class="cursor-pointer" (click)="getOneProj(p)">
+                       <img src="../../../../../assets/dots.png" alt="">
               </button>
             </div>
             <p class="text-grayText text-body-md pt-4">{{ p.description }}</p>
@@ -52,6 +55,7 @@
           </div>
         }
 
+     
         <div class="bg-white hidden md:block rounded-lg justify-items-center content-center p-6">
           <div
             routerLink="add"
@@ -61,47 +65,34 @@
           </div>
           <p class="text-body-md text-grayText font-bold">ADD PROJECT</p>
         </div>
-      </div>
+    </div>
 
-      <!----------pagination-------->
-      <div class="flex justify-between pt-12">
-        <p class="text-grayText text-xs font-medium">Showing 5 of 24 active projects</p>
-        <ul class="pagination">
-          <li><a href="#">&laquo;</a></li>
-          <li><a class="active" href="#">1</a></li>
-          <li><a href="#">2</a></li>
+    <!----------pagination-------->
+    <app-pagination class="hidden md:block"
+    [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="projects().length" [totalItems]="totalItems"></app-pagination>
+   
+    <button routerLink="/add" class="hover:cursor-pointer absolute right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">+</button>
+}@else { <!-----------------no Projects--->
+    <section class="w-full h-full p-10.75">
+<div class="justify-items-center">
 
-          <li><a href="#">&raquo;</a></li>
-        </ul>
-      </div>
-      <button
-        routerLink="/add"
-        class="hover:cursor-pointer absolute right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl"
-      >
-        +
-      </button>
-    } @else {
-      <!-----------------no Projects--->
-      <section class="w-full h-full p-10.75">
-        <div class="justify-items-center">
-          <img src="../../../../../assets/noProject.png" alt="" />
-          <div class="w-md text-center my-10.75">
-            <h2 class="font-semibold text-dark-gray text-4xl">No Projects</h2>
-            <p class="text-grayText text-[18px]">
-              You don’t have any projects yet. Start by defining your first architectural workspace
-              to begin tracking tasks and epics.
-            </p>
-          </div>
-          <a
-            routerLink="add"
-            class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-8 py-4 content-center cursor-pointer rounded-xs font-bold"
-          >
-            + Create New Project
-        </a>
-        </div>
-      </section>
-    }
-  }
+              <img src="../../../../../assets/noProject.png" alt="">
+              <div class="w-md text-center my-10.75">
+                <h2 class="font-semibold text-dark-gray text-4xl">No Projects</h2>
+            <p class="text-[#434654] text-[18px] ">You don’t have any projects yet. Start by defining
+your first architectural workspace to begin tracking
+tasks and epics.</p>
+</div>
+        <button routerLink="dashboard/project/add" class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-8 py-4 content-center cursor-pointer  rounded-xs font-bold">+ Create New Project</button>
+ 
+</div>
+
+</section>
+}
+}
+   <!-----------to observe scrolling-------------->
+<div #loadMoreTrigger class="h-5 md:hidden"></div>
+
 
   <!-- 
 @if(projects().length>0){

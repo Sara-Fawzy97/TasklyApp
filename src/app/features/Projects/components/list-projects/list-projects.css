@@ -32,16 +32,17 @@ a :first-of-type{
 
 .pagination {
   display: flex;
-  list-style: none;
-  padding: 0px;
+  /* list-style: none; */
+  /* padding: 0px; */
 
 }
-.pagination li a {
+.pagination  button {
   display: block;
-  padding: 6.5px ;
+ width: 32px;
+ height: 32px;
   text-decoration: none;
   border: 1px solid #C3C6D64D;
-  color: #434654;
+  /* color: #434654; */
   margin: 0 4px;
   border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -49,11 +50,14 @@ a :first-of-type{
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
 }
-
-  .pagination li a.active {
+.pagination  button:hover{
+  cursor: pointer;
+}
+/* 
+  .pagination li button.active {
   background-color: #003d9b;
   color: white;
-}
+} */
 
 .fas{
   width: 10px;
