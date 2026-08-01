@@ -11,7 +11,7 @@ export class MembersService {
 private http=inject(HttpClient)
 
 getProjMembers(id:string){
- return this.http.get<IMember[]>('/rest/v1/get_project_members?project_id=eq.'+id)
+ return this.http.get<IMember[]>(`/rest/v1/get_project_members?project_id=eq.${id}`)
 }
 
 }

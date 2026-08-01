@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Projects } from '../../services/projects';
 import { ActivatedRoute, RouterLink ,Router } from '@angular/router';
 import { Toastr } from '../../../../core/services/toastr';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   // imports: [ReactiveFormsModule, RouterLink]ect',
@@ -20,6 +21,7 @@ export class AddUpdateProject {
   project = this.projService.selectedProject();
   projectId = 0;
   isedit = signal(false);
+  private destroyRef = inject(DestroyRef);
 
 
   ngOnInit() {
@@ -44,10 +46,10 @@ checkPageName(){
   });
 
   addNewProj(data: FormGroup) {
-    this.projService.addNew(data.value).subscribe({
-      next: (res) => {
+    this.projService.addNew(data.value).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => {
         this.toastrService.success('Your project is added successfully', 'top-right');
-        console.log(res);
+       
       },
       error: (err) => {
         this.errorMsg = err.error.message;
@@ -67,11 +69,9 @@ checkPageName(){
     });
   }
   updateProj(data: FormGroup) {
-    this.projService.updateProject(data.value, this.projectId).subscribe({
-      next: (res) => {
+    this.projService.updateProject(data.value, this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => {
         this.toastrService.success('Your project is updated successfully', 'top-right');
-
-        console.log(res);
       },error:(err)=>{
         this.toastrService.error(err.error.message, 'top-right');
       }, complete:() =>{

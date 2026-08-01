@@ -28,7 +28,6 @@ export class Navbar implements OnInit {
 
   ngOnInit() {
     this.getUserInfo();
-    // this.getInitials(this.userName)
     
   }
 
@@ -62,22 +61,17 @@ return  (
 errorMsg=''
 logOut(){
   this.authService.logOut().subscribe({
-    next:(res)=>{
-      console.log(res)
-     sessionStorage.removeItem('accessToken')
-     sessionStorage.removeItem('refreshToken')
+    next:()=>{
      
      localStorage.removeItem('accessToken')
      localStorage.removeItem('refreshToken')
         this.toastService.success('Now You are logged out !','top-right');
 
     },
-    error:(err)=>{
+    error:()=>{
         this.toastService.error('Somthing went Wrong !','top-right');
 
       this.errorMsg='Logout failed, please try again.'
-      console.log(err)
-
     },
     complete:()=>{
    

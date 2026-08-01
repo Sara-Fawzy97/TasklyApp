@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { Toastr } from '../../../../core/services/toastr';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,8 @@ export class Login {
   showPassword = false;
   //  remember=false
 toastService = inject(Toastr);
+  private destroyRef = inject(DestroyRef);
+
 
   loginForm = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
@@ -25,24 +28,15 @@ toastService = inject(Toastr);
   });
 
   login(data: FormGroup) {
-    this.authService.logIn(data.value).subscribe({
+    this.authService.logIn(data.value).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
-        console.log(res);
-        const remember = this.loginForm.value.rememberMe;
-        if (remember == true) {
           localStorage.setItem('accessToken', res.access_token);
           localStorage.setItem('refreshToken', res.refresh_token);
-        } else {
-          sessionStorage.setItem('accessToken', res.access_token);
-          sessionStorage.setItem('refreshToken', res.refresh_token);
-        }
+       
         this.toastService.success('You are logged in successfully','top-right');
 
-        // localStorage.setItem('userName',res.user_metadata.name)
-        // localStorage.setItem('jobTitle',res.user_metadata.department)
       },
-      error: (err) => {
-        console.log(err);
+      error: () => {
         this.errorMsg.set('Invalid email or password');
         this.toastService.error('Somthing went Wrong !','top-right');
       },

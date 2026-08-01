@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { Toastr } from '../../../../core/services/toastr';
 import { map, Observable, takeWhile, timer } from 'rxjs';
 import {AsyncPipe,DatePipe} from '@angular/common'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,7 +20,9 @@ errorMsg=signal("")
  router=inject(Router)
  display=signal(false)
    toastService = inject(Toastr);
+  private destroyRef = inject(DestroyRef);
  
+
    ngOnInit(){
     this.countdown()
    }
@@ -29,7 +32,7 @@ errorMsg=signal("")
     })
 
      submitForm(data:FormGroup){
-      this.authService.forgotPassword(data.value).subscribe({
+      this.authService.forgotPassword(data.value).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next:(res)=>{
           this.display.set(true)
           console.log(this.display())

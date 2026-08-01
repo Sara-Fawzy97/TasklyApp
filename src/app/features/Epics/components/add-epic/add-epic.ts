@@ -22,10 +22,19 @@ export class AddEpic {
   epicService=inject (EpicService)
    projectId = this.route.snapshot.paramMap.get('id')!;
   router = inject(Router);
+  memberService=inject(MembersService)
+  private destroyRef = inject(DestroyRef);
+ members=signal<IMember[]>([])
+location= inject(Location)
+
 
 ngOnInit(){
   this.getMembers()
 }
+
+goBack() {
+  this.location.back();
+} 
 
    createEpicForm = new FormGroup({
     title: new FormControl('', [
@@ -38,12 +47,10 @@ ngOnInit(){
     deadline:new FormControl (null),
     // project_id:new FormControl('')
   });
-location= inject(Location)
-goBack() {
-  this.location.back();
-} 
+
 
 today = new Date().toISOString().split('T')[0];
+
   createEpic(){
     const body:IEpic={ 
      title: this.createEpicForm.value.title!,
@@ -52,21 +59,19 @@ today = new Date().toISOString().split('T')[0];
     deadline: this.createEpicForm.value.deadline!,
     project_id: this.projectId! };
 
-  this.epicService.createEpic(body).subscribe({
+  this.epicService.createEpic(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
     next:()=>{
       this.toastService.success('Epic created successfully', 'top-right');
     },error:()=>{
         this.toastService.error('Something went wrong','top-right');
     }, complete:()=>{
       this.createEpicForm.reset()
-        this.router.navigateByUrl('/epics');
+      this.goBack()
       
     }
   })
   }
-memberService=inject(MembersService)
-  private destroyRef = inject(DestroyRef);
- members=signal<IMember[]>([])
+
 
   getMembers(){
   this.memberService.getProjMembers(this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({

@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../services/auth';
 import { ActivatedRoute, Router,RouterLink  } from '@angular/router';
 import { Toastr } from '../../../../core/services/toastr';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-reset-password',
@@ -19,8 +20,10 @@ showPassord=false
   toastService = inject(Toastr);
 accessToken = '';
   private readonly route=inject(ActivatedRoute)
+  private destroyRef = inject(DestroyRef);
 
-    resestPassForm=new FormGroup({
+
+  resestPassForm=new FormGroup({
    password:new FormControl(null,[Validators.required,Validators.pattern( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[^\s]{8,64}$/)]),
    confirmedPassword:new FormControl(null,Validators.required)
  })
@@ -33,13 +36,11 @@ ngOnInit(){
 
 resetPassword(data:FormGroup){
   
-this.authService.updatePassword(data.value,this.accessToken).subscribe({
-  next:(res)=>{
-    console.log(res)
+this.authService.updatePassword(data.value,this.accessToken).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+  next:()=>{
         this.toastService.success('Your password has been updated successfully. You can now log in','top-right');
 
   },error:(err)=>{
-    console.log(err.error.msg)
     this.errorMsg=err.msg
         this.toastService.error('Something went wrong!','top-right');
   },

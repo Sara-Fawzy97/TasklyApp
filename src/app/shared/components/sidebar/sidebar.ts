@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { ActivatedRoute, RouterLink,RouterLinkActive  } from '@angular/router';
 import { Toastr } from '../../../core/services/toastr';
 import { Router } from '@angular/router';
@@ -19,45 +19,34 @@ export class Sidebar {
   router= inject(Router)
   sharedService=inject(Sharedservice)
 
-  // private route = inject(ActivatedRoute);
+// ngOnInit() {
 
-ngOnInit() {
+// this.getProjectID()
+// }
 
- this.router.events.subscribe(() => {
-
-    const match = this.router.url.match(/project\/([^/]+)/);
-
-    if (match) {
-      // this.projectId = match[1];
-       this.projectId = match ? match[1] : '';
-    }
-
-  });
-
+get showProjectSidebar() {
+  return /^\/project\/[^/]+/.test(this.router.url);
 }
 
-  // ngOnInit() {
-  //   this.projectId = this.route.firstChild?.firstChild?.firstChild?.snapshot.params['id'];
-  //   // this.getOneProj()
-  //   console.log(this.projectId);
-  // }
+// getProjectID(){
+//    this.router.events.subscribe(() => {
 
-//   ngOnInit() {
-//   this.route.paramMap.subscribe(params => {
-//     this.projectId = params.get('id')!;
+//     const match = this.router.url.match(/project\/([^/]+)/);
+
+//     if (match) {
+//       // this.projectId = match[1];
+//        this.projectId=(match ? match[1] : ' ');
+//     }
+
 //   });
 // }
-   
-// ngAfterViewInit(){   
-//    this.projectId = this.route.firstChild?.firstChild?.snapshot.params['id'];
-// }
+  
+
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   logOut(){
-       sessionStorage.removeItem('accessToken')
-     sessionStorage.removeItem('refreshToken')
      
      localStorage.removeItem('accessToken')
      localStorage.removeItem('refreshToken')
@@ -68,7 +57,5 @@ ngOnInit() {
   }
 
 
-    // getOneProj(project: Project) {
-    //   this.sharedService.selectedProject.set(project);
-    // }
+  
 }

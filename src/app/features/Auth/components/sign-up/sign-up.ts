@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -9,6 +9,7 @@ import {
 import { Auth } from '../../services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { Toastr } from '../../../../core/services/toastr';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,6 +23,7 @@ export class SignUp {
   showPassord = false;
   router = inject(Router);
   toastService = inject(Toastr);
+  private destroyRef = inject(DestroyRef);
 
   signUpForm = new FormGroup(
     {
@@ -62,21 +64,19 @@ export class SignUp {
     }
   };
   console.log(data.value);
-    this.authService.signUp(body).subscribe({
+    this.authService.signUp(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
-        console.log(res);
         this.toastService.success('Congratulations, you have a new account!','top-right');
 
-        sessionStorage.setItem('accessToken',res.access_token)
+        localStorage.setItem('accessToken',res.access_token)
+        localStorage.setItem('accessToken',res.refresh_token)
       },
       error: (err) => {
-        console.log(err.error.msg);
         this.errorMsg = err.msg;
         this.toastService.error('Something went Wrong !','top-right');
 
       },
       complete: () => {
-        
         this.router.navigateByUrl('/project');
       },
     });
