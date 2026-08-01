@@ -71,7 +71,7 @@
     <app-pagination class="hidden md:block"
     [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="projects().length" [totalItems]="totalItems"></app-pagination>
    
-    <button routerLink="/add" class="hover:cursor-pointer absolute right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">+</button>
+    <button routerLink="/add" class=" fixed right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">+</button>
 }@else { <!-----------------no Projects--->
     <section class="w-full h-full p-10.75">
 <div class="justify-items-center">
@@ -83,7 +83,7 @@
 your first architectural workspace to begin tracking
 tasks and epics.</p>
 </div>
-        <a routerLink="add" class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-8 py-4 content-center cursor-pointer  rounded-xs font-bold">+ Create New Project</a>
+        <a routerLink="add" class=" md:hidden bg-linear-to-r from-primary to-primary-container text-white px-8 py-4 content-center cursor-pointer  rounded-xs font-bold">+ Create New Project</a>
  
 </div>
 
@@ -94,40 +94,7 @@ tasks and epics.</p>
 <div #loadMoreTrigger class="h-5 md:hidden"></div>
 
 
-  <!-- 
-@if(projects().length>0){
-<section class="p-8 relative h-full">
-    <div class="flex justify-between"> 
-        <div >
-        <h2 class="text-dark-gray font-semibold text-[30px] leading-9">Projects</h2>
-        <p class="text-[#434654] text-[16px]">Manage and curate your projects</p>
-        </div>
-        <a routerLink="dashboard/project/add" class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-6 content-center cursor-pointer  rounded-xs">+ Create New Project</a>
-    </div>
-
-
-</section>
-} -->
-
-  <!-----------No Projects----->
-  <!-- @if(projects().length===0){
-<section class="w-full h-full p-10.75">
-<div class="justify-items-center">
-
-              <img src="../../../../../assets/noProject.png" alt="">
-              <div class="w-md text-center my-10.75">
-                <h2 class="font-semibold text-dark-gray text-4xl">No Projects</h2>
-            <p class="text-[#434654] text-[18px] ">You don’t have any projects yet. Start by defining
-your first architectural workspace to begin tracking
-tasks and epics.</p>
-</div>
-        <button routerLink="dashboard/project/add" class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-8 py-4 content-center cursor-pointer  rounded-xs font-bold">+ Create New Project</button>
  
-</div>
-
-</section> -->
-
-  <!-- } -->
   <!-------------error screen------>
   @if (errorDisplayed()) {
     <section class="p-10.75">
