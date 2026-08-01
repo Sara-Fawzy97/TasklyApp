@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IEpic } from '../../models/IepicReq';
 import { Toastr } from '../../../../core/services/toastr';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-add-epic',
-  imports: [ReactiveFormsModule,RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-epic.html',
   styleUrl: './add-epic.css',
 })
