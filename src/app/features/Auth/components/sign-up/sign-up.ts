@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Auth } from '../../services/auth';
 import { Router, RouterLink } from '@angular/router';
-import { Toastr } from '../../../../core/services/toastr';
+import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -54,32 +54,33 @@ export class SignUp {
   }
 
   signUp(data: FormGroup) {
-
-     const body = {
-    email: data.value.email,
-    password: data.value.password,
-    data: {
-      name: data.value.name,
-      department: data.value.jobTitle
-    }
-  };
-  console.log(data.value);
-    this.authService.signUp(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (res) => {
-        this.toastService.success('Congratulations, you have a new account!','top-right');
-
-        localStorage.setItem('accessToken',res.access_token)
-        localStorage.setItem('accessToken',res.refresh_token)
+    const body = {
+      email: data.value.email,
+      password: data.value.password,
+      data: {
+        name: data.value.name,
+        department: data.value.jobTitle,
       },
-      error: (err) => {
-        this.errorMsg = err.msg;
-        this.toastService.error('Something went Wrong !','top-right');
+    };
+    console.log(data.value);
+    this.authService
+      .signUp(body)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.toastService.success('Congratulations, you have a new account!', 'top-right');
 
-      },
-      complete: () => {
-        this.router.navigateByUrl('/project');
-      },
-    });
+          localStorage.setItem('accessToken', res.access_token);
+          localStorage.setItem('accessToken', res.refresh_token);
+        },
+        error: (err) => {
+          this.errorMsg = err.msg;
+          this.toastService.error(err.msg, 'top-right');
+        },
+        complete: () => {
+          this.router.navigateByUrl('/project');
+        },
+      });
   }
 
   get password() {

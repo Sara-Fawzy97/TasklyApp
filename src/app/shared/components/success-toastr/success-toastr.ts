@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Toastr } from '../../../core/services/toastr';
+import { Toastr } from'./service/toastr';
 
 @Component({
   selector: 'app-success-toastr',

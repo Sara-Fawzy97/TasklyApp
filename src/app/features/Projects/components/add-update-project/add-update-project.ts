@@ -1,13 +1,13 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Projects } from '../../services/projects';
-import { ActivatedRoute, RouterLink ,Router } from '@angular/router';
-import { Toastr } from '../../../../core/services/toastr';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
+import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   // imports: [ReactiveFormsModule, RouterLink]ect',
-  imports: [ReactiveFormsModule,RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './add-update-project.html',
   styleUrl: './add-update-project.css',
 })
@@ -23,18 +23,17 @@ export class AddUpdateProject {
   isedit = signal(false);
   private destroyRef = inject(DestroyRef);
 
-
   ngOnInit() {
-   this.checkPageName()
+    this.checkPageName();
   }
-  
-checkPageName(){
- this.projectId = this.route.snapshot.params['id'];
+
+  checkPageName() {
+    this.projectId = this.route.snapshot.params['id'];
     if (this.projectId) {
       this.isedit.set(true);
       this.getProjData();
     }
-}
+  }
 
   createProj = new FormGroup({
     name: new FormControl('', [
@@ -46,20 +45,22 @@ checkPageName(){
   });
 
   addNewProj(data: FormGroup) {
-    this.projService.addNew(data.value).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => {
-        this.toastrService.success('Your project is added successfully', 'top-right');
-       
-      },
-      error: (err) => {
-        this.errorMsg = err.error.message;
-        this.toastrService.error(err.error.message, 'top-right');
-      },
-      complete: () => {
-        this.createProj.reset();
-        this.router.navigateByUrl('/project');
-      },
-    });
+    this.projService
+      .addNew(data.value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastrService.success('Your project is added successfully', 'top-right');
+        },
+        error: (err) => {
+          this.errorMsg = err.error.message;
+          this.toastrService.error(err.error.message, 'top-right');
+        },
+        complete: () => {
+          this.createProj.reset();
+          this.router.navigateByUrl('/project');
+        },
+      });
   }
 
   getProjData() {
@@ -69,18 +70,22 @@ checkPageName(){
     });
   }
   updateProj(data: FormGroup) {
-    this.projService.updateProject(data.value, this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => {
-        this.toastrService.success('Your project is updated successfully', 'top-right');
-      },error:(err)=>{
-        this.toastrService.error(err.error.message, 'top-right');
-      }, complete:() =>{
+    this.projService
+      .updateProject(data.value, this.projectId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastrService.success('Your project is updated successfully', 'top-right');
+        },
+        error: (err) => {
+          this.toastrService.error(err.error.message, 'top-right');
+        },
+        complete: () => {
           this.createProj.reset();
-        this.router.navigateByUrl('/project');
-      },
-    });
+          this.router.navigateByUrl('/project');
+        },
+      });
   }
-
 
   onSubmit(data: FormGroup) {
     if (this.projectId) {

@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
-import { Toastr } from '../../../../core/services/toastr';
+import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -17,9 +17,8 @@ export class Login {
   router = inject(Router);
   showPassword = false;
   //  remember=false
-toastService = inject(Toastr);
+  toastService = inject(Toastr);
   private destroyRef = inject(DestroyRef);
-
 
   loginForm = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
@@ -28,22 +27,25 @@ toastService = inject(Toastr);
   });
 
   login(data: FormGroup) {
-    this.authService.logIn(data.value).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (res) => {
+    this.authService
+      .logIn(data.value)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
           localStorage.setItem('accessToken', res.access_token);
           localStorage.setItem('refreshToken', res.refresh_token);
-       
-        this.toastService.success('You are logged in successfully','top-right');
 
-      },
-      error: () => {
-        this.errorMsg.set('Invalid email or password');
-        this.toastService.error('Somthing went Wrong !','top-right');
-      },
-      complete: () => {
-        this.router.navigateByUrl('/project');
-      },
-    });
+          this.toastService.success('You are logged in successfully', 'top-right');
+        },
+        error: (err) => {
+          this.errorMsg.set('Invalid email or password');
+          this.toastService.error('Somthing went Wrong !', 'top-right');
+          this.toastService.error(err.error.message, 'top-right');
+        },
+        complete: () => {
+          this.router.navigateByUrl('/project');
+        },
+      });
   }
 
   toggleShowPassword() {

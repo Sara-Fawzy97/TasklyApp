@@ -1,15 +1,14 @@
 import { Injectable, signal } from '@angular/core';
-import { IToastr } from '../../shared/components/success-toastr/Itoast.model';
+import { IToastr } from '../Itoast.model';
 @Injectable({
   providedIn: 'root',
 })
 export class Toastr {
+  toast = signal<IToastr | null>(null);
 
-toast = signal<IToastr | null>(null);
+  show(options: IToastr) {
+    console.log(options);
 
-   show(options: IToastr) {
- console.log(options);
- 
     this.toast.set({
       position: 'top-right',
       duration: 3000,
@@ -21,26 +20,23 @@ toast = signal<IToastr | null>(null);
     }, this.toast()?.duration);
   }
 
-success(message: string, position?: IToastr['position']) {
-  this.show({
-    message,
-    type: 'success',
-    position
-  });
-}
+  success(message: string, position?: IToastr['position']) {
+    this.show({
+      message,
+      type: 'success',
+      position,
+    });
+  }
 
-   error(
-    message: string,
-    position?: IToastr['position']
-  ) {
+  error(message: string, position?: IToastr['position']) {
     this.show({
       message,
       type: 'error',
       position,
     });
   }
- 
-   hide() {
+
+  hide() {
     this.toast.set(null);
   }
 }
