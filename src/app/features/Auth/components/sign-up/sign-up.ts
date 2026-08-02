@@ -18,9 +18,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './sign-up.css',
 })
 export class SignUp {
-  authService = inject(Auth);
   errorMsg = '';
   showPassord = false;
+  authService = inject(Auth);
   router = inject(Router);
   toastService = inject(Toastr);
   private destroyRef = inject(DestroyRef);
@@ -75,7 +75,7 @@ export class SignUp {
         },
         error: (err) => {
           this.errorMsg = err.msg;
-          this.toastService.error(err.msg, 'top-right');
+          this.toastService.error(err.error.msg, 'top-right');
         },
         complete: () => {
           this.router.navigateByUrl('/project');

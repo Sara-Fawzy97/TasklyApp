@@ -12,11 +12,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './login.css',
 })
 export class Login {
-  authService = inject(Auth);
-  errorMsg = signal('');
-  router = inject(Router);
   showPassword = false;
-  //  remember=false
+  errorMsg = signal('');
+  authService = inject(Auth);
+  router = inject(Router);
   toastService = inject(Toastr);
   private destroyRef = inject(DestroyRef);
 
@@ -39,8 +38,7 @@ export class Login {
         },
         error: (err) => {
           this.errorMsg.set('Invalid email or password');
-          this.toastService.error('Somthing went Wrong !', 'top-right');
-          this.toastService.error(err.error.message, 'top-right');
+          this.toastService.error(err.error.msg, 'top-right');
         },
         complete: () => {
           this.router.navigateByUrl('/project');

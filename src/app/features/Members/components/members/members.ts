@@ -12,13 +12,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './members.css',
 })
 export class Members {
-  memberService = inject(MembersService);
   isLoading = signal(true);
-  toastrService = inject(Toastr);
   errorDisplayed = signal(false);
+  members = signal<IMember[]>([]);
+
+  memberService = inject(MembersService);
+  toastrService = inject(Toastr);
   private destroyRef = inject(DestroyRef);
   route = inject(ActivatedRoute);
-  members = signal<IMember[]>([]);
 
   value = '';
   getInitials(name: string) {
@@ -45,15 +46,15 @@ export class Members {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.members.set(res);
-          this.isLoading.set(false);
         },
         error: (err) => {
           this.isLoading.set(false);
-          // this.toastrService.error("Failed to load project members. Please try again.", 'top-right');
           this.toastrService.error(err.error.message, 'top-right');
           this.errorDisplayed.set(true);
+        },complete:()=> {
+          this.isLoading.set(false);
+          
         },
       });
   }

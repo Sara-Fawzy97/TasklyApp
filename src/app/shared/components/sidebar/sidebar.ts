@@ -13,34 +13,19 @@ import { Sharedservice } from '../../services/sharedservice';
 })
 export class Sidebar {
   isSidebarOpen = true;
-  route = inject(ActivatedRoute);
   projectId = '';
+
+  route = inject(ActivatedRoute);
   toastService = inject(Toastr);
   router = inject(Router);
   sharedService = inject(Sharedservice);
 
-  // ngOnInit() {
-
-  // this.getProjectID()
-  // }
-
+ 
   get showProjectSidebar() {
     return /^\/project\/[^/]+/.test(this.router.url);
   }
 
-  // getProjectID(){
-  //    this.router.events.subscribe(() => {
-
-  //     const match = this.router.url.match(/project\/([^/]+)/);
-
-  //     if (match) {
-  //       // this.projectId = match[1];
-  //        this.projectId=(match ? match[1] : ' ');
-  //     }
-
-  //   });
-  // }
-
+  
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }

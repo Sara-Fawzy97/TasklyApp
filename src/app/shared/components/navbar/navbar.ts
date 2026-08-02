@@ -10,32 +10,33 @@ import { Toastr } from '../success-toastr/service/toastr';
   styleUrl: './navbar.css',
 })
 export class Navbar implements OnInit {
+ 
+   userName = signal('');
+  jobTitle = signal('');
+  logOutDisplay = false;
+  errorMsg = '';
+
   authService = inject(Auth);
   toastService = inject(Toastr);
-
   router = inject(Router);
 
-  userName = signal('');
-  jobTitle = signal('');
-
-  logOutDisplay = false;
+ ngOnInit() {
+    this.getUserInfo();
+  }
 
   avatarClicked() {
     this.logOutDisplay = !this.logOutDisplay;
     console.log(this.logOutDisplay);
   }
 
-  ngOnInit() {
-    this.getUserInfo();
-  }
+ 
 
   getUserInfo() {
     this.authService.getProfile().subscribe({
       next: (res) => {
         this.userName.set(res.user_metadata.name);
         this.jobTitle.set(res.user_metadata.department);
-        console.log(this.userName());
-        console.log(res);
+    
       },
     });
   }
@@ -53,7 +54,6 @@ export class Navbar implements OnInit {
     return (words[0][0] + words[1][0]).toUpperCase();
   }
 
-  errorMsg = '';
   logOut() {
     this.authService.logOut().subscribe({
       next: () => {
@@ -63,7 +63,6 @@ export class Navbar implements OnInit {
       },
       error: () => {
         this.toastService.error('Somthing went Wrong !', 'top-right');
-
         this.errorMsg = 'Logout failed, please try again.';
       },
       complete: () => {

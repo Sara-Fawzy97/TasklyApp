@@ -7,7 +7,6 @@ export class Toastr {
   toast = signal<IToastr | null>(null);
 
   show(options: IToastr) {
-    console.log(options);
 
     this.toast.set({
       position: 'top-right',

@@ -12,12 +12,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './reset-password.css',
 })
 export class ResetPassword {
-  authService = inject(Auth);
-  router = inject(Router);
   errorMsg = '';
   showPassord = false;
-  toastService = inject(Toastr);
   accessToken = '';
+
+  authService = inject(Auth);
+  router = inject(Router);
+  toastService = inject(Toastr);
   private readonly route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
 
@@ -48,7 +49,7 @@ export class ResetPassword {
         },
         error: (err) => {
           this.errorMsg = err.msg;
-          this.toastService.error('Something went wrong!', 'top-right');
+          this.toastService.error(err.msg, 'top-right');
         },
         complete: () => {
           this.router.navigateByUrl('/login');

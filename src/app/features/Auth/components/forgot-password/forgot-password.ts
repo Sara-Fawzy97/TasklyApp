@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { map, Observable, takeWhile, timer } from 'rxjs';
@@ -9,15 +9,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [ReactiveFormsModule, AsyncPipe, DatePipe],
+  imports: [ReactiveFormsModule, AsyncPipe, DatePipe,RouterLink],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css',
 })
 export class ForgotPassword {
-  authService = inject(Auth);
   errorMsg = signal('');
-  router = inject(Router);
   display = signal(false);
+
+  authService = inject(Auth);
+  router = inject(Router);
   toastService = inject(Toastr);
   private destroyRef = inject(DestroyRef);
 
@@ -34,13 +35,12 @@ export class ForgotPassword {
       .forgotPassword(data.value)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (res) => {
+        next: () => {
           this.display.set(true);
           console.log(this.display());
-          console.log(res);
         },
         error: (err) => {
-          this.toastService.error('Something went Wrong !', 'top-right');
+          this.toastService.error(err.error.msg, 'top-right');
 
           this.errorMsg = err.error.massage;
         },

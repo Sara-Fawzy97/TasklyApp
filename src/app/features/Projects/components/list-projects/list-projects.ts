@@ -15,10 +15,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class ListProjects implements AfterViewInit {
   projects = signal<Project[]>([]);
   myDate: Date = new Date();
-  projeService = inject(Projects);
-  router = inject(Router);
   errorDisplayed = signal(false);
   isLoading = signal(false);
+  projeService = inject(Projects);
+  router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   pageSize = 10;
   currentPage = 1;
@@ -30,7 +31,6 @@ export class ListProjects implements AfterViewInit {
 
   observer!: IntersectionObserver;
   hasMore = true;
-  private destroyRef = inject(DestroyRef);
 
 
   ngOnInit() {
@@ -51,32 +51,29 @@ export class ListProjects implements AfterViewInit {
   //mobile only
   loadMore() {
     if (this.isLoading() || !this.hasMore) return;
-
     this.isLoading.set(true);
-
     this.currentPage++;
-
     this.paginator(true);
   }
 
-  getProjects() {
-    this.projeService.getProject().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (res) => {
-        this.projects.set(res);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        console.log(err);
-        if (err.status === 401) {
-          this.isLoading.set(false);
-          this.router.navigateByUrl('/login');
-        } else {
-          this.errorDisplayed.set(true);
-        }
-      },
+  // getProjects() {
+  //   this.projeService.getProject().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+  //     next: (res) => {
+  //       this.projects.set(res);
+  //       this.isLoading.set(false);
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //       if (err.status === 401) {
+  //         this.isLoading.set(false);
+  //         this.router.navigateByUrl('/login');
+  //       } else {
+  //         this.errorDisplayed.set(true);
+  //       }
+  //     },
       
-    });
-  }
+  //   });
+  // }
 
   getOneProj(project: Project) {
     this.projeService.selectedProject.set(project);
@@ -103,16 +100,10 @@ export class ListProjects implements AfterViewInit {
           this.totalItems = Number(ContentRange.split('/')[1]);
           this.totalPages = Math.ceil(this.totalItems / this.pageSize);
 
-      
         }
       },
-      error: (err) => {
-        if (err.status === 401) {
-          this.isLoading.set(false);
-          this.router.navigateByUrl('/login');
-        } else {
+      error: () => {
           this.errorDisplayed.set(true);
-        }
       },
     });
   }

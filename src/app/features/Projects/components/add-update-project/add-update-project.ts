@@ -12,16 +12,19 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './add-update-project.css',
 })
 export class AddUpdateProject {
+  
+   errorMsg = signal('');
+  projectId = 0;
+  isedit = signal(false);
   projService = inject(Projects);
   toastrService = inject(Toastr);
   router = inject(Router);
   route = inject(ActivatedRoute);
-
-  errorMsg = signal('');
-  project = this.projService.selectedProject();
-  projectId = 0;
-  isedit = signal(false);
   private destroyRef = inject(DestroyRef);
+
+  project = this.projService.selectedProject();
+
+ 
 
   ngOnInit() {
     this.checkPageName();
@@ -69,6 +72,8 @@ export class AddUpdateProject {
       description: this.project?.description,
     });
   }
+
+  
   updateProj(data: FormGroup) {
     this.projService
       .updateProject(data.value, this.projectId)

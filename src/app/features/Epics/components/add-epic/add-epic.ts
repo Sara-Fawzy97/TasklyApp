@@ -15,6 +15,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './add-epic.css',
 })
 export class AddEpic {
+
+  members = signal<IMember[]>([]);
+  today = new Date().toISOString().split('T')[0];
+
   toastService = inject(Toastr);
   private route = inject(ActivatedRoute);
   epicService = inject(EpicService);
@@ -22,16 +26,13 @@ export class AddEpic {
   router = inject(Router);
   memberService = inject(MembersService);
   private destroyRef = inject(DestroyRef);
-  members = signal<IMember[]>([]);
   location = inject(Location);
 
   ngOnInit() {
     this.getMembers();
   }
 
-  goBack() {
-    this.location.back();
-  }
+  
 
   createEpicForm = new FormGroup({
     title: new FormControl('', [
@@ -45,7 +46,6 @@ export class AddEpic {
     // project_id:new FormControl('')
   });
 
-  today = new Date().toISOString().split('T')[0];
 
   createEpic() {
     const body: IEpic = {
@@ -63,8 +63,8 @@ export class AddEpic {
         next: () => {
           this.toastService.success('Epic created successfully', 'top-right');
         },
-        error: () => {
-          this.toastService.error('Something went wrong', 'top-right');
+        error: (err) => {
+          this.toastService.error(err.error.msg, 'top-right');
         },
         complete: () => {
           this.createEpicForm.reset();
@@ -82,5 +82,9 @@ export class AddEpic {
           this.members.set(res);
         },
       });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

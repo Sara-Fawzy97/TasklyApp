@@ -34,11 +34,9 @@
 <div class=" mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-scroll md:overflow-auto" >
 
         @for(p of projects()  ;track p){
-            <!-- <button (click)="getOneProj(p)">x</button> -->
-             
-            <div class="bg-white p-6 rounded-lg hover:bg-blue-100 cursor-pointer" routerLink="/project/{{p.id}}/epics" >
+            <div class="bg-white p-6 rounded-lg hover:bg-blue-100 " >
            <div class="flex justify-between">
-                <h3 class="text-dark-gray text-title-md font-medium" >{{p.name}}</h3>
+                <h3 class="text-dark-gray text-title-md font-medium cursor-pointer"  routerLink="/project/{{p.id}}/epics" >{{p.name}}</h3>
             <button class="cursor-pointer" (click)="getOneProj(p)">
                        <img src="../../../../../assets/dots.png" alt="">
               </button>
