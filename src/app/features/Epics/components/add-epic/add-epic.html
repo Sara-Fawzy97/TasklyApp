@@ -18,15 +18,17 @@ related tasks and track architectural progress.</p>
        <div class="col-span-3">
         <input formControlName="title" type="text" placeholder="e.g. Structural Foundation Phase" id="title" class=" text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2 " /><br>
      <!--------------error handle-------->
-        @if (createEpicForm.get('title')?.errors && createEpicForm.get('title')?.touched) {
+        @if ( createEpicForm.get('title')?.touched) {
         <div class="text-error">
           @if(createEpicForm.get('title')?.errors?.['required']){ <p>
             Title is required</p>}
-          @if(createEpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters and maximum 100 characters.</p>}
+          @if(createEpicForm.hasError('startsWithSpace')){ <p>Epic title mustn't start with space</p>}
+
+          @else if(createEpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters and maximum 100 characters.</p>}
         </div>
-        }</div>
+        }</div>  
       </div>
-      
+      <!-- /\s+/g -->
 
        <div class="grid grid-cols-4   mt-8">
         <div class="  ">

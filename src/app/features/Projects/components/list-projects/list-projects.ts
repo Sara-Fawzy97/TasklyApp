@@ -21,7 +21,7 @@ export class ListProjects implements AfterViewInit {
   router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
-  pageSize = 10;
+  pageSize = 6;
   currentPage = 1;
   totalItems = 0;
   totalPages = 1;

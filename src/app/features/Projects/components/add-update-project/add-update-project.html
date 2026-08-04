@@ -33,11 +33,13 @@
         <input formControlName="name" type="text" placeholder="Project title" id="name" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2" />
      </div>
       <!-------error handle------>
-        @if (createProj.get('name')?.errors && createProj.get('name')?.touched) {
+        @if ( createProj.get('name')?.touched) {
         <div class="text-error">
           @if(createProj.get('name')?.errors?.['required']){ <p>
             Project name is required</p>}
-          @if(createProj.get('name')?.errors?.['pattern']){ <p>Project name must be at least 3 characters and maximum 100 characters.</p>}
+          @if(createProj.hasError('startsWithSpace')){ <p>Epic title mustn't start with space</p>}
+
+          @else if(createProj.get('name')?.errors?.['pattern']){ <p>Project name must be at least 3 characters and maximum 100 characters.</p>}
         </div>
         }
 

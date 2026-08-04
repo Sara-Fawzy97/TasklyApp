@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Projects } from '../../services/projects';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
@@ -13,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class AddUpdateProject {
   
-   errorMsg = signal('');
+  errorMsg = signal('');
   projectId = 0;
   isedit = signal(false);
   projService = inject(Projects);
@@ -45,7 +45,16 @@ export class AddUpdateProject {
       Validators.pattern(/^(?=.{3,100}$)[\p{L}\d\s\-_.()&]+$/u),
     ]),
     description: new FormControl('', [Validators.maxLength(500)]),
-  });
+  },{validators: this.checkTitleSpace}
+);
+
+  
+checkTitleSpace(control: AbstractControl){
+const name=control.get('name')?.value;
+
+  return name.startsWith(' ')?{startsWithSpace:true} :null
+  
+}
 
   addNewProj(data: FormGroup) {
     this.projService

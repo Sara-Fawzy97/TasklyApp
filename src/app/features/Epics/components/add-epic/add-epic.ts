@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IEpic } from '../../models/IepicReq';
@@ -37,14 +37,21 @@ export class AddEpic {
   createEpicForm = new FormGroup({
     title: new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(3), 
       Validators.pattern(/^(?=.{3,100}$)[\p{L}\d\s\-_.()&]+$/u),
     ]),
     description: new FormControl('', [Validators.maxLength(500)]),
     assignee_id: new FormControl(null),
     deadline: new FormControl(null),
-    // project_id:new FormControl('')
-  });
+  },{validators:this.checkTitleSpace}
+);
+
+
+  checkTitleSpace(control: AbstractControl){
+const name=control.get('title')?.value
+  return name.startsWith(' ')?{startsWithSpace:true} :null
+
+}
 
 
   createEpic() {
