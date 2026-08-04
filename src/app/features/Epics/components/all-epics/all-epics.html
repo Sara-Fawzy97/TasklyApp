@@ -96,7 +96,7 @@
       </div>
 
       <!----------pagination-------->
-      <div class="flex justify-between pt-12">
+      <!-- <div class="flex justify-between pt-12">
         <p class="text-grayText text-xs font-medium">Showing 5 of 24 active projects</p>
         <ul class="pagination">
           <li><a href="#">&laquo;</a></li>
@@ -105,14 +105,21 @@
 
           <li><a href="#">&raquo;</a></li>
         </ul>
-      </div>
+      </div> -->
 
-      <button
+  <!----------pagination-------->
+    <app-pagination class="hidden md:block"
+    [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="epics().length" [totalItems]="totalItems"></app-pagination>
+
+<button
         routerLink="/add"
         class="hover:cursor-pointer absolute right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl"
       >
         +
       </button>
+        <!-----------to observe scrolling-------------->
+<div #loadMoreTrigger class="h-5 md:hidden"></div>
+
     } @else {
       <!-----------------no epics--->
       <section class="w-full h-full p-10.75">
