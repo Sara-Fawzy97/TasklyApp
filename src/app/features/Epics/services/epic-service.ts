@@ -17,4 +17,6 @@ export class EpicService {
   getAllEpics(projectId:string){
     return this.http.get<IEpicRes[]>('/rest/v1/project_epics?project_id=eq.'+projectId)
   }
+
+  
 }

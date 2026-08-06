@@ -5,10 +5,11 @@ import { IEpicRes } from '../../models/IepicReq';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
+import { EpicModal } from "../epic-modal/epic-modal";
 
 @Component({
   selector: 'app-all-epics',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe, RouterLink, EpicModal],
   templateUrl: './all-epics.html',
   styleUrl: './all-epics.css',
 })
@@ -16,7 +17,7 @@ export class AllEpics {
   isLoading = signal(true);
   myDate: Date = new Date();
   epics = signal<IEpicRes[]>([]);
-
+  showModal= signal(false);
   route = inject(ActivatedRoute);
   epicService = inject(EpicService);
   private destroyRef = inject(DestroyRef);
