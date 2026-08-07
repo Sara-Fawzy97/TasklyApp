@@ -28,6 +28,15 @@ export class AllEpics {
     this.getEpics();
   }
 
+
+epicID=''
+
+  openModal(epicId:string){
+      this.epicID=epicId
+      this.showModal= signal(true);
+      console.log(this.epicID)
+  }
+
   value = '';
   getInitials(name: string) {
     if (!name) return '';

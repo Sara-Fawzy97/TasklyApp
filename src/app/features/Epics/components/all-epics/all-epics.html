@@ -2,7 +2,7 @@
 <section class=" md:p-8 ">
     <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden md:block">PROJECTS > PR0JECT NAME > <span class="text-primary">EPICS</span></p>
   @if(showModal()){
-    <app-epic-modal (closee)="showModal.set(false)"></app-epic-modal>
+    <app-epic-modal [epicId]="epicID" (closee)="showModal.set(false)"></app-epic-modal>
 
   }
 <div class="md:flex justify-between md:pt-4  items-center">
@@ -50,7 +50,7 @@
     @if (epics().length > 0) {
       <div class="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2  gap-6  ">
         @for (p of epics(); track p) {
-          <button (click)="showModal.set(true)">
+          <button (click)="openModal(p.id)">
           <div   class="bg-white p-4 rounded-lg hover:bg-blue-100 cursor-pointer md:border-l-4 md:border-[#004E32]" >
             <div class="flex justify-between" >
               <h5 class="text-primary md:text-[#005235]  bg-surface-highest md:bg-success rounded-xs py-1 px-2.5 text-[10px] font-bold">{{p.epic_id}}</h5> 

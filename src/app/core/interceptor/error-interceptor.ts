@@ -18,6 +18,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       // }
 
       switch (error.status) {
+        case 0:
+          toastService.error(error.message, 'top-right');
+
+          break;
         case 400:
           toastService.error('Bad Request', 'top-right');
           break;

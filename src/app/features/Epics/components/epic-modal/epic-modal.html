@@ -1,17 +1,17 @@
-<div class="p-5 px-64 bg-dark-gray/20 fixed inset-0 z-9999 ">
-  <div class="bg-white p-8 max-h-[90vh] overflow-y-auto">
+<div class="pt-5 px-64 bg-dark-gray/20 fixed inset-0 z-9999 ">
+  <div class="bg-white p-8 m-auto w-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex justify-between">
       <div class="flex gap-2 items-center">
         <img src="../../../../../assets/epicT.png" alt="" class="w-5 h-3.5" />
-        <p class="text-dark-gray/60 font-bold text-[12px]">Epic-101</p>
+        <p class="text-dark-gray/60 font-bold text-[12px]">{{epic()?.epic_id}}</p>
       </div>
       <div class="flex gap-2 items-center">
         <img src="../../../../../assets/copy.png" alt="" class="w-3.75 h-1.75" />
         <p class="text-grayText text-body-md font-medium">Copy link</p>
         <button (click)="closeModal()" class="cursor-pointer">
-        <img src="../../../../../assets/close.png" alt="" class=" w-[14px] h-[14px]" />
+        <img src="../../../../../assets/close.png" alt="" class=" w-3.5 h-3.5" />
 
-        </button>
+        </button> 
       </div>
     </div>
 
@@ -30,8 +30,8 @@
           <textarea
             formControlName="description"
             type="text"
-            value="A comprehensive review and upgrade of the core architectural frameworks."
-            id="description"
+            placeholder="No Description"
+           id="description"
             class="h-35 w-full text-dark-gray text-[16px] font-normal rounded-lg md:rounded-xl p-4"
           ></textarea
           >
@@ -41,38 +41,41 @@
           <div class="grid gap-2">
             <p class="text-dark-gray/40 font-bold text-[10px] uppercase">Created By</p>
             <div class="flex gap-2">
-              <button
-                class="w-7 h-7 md:w-7 md:h-7 bg-primary text-[10px] text-white font-bold rounded-xl"
+              <a
+                class="w-7 h-7 md:w-7 md:h-7 content-center text-center bg-primary text-[10px] text-white font-bold rounded-xl"
               >
-                {{ getInitials('Mahmoud') }}
-              </button>
-              <p class="text-dark-gray font-medium md:font-semibold text-[12px] md:text-body-md">
-                kkkkkk
+                {{ getInitials(epic()?.created_by?.name) }}
+            </a>
+              <p class="text-dark-gray  font-medium md:font-semibold text-[12px] md:text-body-md">
+               {{epic()?.created_by?.name}}
               </p>
             </div>
           </div>
 
           <div class="grid gap-2">
             <p class="text-dark-gray/40 font-bold text-[10px] uppercase">Assignee</p>
-            <select
+            <select formControlName="assignee_id"
               name="cars"
               id="cars"
               class="text-dark-gray py-3 pr-10 w-full font-normal rounded-lg md:rounded-lg px-4 "
             >
-              <!-- <option>dddd</option> -->
-              <!-- @for(m of members(); track m){ -->
-              <option value="n">
+            @if(!epic()?.assignee?.name){
+            <option value="null">no assignee</option>
+            }
+              @for(m of members(); track m){
+              <option value="{{m.user_id}}"  
+              >
                 <div
                   class="w-7 h-7 md:w-6 md:h-6 md:bg-[#CDDDFF] md:text-[#51617E] text-[14px] font-bold content-center text-center rounded-xl"
                 >
-                  {{ getInitials('John Doe') }}
+                  {{ getInitials(m.metadata.name) }}
                 </div>
                 <p class="text-dark-gray font-medium md:font-medium text-[12px] md:text-body-md">
-                  John Doe
+                 {{m.metadata.name}}
                 </p>
               </option>
 
-              <!-- } -->
+              }
             </select>
           </div>
 
@@ -82,6 +85,7 @@
               <img src="../../../../../assets/calender.png" alt="" class="absolute top-4 left-2" />
 
               <input
+                  formControlName="deadline"
                 type="date"
                 id="start-date"
                 name="trip-start"
@@ -95,7 +99,7 @@
             <p class="text-dark-gray/40 font-bold text-[10px] uppercase">Created at</p>
             <div class="flex gap-2 items-center">
               <img src="../../../../../assets/calender.png" alt="" class="w-3 h-3.75" />
-              <p class="text-dark-gray text-body-md font-medium">Oct 15, 2025</p>
+              <p class="text-dark-gray text-body-md font-medium">{{epic()?.created_at| date: 'MMM d,  y'}}</p>
             </div>
           </div>
         </div>
@@ -118,7 +122,7 @@
             <p class="pt-4 text-dark-gray text-[16px] font-medium ">No tasks have been added to this epic yet</p>
            
            <div>
-            <button class="text-white py-2.5 px-6 mt-4 rounded-xs">+ Add Task</button>
+            <button class="text-white bg-linear-to-r from-primary to-primary-container py-2.5 px-6 mt-4 rounded-xs">+ Add Task</button>
 
            </div>
           </div>

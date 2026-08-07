@@ -27,6 +27,7 @@ export class AddEpic {
   memberService = inject(MembersService);
   private destroyRef = inject(DestroyRef);
   location = inject(Location);
+  // EpicForm: any;
 
   ngOnInit() {
     this.getMembers();
@@ -41,8 +42,8 @@ export class AddEpic {
       Validators.pattern(/^(?=.{3,100}$)[\p{L}\d\s\-_.()&]+$/u),
     ]),
     description: new FormControl('', [Validators.maxLength(500)]),
-    assignee_id: new FormControl(null),
-    deadline: new FormControl(null),
+    assignee_id: new FormControl(''),
+    deadline: new FormControl(''),
   },{validators:this.checkTitleSpace}
 );
 
@@ -58,16 +59,18 @@ const name=control.get('title')?.value
     const body: IEpic = {
       title: this.createEpicForm.value.title!,
       description: this.createEpicForm.value.description!,
-      assignee_id: this.createEpicForm.value.assignee_id! || null,
-      deadline: this.createEpicForm.value.deadline!,
+      assignee_id: this.createEpicForm.value.assignee_id || null,
+      deadline: this.createEpicForm.value.deadline! ||null ,
       project_id: this.projectId!,
     };
+
 
     this.epicService
       .createEpic(body)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
+         console.log(this.createEpicForm.value);
           this.toastService.success('Epic created successfully', 'top-right');
         },
         error: (err) => {
