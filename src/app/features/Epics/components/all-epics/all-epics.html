@@ -50,8 +50,8 @@
     @if (epics().length > 0) {
       <div class="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2  gap-6  ">
         @for (p of epics(); track p) {
-          <button (click)="openModal(p.id)">
-          <div   class="bg-white p-4 rounded-lg hover:bg-blue-100 cursor-pointer md:border-l-4 md:border-[#004E32]" >
+         
+          <div  (click)="openModal(p.id)" class="bg-white p-4 rounded-lg hover:bg-blue-100 cursor-pointer md:border-l-4 md:border-[#004E32]" >
             <div class="flex justify-between" >
               <h5 class="text-primary md:text-[#005235]  bg-surface-highest md:bg-success rounded-xs py-1 px-2.5 text-[10px] font-bold">{{p.epic_id}}</h5> 
               <button class="cursor-pointer" >
@@ -95,10 +95,7 @@
               </p>
             </div>
           </div>
-          </button>
         }
-
-
        
       </div>
 
@@ -116,7 +113,7 @@
 
       <button
         routerLink="/add"
-        class="hover:cursor-pointer absolute right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl"
+        class="hover:cursor-pointer fixed right-8 bottom-10 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl"
       >
         +
       </button>

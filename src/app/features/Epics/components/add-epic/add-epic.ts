@@ -43,7 +43,7 @@ export class AddEpic {
     ]),
     description: new FormControl('', [Validators.maxLength(500)]),
     assignee_id: new FormControl(''),
-    deadline: new FormControl(''),
+    deadline: new FormControl(this.today),
   },{validators:this.checkTitleSpace}
 );
 

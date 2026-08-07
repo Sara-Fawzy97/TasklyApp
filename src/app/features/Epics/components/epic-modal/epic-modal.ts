@@ -73,7 +73,7 @@ export class EpicModal {
 
   checkTitleSpace(control: AbstractControl) {
     const name = control.get('title')?.value;
-    return name.startsWith('') ? { startsWithSpace: true } : null;
+    return name.startsWith(' ') ? { startsWithSpace: true } : null;
   }
 
   getOneEpic() {

@@ -15,18 +15,31 @@
       </div>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 ">
       <form [formGroup]="EpicForm">
-        <div class="border-b border-b-light-gray/15">
+        <div class="border-b border-b-light-gray/15 mb-8">
           <input
           (blur)="updateTitle()"
             formControlName="title"
             type="text"
             value="Modern Architecture Overhaul"
             id="title"
-            class="text-dark-gray text-[16px] lg:text-xl w-full font-semibold lg:font-bold rounded-lg md:rounded-xl p-3 mb-8"
+            class="text-dark-gray text-[16px] lg:text-xl w-full font-semibold lg:font-bold rounded-lg md:rounded-xl p-3 "
           />
+
+           <!--------------error handle-------->
+        @if ( EpicForm.get('title')?.touched) {
+        <div class="text-error">
+          @if(EpicForm.get('title')?.errors?.['required']){ <p>
+            Title is required</p>}
+          @if(EpicForm.hasError('startsWithSpace')){ <p>Epic title mustn't start with space</p>}
+
+          @else if(EpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters and maximum 100 characters.</p>}
         </div>
+        }
+        </div>
+
+
         <div class="mt- lg:mt-8">
 
           <label for="description" class=" lg:hidden uppercase text-label-sm font-bold text-graay  "> Description</label>
