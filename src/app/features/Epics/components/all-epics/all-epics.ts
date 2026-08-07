@@ -64,4 +64,14 @@ epicID=''
         },
       });
   }
+
+
+
+closeModale(){
+  this.getEpics()
+   this.showModal= signal(false);
+}
+ 
+
+
 }

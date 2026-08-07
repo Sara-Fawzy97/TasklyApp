@@ -1,6 +1,6 @@
 
 @if (toastrService.toast(); as toast) {
-<div class=" fixed py-4 px-6 rounded-lg mt-10 z-50  " [class.top-4]="toast.position === 'top-right'"
+<div class=" fixed py-4 px-6 rounded-lg mt-10 z-9999  " [class.top-4]="toast.position === 'top-right'"
 [class.right-4]="toast.position === 'top-right'" [class.bg-success]="toast.type==='success'" [class.bg-error/30]="toast.type==='error'">
       <div class="flex gap-3">
 @if(toast.type==='success'){

@@ -22,4 +22,9 @@ export class EpicService {
 
   return this.http.get<IEpicRes[]>(`/rest/v1/project_epics?project_id=eq.${projectId}&id=eq.${epicId}`)
   }
+
+  updateEpic(epicId:string,data:Partial<IEpic>){
+   return this.http.patch(`/rest/v1/epics?id=eq.${epicId}`,data)
+  }
+
 }

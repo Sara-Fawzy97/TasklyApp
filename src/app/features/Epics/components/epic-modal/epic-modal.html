@@ -1,4 +1,4 @@
-<div class="lg:pt-5 p-4 bg-dark-gray/20 fixed inset-0 z-9999 ">
+<div class="lg:pt-5 p-4 bg-dark-gray/20 fixed inset-0 z-999 ">
   <div class="bg-white p-6 lg:p-8 lg:m-auto lg:w-2xl max-h-[95vh] overflow-y-auto rounded-lg">
     <div class="flex justify-between">
       <div class="flex gap-2 items-center">
@@ -19,6 +19,7 @@
       <form [formGroup]="EpicForm">
         <div class="border-b border-b-light-gray/15">
           <input
+          (blur)="updateTitle()"
             formControlName="title"
             type="text"
             value="Modern Architecture Overhaul"
@@ -31,6 +32,7 @@
           <label for="description" class=" lg:hidden uppercase text-label-sm font-bold text-graay  "> Description</label>
          
           <textarea
+          (blur)="updateDescription()"
             formControlName="description"
             type="text"
             placeholder="No Description Provided"
@@ -62,13 +64,14 @@
             <div class="relative"> 
               <img src="../../../../../assets/assignee.png" alt="" class="absolute top-3.5 left-2 bg-[#E0E8FF] rounded-xl w-3 h-3 " />
 
-            <select formControlName="assignee_id"
+            <select (change)="updateAssinee()" formControlName="assignee_id"
               name="cars"
               id="cars"
               class="text-dark-gray p-2 lg:py-3 lg:pr-10 h-10 w-full font-normal text-[12px] rounded-lg md:rounded-lg px-8 "
             >
+            <option [ngValue]="null" class="">Unassigned</option>
+
             @if(!epic()?.assignee?.name){
-            <option value="null" class="lg:hidden">Unassigned</option>
             <option value="null" class="hidden lg:block">no assignee</option>
             }
               @for(m of members(); track m){
@@ -91,13 +94,14 @@
           </div>
           </div>
 
-          <!-----------ceatedBy---->
+          <!-----------deadline---->
           <div class="grid gap-2">
             <p class="text-graay lg:text-dark-gray/40 font-bold text-[10px] uppercase">Deadline</p>
             <div class="relative">
               <img src="../../../../../assets/calender.png" alt="" class="absolute top-3.5 left-2" />
 
               <input
+              (change)="updateDeadline()"
                   formControlName="deadline"
                 type="date"
                 id="start-date"

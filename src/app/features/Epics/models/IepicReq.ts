@@ -18,7 +18,10 @@ export interface IEpicRes {
     name: string;
   };
   assignee: {
-    name: string;
+    name?: string;
     sub:string |null;
   };
 }
+
+
+
