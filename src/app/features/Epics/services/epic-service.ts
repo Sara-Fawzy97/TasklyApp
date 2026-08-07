@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IEpic, IEpicRes } from '../models/IepicReq';
 
@@ -17,6 +17,14 @@ export class EpicService {
   getAllEpics(projectId:string){
     return this.http.get<IEpicRes[]>('/rest/v1/project_epics?project_id=eq.'+projectId)
   }
+
+    getPaginatedProjects(limit:number,offset:number,projectId:string){
+  return this.http.get<IEpicRes[]>( `/rest/v1/project_epics?project_id=eq.${projectId}&limit=${limit}&offset=${offset}
+`,{
+    headers:new HttpHeaders({Prefer:`count=exact`}),
+     observe: 'response'
+  })
+}
 // {{base_url}}/rest/v1/project_epics?project_id=eq.298be621-59c7-4a62-ad2c-e640ff72135f&id=eq.5360f7b4-5be0-4ca0-b0cc-31bff72434dd
   getEpicDetails(projectId:string,epicId:string){
 
