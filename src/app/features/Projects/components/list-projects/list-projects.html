@@ -6,9 +6,10 @@
     </div>
     <div class="content-end">
         <a  routerLink="add"
-      class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-6 py-3 content-center cursor-pointer rounded-xs"
+      class="hidden md:flex bg-linear-to-r from-primary to-primary-container text-white px-6 py-3 content-center cursor-pointer rounded-xs"
     >
-      + Create New Project
+              <img src="../../../../../assets/addI.png" alt="" class="w-2.5 h-2.5">
+Create New Project
     </a>
     </div>
     
@@ -69,7 +70,10 @@
     <app-pagination class="hidden md:block"
     [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="projects().length" [totalItems]="totalItems"></app-pagination>
    
-    <button routerLink="/add" class=" fixed right-8 bottom-0 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">+</button>
+    <button routerLink="/add" class=" fixed right-8 bottom-20 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">
+              <img src="../../../../../assets/addI.png" alt="" class="justify-self-center">
+     
+    </button>
 }@else { <!-----------------no Projects--->
     <section class="w-full h-full p-10.75">
 <div class="justify-items-center">

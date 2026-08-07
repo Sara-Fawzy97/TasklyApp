@@ -1,0 +1,26 @@
+<section class="fixed lg:hidden bottom-0 w-full h-16 z-40 px-2 bg-surface-low content-center">
+  <div class="flex justify-center gap-6.25">
+    <a class="place-items-center gap-2" routerLink="/project">
+      <img class="" src="../../../../assets/projects.png" alt="" />
+      <p class="text-[10px] text-primary-container font-semibold">Projects</p>
+    </a>
+    @if (showProjectSidebar) {
+      <a class="place-items-center" [routerLink]="['/project', projectId, 'epics']">
+        <img class="" src="../../../../assets/epics.png" alt="" />
+        <p class="text-[10px]">Epics</p>
+      </a>
+      <a class="place-items-center" routerLink="/project/{{projectId}}/tasks">
+        <img class="" src="../../../../assets/tasks.png" alt="" />
+        <p class="text-[10px]">Tasks</p>
+      </a>
+      <a class="place-items-center" routerLink="/">
+        <img class="" src="../../../../assets/members.png" alt="" />
+        <p class="text-[10px]">Members</p>
+      </a>
+      <a class="place-items-center" routerLink="/">
+        <img class="" src="../../../../assets/details.png" alt="" />
+        <p class="text-[10px]">Details</p>
+      </a>
+    }
+  </div>
+</section>

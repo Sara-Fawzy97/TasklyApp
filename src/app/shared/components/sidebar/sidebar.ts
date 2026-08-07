@@ -13,9 +13,9 @@ import { Sharedservice } from '../../services/sharedservice';
 })
 export class Sidebar {
   isSidebarOpen = true;
-  projectId = '';
-
   route = inject(ActivatedRoute);
+
+  projectId = this.route.snapshot.params['id'];
   toastService = inject(Toastr);
   router = inject(Router);
   sharedService = inject(Sharedservice);

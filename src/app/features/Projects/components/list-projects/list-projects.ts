@@ -34,7 +34,6 @@ export class ListProjects implements AfterViewInit {
 
 
   ngOnInit() {
-    // this.getProjects();\
     this.hasMore = true;
     this.paginator();
   }
@@ -78,6 +77,7 @@ export class ListProjects implements AfterViewInit {
   getOneProj(project: Project) {
     this.projeService.selectedProject.set(project);
     this.router.navigate(['project/' + project.id + '/edit']);
+    
   }
 
   paginator(append = false) {
