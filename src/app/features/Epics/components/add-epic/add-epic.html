@@ -46,8 +46,8 @@ related tasks and track architectural progress.</p>
       <div >
         <label for="cars" class="text-grayText text-[11px] font-bold">Assignee</label>
 
-<select name="cars" id="cars" class=" text-dark-gray py-3 pr-10  bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  px-4 mt-4">
-    <option selected>Select a member...</option>
+<select formControlName="assignee_id" name="assignee_id" id="assignee_id" class=" text-dark-gray py-3 pr-10  bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  px-4 mt-4">
+    <option value="" >Select a member...</option>
     @for(m of members(); track m){
   <option value="{{m.user_id}}">{{m.metadata.name}}</option>
 
@@ -59,7 +59,7 @@ related tasks and track architectural progress.</p>
 
       <div>
         <label for="start-date" class="text-grayText text-[11px] font-bold">Deadline</label>
-<input type="date" id="start-date" name="trip-start" [min]="today" class="  text-dark-gray bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  py-3 px-4 mt-4" >
+<input formControlName="deadline" type="date" id="start-date" name="trip-start" [min]="today" class="  text-dark-gray bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm  py-3 px-4 mt-4" >
       </div>
       </div>
 

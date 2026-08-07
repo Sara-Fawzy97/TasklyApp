@@ -6,18 +6,21 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { Pagination } from '../../../../shared/components/pagination/pagination';
+import { EpicModal } from "../epic-modal/epic-modal";
 
 @Component({
   selector: 'app-all-epics',
-  imports: [DatePipe, RouterLink, Pagination],
+  imports: [DatePipe, RouterLink, Pagination,EpicModal],
   templateUrl: './all-epics.html',
   styleUrl: './all-epics.css',
 })
+
 export class AllEpics {
   isLoading = signal(true);
   myDate: Date = new Date();
   epics = signal<IEpicRes[]>([]);
 errorDisplayed=signal(false)
+  showModal= signal(false);
   route = inject(ActivatedRoute);
   epicService = inject(EpicService);
   private destroyRef = inject(DestroyRef);
@@ -59,6 +62,15 @@ errorDisplayed=signal(false)
      this.hasMore=true;
     this.paginator()
 
+  }
+
+
+epicID=''
+
+  openModal(epicId:string){
+      this.epicID=epicId
+      this.showModal= signal(true);
+      console.log(this.epicID)
   }
 
   value = '';
@@ -124,5 +136,13 @@ console.log(this.epics())
 
     this.paginator(false);
   }
+
+
+closeModale(){
+  this.getEpics()
+   this.showModal= signal(false);
+}
+ 
+
 
 }
