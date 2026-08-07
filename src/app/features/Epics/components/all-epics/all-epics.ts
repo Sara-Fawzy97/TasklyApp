@@ -1,22 +1,25 @@
 import { DatePipe } from '@angular/common';
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { EpicService } from '../../services/epic-service';
 import { IEpicRes } from '../../models/IepicReq';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
+import { Pagination } from '../../../../shared/components/pagination/pagination';
 import { EpicModal } from "../epic-modal/epic-modal";
 
 @Component({
   selector: 'app-all-epics',
-  imports: [DatePipe, RouterLink, EpicModal],
+  imports: [DatePipe, RouterLink, Pagination,EpicModal],
   templateUrl: './all-epics.html',
   styleUrl: './all-epics.css',
 })
+
 export class AllEpics {
   isLoading = signal(true);
   myDate: Date = new Date();
   epics = signal<IEpicRes[]>([]);
+errorDisplayed=signal(false)
   showModal= signal(false);
   route = inject(ActivatedRoute);
   epicService = inject(EpicService);
@@ -24,8 +27,41 @@ export class AllEpics {
   projectId = this.route.snapshot.params['id'];
   toastService=inject(Toastr)
 
+
+ pageSize = 6;
+  currentPage = 1;
+  totalItems = 0;
+  totalPages = 1;
+  @ViewChild('loadMoreTrigger')
+  loadMoreTrigger!: ElementRef;
+
+  observer!: IntersectionObserver;
+  hasMore = true;
+
+ ngAfterViewInit() {
+    this.observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        this.loadMore();
+      }
+    });
+    this.observer.observe(this.loadMoreTrigger.nativeElement);
+  }
+
+   //mobile only
+  loadMore() {
+    if (this.isLoading() || !this.hasMore) return;
+    this.isLoading.set(true);
+    this.currentPage++;
+    this.paginator(true);
+  }
+
+
+
   ngOnInit() {
-    this.getEpics();
+    // this.getEpics();
+     this.hasMore=true;
+    this.paginator()
+
   }
 
 
@@ -65,6 +101,41 @@ epicID=''
       });
   }
 
+  
+ paginator(append = false) {
+    this.isLoading.set(false);
+
+    const offset = (this.currentPage - 1) * this.pageSize;
+    this.epicService.getPaginatedProjects(this.pageSize, offset,this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (res) => {
+        if (append) {
+          this.epics.set([...this.epics(), ...(res.body ?? [])]);
+        } else this.epics.set(res.body ?? []);
+console.log(this.epics())
+        this.isLoading.set(false);
+
+        if ((res.body?.length ?? 0) < this.pageSize) {
+          this.hasMore = false;
+        }
+        const ContentRange = res.headers.get('Content-Range');
+        if (ContentRange) {
+          this.totalItems = Number(ContentRange.split('/')[1]);
+          this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+
+        }
+      },
+      error: () => {
+          this.errorDisplayed.set(true);
+      },
+    });
+  }
+
+  //for desktop
+  changePage(page: number) {
+    this.currentPage = page;
+
+    this.paginator(false);
+  }
 
 
 closeModale(){
