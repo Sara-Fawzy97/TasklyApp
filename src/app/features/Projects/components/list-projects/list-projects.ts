@@ -75,7 +75,15 @@ export class ListProjects implements AfterViewInit {
   // }
 
   getOneProj(project: Project) {
+      console.log('BEFORE SET:', project);
     this.projeService.selectedProject.set(project);
+
+
+  console.log(
+    'AFTER SET:',
+    this.projeService.selectedProject()
+  );
+  
     this.router.navigate(['project/' + project.id + '/edit']);
     
   }

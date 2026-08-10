@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { Projects } from '../../../features/Projects/services/projects';
 
 @Component({
   selector: 'app-mob-navbar',
@@ -11,14 +10,19 @@ import { Projects } from '../../../features/Projects/services/projects';
 export class MobNavbar {
   router = inject(Router);
   route = inject(ActivatedRoute);
-  projectId =''
-projeService = inject(Projects);
 
 get showProjectSidebar() {
     return /^\/project\/[^/]+/.test(this.router.url);
   }
 
 
+get projectId(): string | null {
+  const url = this.router.url;
+  const match = url.match(/^\/project\/([^/]+)/);
+  
+  return match ? match[1] : null;
+}
+ 
 
 
 }

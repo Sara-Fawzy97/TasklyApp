@@ -15,3 +15,10 @@ select,input {
   -moz-appearance: none;    
   appearance: none;          
 }
+
+input[type=date]::-webkit-calendar-picker-indicator {
+opacity: 0;
+}
+input[type=date]::-webkit-calendar-picker-indicator:hover{
+cursor: poiner;
+}

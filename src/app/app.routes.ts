@@ -1,20 +1,16 @@
 import { Routes } from '@angular/router';
-import { SignUp } from './features/Auth/components/sign-up/sign-up';
-import { Login } from './features/Auth/components/login/login';
 import { authGuard } from './core/gaurds/auth-guard';
-import { ForgotPassword } from './features/Auth/components/forgot-password/forgot-password';
-import { ResetPassword } from './features/Auth/components/reset-password/reset-password';
-// import { Dashboard } from './shared/layout/dashboard/dashboard';
 
 export const routes: Routes = [
    {path: '', redirectTo: 'login', pathMatch: 'full'},
-   {path:'sign-up', component:SignUp},
-   {path:'login', component:Login},
-    {path:'',canActivate:[authGuard],
+   {path:'sign-up', loadComponent:()=>import('./features/Auth/components/sign-up/sign-up').then(c=>c.SignUp)},
+   {path:'login', loadComponent:()=>import('./features/Auth/components/login/login').then(c=>c.Login)},
+   {path:'',canActivate:[authGuard],
        loadChildren: () => import('./shared/layout/dashboard/dashboard.routes').then(m => m.Dashboard_routes) },
-  
-   {path:'forgot-password', component:ForgotPassword},
-   {path:'reset-password', component:ResetPassword},
+    
+   {path:'forgot-password', loadComponent:()=>import('./features/Auth/components/forgot-password/forgot-password').then(c=>c.ForgotPassword)},
+   {path:'reset-password', loadComponent:()=>import('./features/Auth/components/reset-password/reset-password').then(c=>c.ResetPassword)},
+
 
     
 ];
