@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
 import { IEpicRes } from '../../models/IepicReq';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MembersService } from '../../../Members/services/members-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -17,7 +17,7 @@ import { Toastr } from '../../../../shared/components/success-toastr/service/toa
 
 @Component({
   selector: 'app-epic-modal',
-  imports: [ReactiveFormsModule, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, RouterLink],
   templateUrl: './epic-modal.html',
   styleUrl: './epic-modal.css',
 })
@@ -35,6 +35,7 @@ projectId=''
   private destroyRef = inject(DestroyRef);
   toastService = inject(Toastr);
   epicService = inject(EpicService);
+  router=inject(Router)
 
   closeModal() {
     this.closee.emit();
@@ -84,7 +85,6 @@ projectId=''
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.epic.set(res[0]);
           this.getMembers();
         },
@@ -182,5 +182,10 @@ projectId=''
           this.toastService.error('Failed to update epic. Please try again.', 'top-right');
         },
       });
+  }
+// "/project",projectId,"tasks","new"
+  navToTasks(){
+    console.log('555')
+    this.router.navigate(['/project/'+this.projectId+'/tasks/new'],{state:{data:this.epicId()}})
   }
 }
