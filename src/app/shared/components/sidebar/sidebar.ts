@@ -30,10 +30,7 @@ get projectId(): string | null {
     
   }
 
-  
 
-  
-  
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }

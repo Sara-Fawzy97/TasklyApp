@@ -21,11 +21,11 @@ export class AllEpics {
   epics = signal<IEpicRes[]>([]);
 errorDisplayed=signal(false)
   showModal= signal(false);
-  route = inject(ActivatedRoute);
   epicService = inject(EpicService);
   private destroyRef = inject(DestroyRef);
-  projectId = this.route.snapshot.params['id'];
+  projectId = ''
   toastService=inject(Toastr)
+  route = inject(ActivatedRoute);
 
 
  pageSize = 6;
@@ -58,7 +58,8 @@ errorDisplayed=signal(false)
 
 
   ngOnInit() {
-    // this.getEpics();
+      this.projectId = this.route.snapshot.params['id'];
+
      this.hasMore=true;
     this.paginator()
 
@@ -70,7 +71,6 @@ epicID=''
   openModal(epicId:string){
       this.epicID=epicId
       this.showModal= signal(true);
-      console.log(this.epicID)
   }
 
   value = '';

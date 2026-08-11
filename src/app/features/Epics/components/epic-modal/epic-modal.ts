@@ -22,25 +22,27 @@ import { Toastr } from '../../../../shared/components/success-toastr/service/toa
   styleUrl: './epic-modal.css',
 })
 export class EpicModal {
-  route = inject(ActivatedRoute);
-  memberService = inject(MembersService);
-  private destroyRef = inject(DestroyRef);
-  toastService = inject(Toastr);
-  epicService = inject(EpicService);
-
+ 
   today = new Date().toISOString().split('T')[0];
-  projectId = this.route.snapshot.params['id'];
   myDate: Date = new Date();
   members = signal<IMember[]>([]);
   epic = signal<IEpicRes | null>(null);
   epicId = input<string>('');
   closee = output();
+projectId=''
+   route = inject(ActivatedRoute);
+  memberService = inject(MembersService);
+  private destroyRef = inject(DestroyRef);
+  toastService = inject(Toastr);
+  epicService = inject(EpicService);
 
   closeModal() {
     this.closee.emit();
   }
 
   ngOnInit() {
+  this.projectId = this.route.snapshot.params['id'];
+
     this.getOneEpic();
   }
 

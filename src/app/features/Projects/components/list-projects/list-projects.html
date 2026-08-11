@@ -6,7 +6,7 @@
     </div>
     <div class="content-end">
         <a  routerLink="add"
-      class="hidden md:flex bg-linear-to-r from-primary to-primary-container text-white px-6 py-3 content-center cursor-pointer rounded-xs"
+      class="hidden md:flex bg-linear-to-r from-primary to-primary-container items-center gap-1.5 text-white px-6 py-3 content-center cursor-pointer rounded-xs"
     >
               <img src="../../../../../assets/addI.png" alt="" class="w-2.5 h-2.5">
 Create New Project
@@ -35,11 +35,11 @@ Create New Project
 <div class=" mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-scroll md:overflow-auto" >
 
         @for(p of projects()  ;track p){
-            <div class="bg-white p-6 rounded-lg hover:bg-blue-100 " >
+            <div class="bg-white p-6 rounded-lg hover:bg-blue-100 cursor-pointer " routerLink="/project/{{p.id}}/epics">
            <div class="flex justify-between">
-                <h3 class="text-dark-gray text-title-md font-medium cursor-pointer"  routerLink="/project/{{p.id}}/epics" >{{p.name}}</h3>
-            <button class="cursor-pointer" (click)="getOneProj(p)">
-                       <img src="../../../../../assets/dots.png" alt="">
+                <h3 class="text-dark-gray text-title-md font-medium "   >{{p.name}}</h3>
+            <button class="cursor-pointer" (click)="getOneProj(p); $event.stopPropagation()">
+                       <img src="../../../../../assets/edit.png" alt="" class='w-4 h-4 opacity-80 mb-1.5'>
               </button>
             </div>
             <p class="text-grayText text-body-md pt-4">{{ p.description }}</p>

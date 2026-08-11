@@ -18,11 +18,11 @@ export class AddEpic {
 
   members = signal<IMember[]>([]);
   today = new Date().toISOString().split('T')[0];
+  projectId = ''
 
   toastService = inject(Toastr);
   private route = inject(ActivatedRoute);
   epicService = inject(EpicService);
-  projectId = this.route.snapshot.paramMap.get('id')!;
   router = inject(Router);
   memberService = inject(MembersService);
   private destroyRef = inject(DestroyRef);
@@ -30,6 +30,8 @@ export class AddEpic {
   // EpicForm: any;
 
   ngOnInit() {
+  this.projectId = this.route.snapshot.paramMap.get('id')!;
+
     this.getMembers();
   }
 
