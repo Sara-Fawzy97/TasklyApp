@@ -1,6 +1,6 @@
-<section class="md:p-4">
-  <section class="hidden md:block">
-    <p class="text-[#43465499] font-bold gap-2 font-sans text-xs uppercase">
+<section class="py-8 px-6 md:p-4 ">
+  <section>
+    <p class=" hidden md:block text-[#43465499] font-bold gap-2 font-sans text-xs uppercase">
       PROJECTS > Project Alpha > Tasks ><span class="text-dark-gray"> New Task</span>
     </p>
 
@@ -10,12 +10,12 @@
     </p>
   </section>
 
-  <div class="bg-white rounded-lg pt-2 pb-4 mt-8">
-    <form class="p-8" [formGroup]="createTaskForm" (ngSubmit)="createTask()">
+  <div class="md:bg-white rounded-lg md:pt-2 md:pb-4 mt-8">
+    <form class="md:p-8 " [formGroup]="createTaskForm" (ngSubmit)="createTask()">
      
      <!------------title--------->
         <div class="">
-        <label class="text-graay text-label-sm font-bold pl-1 pt-2" for="title">
+        <label class="text-dark-gray text-label-sm font-bold pl-1 pt-2" for="title">
           TITLE <span class="text-error">*</span></label
         ><br />
         <input
@@ -36,11 +36,10 @@
         }
       </div>
 
-      <div class="grid grid-cols-2 mt-8 gap-8">
-     <!------------Status--------->
-
+      <div class="md:grid md:grid-cols-2 mt-6 md:mt-8 gap-8">
+        <!------------Status--------->
         <div>
-          <label for="status" class="text-grayText text-[11px] font-bold uppercase">Status <span class="text-error">*</span></label>
+          <label for="status" class="text-dark-gray text-[11px] font-bold uppercase">Status <span class="text-error">*</span></label>
          <select
             formControlName="status"
             name="status"
@@ -53,15 +52,16 @@
             }
           </select>
         </div>
+
         <!----------------assignee---------->
-        <div>
-          <label for="cars" class="text-grayText text-[11px] font-bold uppercase">Assignee</label>
+        <div class="hidden md:block">
+          <label for="cars" class="text-dark-gray text-[11px] font-bold uppercase">Assignee</label>
 
           <select
             formControlName="assignee_id"
             name="assignee_id"
             id="assignee_id"
-            class="text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-4"
+            class="text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-2"
           >
             <option value="">Select Team Member</option>
             @for (m of members(); track m) {
@@ -71,8 +71,8 @@
         </div>
       </div>
 <!----------------epic--------->
-      <div class="mt-8">
-        <label for="epic_id" class="text-grayText text-[11px] font-bold uppercase">Epic</label>
+      <div class="mt-6 md:mt-8">
+        <label for="epic_id" class="text-dark-gray text-[11px] font-bold uppercase">Epic</label>
 
         <select
           formControlName="epic_id"
@@ -89,20 +89,38 @@
         </select>
       </div>
 
-      <div class="mt-8">
-        <label for="start-date" class="text-grayText text-[11px] font-bold uppercase">Due Date</label>
+        <!----------------assignee mobile---------->
+      <div class="mt-6 md:hidden">
+          <label for="cars" class="text-dark-gray text-[11px] font-bold uppercase">Assignee</label>
+
+          <select
+            formControlName="assignee_id"
+            name="assignee_id"
+            id="assignee_id"
+            class="text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-2"
+          >
+            <option value="">Select Team Member</option>
+            @for (m of members(); track m) {
+              <option value="{{ m.user_id }}">{{ m.metadata.name }}</option>
+            }
+          </select>
+        </div>
+<!----------------date--------->
+
+      <div class="mt-6 md:mt-8">
+        <label for="start-date" class="text-dark-gray text-[11px] font-bold uppercase">Due Date</label>
         <input
         formControlName="due_date"
-          type="datetime-local"
+          type="date"
           id="start-date"
           name="trip-start"
           [min]="today"
-          class="text-dark-gray bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3 px-4 mt-4"
+          class="text-dark-gray bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3 px-4 mt-2"
         />
       </div>
 
-      <div class="mt-8">
-        <label class="text-graay text-label-sm font-bold uppercase" for="description ">Description</label>
+      <div class="mt-6 md:mt-8 mb-38.75 md:mb-0">
+        <label class="text-dark-gray text-label-sm font-bold uppercase" for="description ">Description</label>
         <textarea
           formControlName="description"
           type="text"
@@ -114,11 +132,18 @@
       </div>
 
       
-      <div class="flex place-self-end mt-8">
+      <div class="hidden md:flex place-self-end mt-8">
         <button type="button" class="py-3 px-6 text-graay font-bold  cursor-pointer" (click)="goBack()" >Back</button>
         <button [disabled]="!createTaskForm.valid"  class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Task</button>
 
       </div>
+      <!-----------mobile--->
+      <div class="mobileDiv bg-white fixed md:hidden z-99999 bottom-0 left-0 w-full p-6 m-0">
+        <button [disabled]="!createTaskForm.valid"  class="flex w-full bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Task</button>
+    <button type="button" class="py-3 px-6 text-graay font-bold w-full cursor-pointer" (click)="goBack()" >Back</button>
+
+      </div>
+
     </form>
   </div>
 </section>
