@@ -24,3 +24,13 @@ cursor: pointer;
 }
 li{box-shadow: 0px 1px 2px 0px #0000000D;
 }
+
+app-spinner {
+    /* position: fixed; */
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    top:0;
+    background: #fff;
+    opacity: 0.5;
+}

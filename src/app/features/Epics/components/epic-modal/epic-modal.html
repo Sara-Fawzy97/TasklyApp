@@ -147,6 +147,8 @@
 
       <div class="mt-6 lg:border lg:border-light-gray/15 rounded-lg">
         <ul class="">
+          @if(loaded){
+          <app-spinner></app-spinner>}
           @for(t of tasks(); track t){
           <li class="flex justify-between p-4 border mb-3 lg:border-none border-light-gray/15 rounded-lg lg:rounded-none border-b-light-gray/15 ">
             <div>
@@ -173,7 +175,7 @@
           </li>}
         
         </ul>
-           <div class="bg-white flex justify-center gap-2 lg:hidden py-4 rounded-lg border-2 border-light-gray/30 border-dashed">
+           <div class="bg-white flex justify-center gap-2 md:hidden py-4 rounded-lg border-2 border-light-gray/30 border-dashed">
           
             <img src="../../../../../assets/pluss.png" alt="" />
           

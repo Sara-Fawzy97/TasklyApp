@@ -14,6 +14,8 @@ import { MembersService } from '../../../Members/services/members-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IMember } from '../../../Members/models/member';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
+import { Spinner } from "../../../../shared/components/spinner/spinner";
+import { Sharedservice } from '../../../../shared/services/sharedservice';
 
 export interface Task {
   project_id?:string;
@@ -29,7 +31,7 @@ export interface Task {
 
 @Component({
   selector: 'app-epic-modal',
-  imports: [ReactiveFormsModule, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, Spinner],
   templateUrl: './epic-modal.html',
   styleUrl: './epic-modal.css',
 })
@@ -42,11 +44,27 @@ export class EpicModal {
   epicId = input<string>('');
   closee = output();
 projectId=''
+loaded=true
    route = inject(ActivatedRoute);
   memberService = inject(MembersService);
   private destroyRef = inject(DestroyRef);
   toastService = inject(Toastr);
   epicService = inject(EpicService);
+sharedService=inject(Sharedservice)
+
+   title = 'spinnerapp';
+ 
+  showSpinner = false;
+
+  spinner() {
+    
+      this.sharedService.spinner$.subscribe((data: boolean) => {
+        setTimeout(() => {
+          this.showSpinner = data ? data : false;
+        });
+        console.log(this.showSpinner);
+      });
+  }
 
   closeModal() {
     this.closee.emit();
@@ -55,7 +73,7 @@ projectId=''
   ngOnInit() {
   this.projectId = this.route.snapshot.params['id'];
   
-
+this.spinner()
     this.getOneEpic();
     this.getTasks()
   }
@@ -206,7 +224,7 @@ projectId=''
     this.epicService.getEpicTasks(this.epicId()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next:(res)=>{
         this.tasks.set(res)
-        console.log("task",res)
+        this.loaded=false
       }
     })
   }
