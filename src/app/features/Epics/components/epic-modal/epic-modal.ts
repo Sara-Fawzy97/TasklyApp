@@ -17,6 +17,7 @@ import { Toastr } from '../../../../shared/components/success-toastr/service/toa
 import { Spinner } from "../../../../shared/components/spinner/spinner";
 import { Sharedservice } from '../../../../shared/services/sharedservice';
 
+
 export interface Task {
   project_id?:string;
     epic_id?: string|null,
@@ -41,10 +42,12 @@ export class EpicModal {
   myDate: Date = new Date();
   members = signal<IMember[]>([]);
   epic = signal<IEpicRes | null>(null);
+  tasks=signal<Task[]>([])
   epicId = input<string>('');
   closee = output();
 projectId=''
 loaded=true
+  showSpinner = false;
    route = inject(ActivatedRoute);
   memberService = inject(MembersService);
   private destroyRef = inject(DestroyRef);
@@ -52,9 +55,15 @@ loaded=true
   epicService = inject(EpicService);
 sharedService=inject(Sharedservice)
 
-   title = 'spinnerapp';
- 
-  showSpinner = false;
+
+  //  title = 'spinnerapp';
+   ngOnInit() {
+  this.projectId = this.route.snapshot.params['id'];
+  
+this.spinner()
+    this.getOneEpic();
+    this.getTasks()
+  }
 
   spinner() {
     
@@ -70,13 +79,8 @@ sharedService=inject(Sharedservice)
     this.closee.emit();
   }
 
-  ngOnInit() {
-  this.projectId = this.route.snapshot.params['id'];
   
-this.spinner()
-    this.getOneEpic();
-    this.getTasks()
-  }
+
 
   value = '';
   getInitials(name: string | undefined) {
@@ -218,7 +222,7 @@ this.spinner()
 
 
 
-  tasks=signal<Task[]>([])
+  
 
   getTasks(){
     this.epicService.getEpicTasks(this.epicId()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
@@ -227,5 +231,15 @@ this.spinner()
         this.loaded=false
       }
     })
+  }
+
+   async copyPageUrl() {
+    console.log('llllllllll')
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      console.log('URL copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy URL: ', err);
+    }
   }
 }
