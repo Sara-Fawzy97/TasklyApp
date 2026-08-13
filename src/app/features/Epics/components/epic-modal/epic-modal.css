@@ -22,3 +22,5 @@ opacity: 0;
 input[type=date]::-webkit-calendar-picker-indicator:hover{
 cursor: pointer;
 }
+li{box-shadow: 0px 1px 2px 0px #0000000D;
+}

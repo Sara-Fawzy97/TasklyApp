@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IEpic, IEpicRes } from '../models/IepicReq';
-
+import {Task} from '../components/epic-modal/epic-modal'
+ 
 @Injectable({
   providedIn: 'root',
 })
@@ -33,6 +34,10 @@ export class EpicService {
 
   updateEpic(epicId:string,data:Partial<IEpic>){
    return this.http.patch(`/rest/v1/epics?id=eq.${epicId}`,data)
+  }
+
+  getEpicTasks(epicId:string){
+    return this.http.get<Task[]>(`/rest/v1/project_tasks?epic_id=eq.${epicId}`)
   }
 
 }

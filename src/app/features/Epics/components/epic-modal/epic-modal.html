@@ -132,7 +132,6 @@
             <p class="text-graay lg:text-dark-gray/40 font-bold text-[10px] uppercase pb-1.5">Created at</p>
             <div class="flex gap-2 items-center">
               <img src="../../../../../assets/calender.png" alt="" class="w-3 h-3.75" />
-              <p class="text-dark-gray text-[12px] lg:text-body-md font-medium">{{epic()?.created_at| date: 'MMM d,  y'}}</p>
             </div>
           </div>
         </div>
@@ -142,10 +141,47 @@
     <div class="mt-8">
       <div class="flex justify-between">
         <h4>Tasks</h4>
-        <p class="lg:hidden text-[10px] text-grayText font-bold py-0.5 px-2 bg-[#E0E8FF] rounded-xl content-center">0 Tasks</p>
+        <p class="lg:hidden text-[10px] text-grayText font-bold py-0.5 px-2 bg-[#E0E8FF] rounded-xl content-center">{{tasks().length}} Tasks</p>
         <p class="text-primary hidden lg:block">+ Add Task </p>
       </div>
 
+      <div class="mt-6 lg:border lg:border-light-gray/15 rounded-lg">
+        <ul class="">
+          @for(t of tasks(); track t){
+          <li class="flex justify-between p-4 border mb-3 lg:border-none border-light-gray/15 rounded-lg lg:rounded-none border-b-light-gray/15 ">
+            <div>
+              <h2 class="text-dark-gray text-[16px] font-medium">{{t.title}}</h2>
+              <div class="flex gap-1.5 mt-3">
+              <a
+                class="w-6 h-6 lg:w-5 lg:h-5 md:w-5 md:h-5 content-center text-center bg-[#DAE2FF] lg:bg-primary text-[8px] text-[#001848] lg:text-white font-bold rounded-xl"
+              >
+                {{ getInitials(t.assignee.name) }}
+            </a>
+              <p class="text-dark-gray/40  font-medium md:font-semibold text-[12px] md:text-body-md">
+               {{t.assignee.name}}
+              </p>
+            </div>
+            </div>
+
+            <div class="flex gap-1.5 lg:block justify-items-end self-end">
+              <h5 class=" hidden lg:block text-[10px] text-dark-gray/40 font-bold">Due date</h5>
+        <img src="../../../../../assets/calender.png" alt="" class="self-center lg:hidden w-2.5 h-2.75" />
+
+              <p class="text-dark-gray/70 text-[12px]  font-medium">{{t.due_date| date: 'dd MMM yyyy'}}</p>
+
+            </div>
+          </li>}
+        
+        </ul>
+           <div class="bg-white flex justify-center gap-2 lg:hidden py-4 rounded-lg border-2 border-light-gray/30 border-dashed">
+          
+            <img src="../../../../../assets/pluss.png" alt="" />
+          
+          <p class="text-[12px] text-grayText/60 font-bold uppercase">ADD new task</p>
+          </div>
+      </div>
+
+      @if(tasks().length===0){
       <div class="mt-6 bg-surface-low border-2  border-light-gray/30 border-dashed rounded-lg p-12 ">
           <div class="place-items-center">
             <div class="bg-surface-highest w-12 h-12 rounded-lg content-center ">
@@ -161,7 +197,7 @@
            </div>
           </div>
 
-      </div>
+      </div>}
     </div>
   </div>
 </div>

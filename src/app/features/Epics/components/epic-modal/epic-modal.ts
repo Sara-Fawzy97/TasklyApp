@@ -15,6 +15,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IMember } from '../../../Members/models/member';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 
+export interface Task {
+  project_id?:string;
+    epic_id?: string|null,
+  title?: string|null,
+  description?: string|null,
+  assignee:{id: string|null
+    name:string
+  },
+  due_date?:string|null,
+  status?: string|null
+}
+
 @Component({
   selector: 'app-epic-modal',
   imports: [ReactiveFormsModule, DatePipe],
@@ -42,8 +54,10 @@ projectId=''
 
   ngOnInit() {
   this.projectId = this.route.snapshot.params['id'];
+  
 
     this.getOneEpic();
+    this.getTasks()
   }
 
   value = '';
@@ -182,5 +196,18 @@ projectId=''
           this.toastService.error('Failed to update epic. Please try again.', 'top-right');
         },
       });
+  }
+
+
+
+  tasks=signal<Task[]>([])
+
+  getTasks(){
+    this.epicService.getEpicTasks(this.epicId()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next:(res)=>{
+        this.tasks.set(res)
+        console.log("task",res)
+      }
+    })
   }
 }
