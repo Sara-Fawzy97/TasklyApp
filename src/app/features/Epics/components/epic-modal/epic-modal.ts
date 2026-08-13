@@ -234,12 +234,12 @@ this.spinner()
   }
 
    async copyPageUrl() {
-    console.log('llllllllll')
     try {
       await navigator.clipboard.writeText(window.location.href);
-      console.log('URL copied to clipboard!');
+      this.toastService.success('URL copied to clipboard!', 'top-right');
     } catch (err) {
-      console.error('Failed to copy URL: ', err);
+          this.toastService.error('Failed to copy URL: '+ err, 'top-right');
+
     }
   }
 }
