@@ -15,8 +15,9 @@ export class TasksService {
 
   }
 
-
-  getProjTasks(projectId:string,status:string){
-    return this.http.get<Task[]>(`/rest/v1/project_tasks?project_id=eq.${projectId}&status=eq.${status}`)
+  getProjTasks(projectId:string){
+    return this.http.get(`/rest/v1/project_tasks?project_id=eq.${projectId}`)
   }
+
+
 }
