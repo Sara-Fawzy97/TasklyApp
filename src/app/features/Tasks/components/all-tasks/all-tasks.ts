@@ -1,26 +1,31 @@
 import { Component, inject, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
 import { Task } from '../../models/ITask';
 
 @Component({
   selector: 'app-all-tasks',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './all-tasks.html',
   styleUrl: './all-tasks.css',
 })
 export class AllTasks {
 
-statuses=['TO DO','IN PROGRESS','BLOCKED','IN REVIEW','READY FOR QA','REOPENED','READY FOR PRODUCTION','DONE']
+statuses=['TO_DO','IN_PROGRESS','BLOCKED','IN_REVIEW','READY_FOR QA','REOPENED','READY_FOR_PRODUCTION','DONE']
 projectId=''
-tasks=signal<Task[]>([])
+// tasks=signal<Task[]>([])
+  myDate: Date = new Date();
+tasksByStatus = signal<Record<string, Task[]>>({});
+
    route = inject(ActivatedRoute);
 tasksService=inject(TasksService)
 
-
 ngOnInit(){
-  this.projectId = this.route.snapshot.params['id']
-  // this.getTasks('TO DO')
+  this.projectId = this.route.snapshot.params['id'];
+  this.statuses.forEach(s=>{
+    this.getTasks(s)
+  })
 
 }
 
@@ -37,7 +42,21 @@ value = '';
     return (words[0][0] + words[1][0]).toUpperCase();
   }
 
+gettasksByStatus(status: string): Task[] {
+  return this.tasksByStatus()[status] ?? [];
+}
 
+getTasks(status:string){
+  
+ this.tasksService.getProjTasks(this.projectId,status).subscribe({
+  next:(res)=>{
+   this.tasksByStatus.update(current => ({
+        ...current,
+        [status]: res
+      }));
+   }
+})
+}
 
 
 }
