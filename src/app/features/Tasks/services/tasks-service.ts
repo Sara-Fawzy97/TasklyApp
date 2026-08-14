@@ -7,7 +7,13 @@ import { Task } from '../models/ITask';
 })
 export class TasksService {
 
-private http= inject(HttpClient)
+  private http= inject(HttpClient)
+
+  createTasks(data:Task){
+    return this.http.post('/rest/v1/tasks',data)
+
+
+  }
 
 
   getProjTasks(projectId:string,status:string){

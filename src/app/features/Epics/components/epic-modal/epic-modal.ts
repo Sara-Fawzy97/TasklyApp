@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
 import { IEpicRes } from '../../models/IepicReq';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MembersService } from '../../../Members/services/members-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -53,6 +53,7 @@ loaded=true
   private destroyRef = inject(DestroyRef);
   toastService = inject(Toastr);
   epicService = inject(EpicService);
+  router=inject(Router)
 sharedService=inject(Sharedservice)
 
 
@@ -120,7 +121,6 @@ this.spinner()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.epic.set(res[0]);
           this.getMembers();
         },
@@ -219,6 +219,10 @@ this.spinner()
         },
       });
   }
+// "/project",projectId,"tasks","new"
+  navToTasks(){
+    console.log('555')
+    this.router.navigate(['/project/'+this.projectId+'/tasks/new'],{state:{data:this.epicId()}})
 
 
 

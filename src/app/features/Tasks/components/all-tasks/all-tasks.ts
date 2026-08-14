@@ -1,6 +1,9 @@
+import { Component, DestroyRef, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TasksService } from '../../services/tasks-service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Component, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
 import { Task } from '../../models/ITask';
 
