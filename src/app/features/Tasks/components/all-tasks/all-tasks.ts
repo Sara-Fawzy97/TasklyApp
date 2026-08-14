@@ -12,7 +12,7 @@ import { Task } from '../../models/ITask';
 })
 export class AllTasks {
 
-statuses=['TO_DO','IN_PROGRESS','BLOCKED','IN_REVIEW','READY_FOR QA','REOPENED','READY_FOR_PRODUCTION','DONE']
+statuses=['TO_DO','IN_PROGRESS','BLOCKED','IN_REVIEW','READY_FOR_QA','REOPENED','READY_FOR_PRODUCTION','DONE']
 projectId=''
 // tasks=signal<Task[]>([])
   myDate: Date = new Date();

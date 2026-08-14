@@ -1,4 +1,5 @@
 export interface Task {
+  id?:string;
     project_id?:string;
     epic_id?: string|null,
   title?: string|null,
