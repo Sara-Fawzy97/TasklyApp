@@ -34,7 +34,7 @@
       </li>
       
       <li class="py-2.5 px-3 title-md font-medium"    routerLinkActive="bg-white rounded-sm" >
-        <a [routerLink]="['/project', projectId, 'tasks']"   [queryParams]="{ view: 'board' }">
+        <a [routerLink]="['/project', projectId, 'tasks']">
           <img class="inline" src="../../../../assets/tasks.png" alt="" />
           @if (isSidebarOpen) {
             <span class="pl-3"> Project Tasks</span>

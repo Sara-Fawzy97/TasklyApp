@@ -8,28 +8,15 @@ import {
 } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
 import { IEpicRes } from '../../models/IepicReq';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MembersService } from '../../../Members/services/members-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IMember } from '../../../Members/models/member';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
-import { Spinner } from "../../../../shared/components/spinner/spinner";
 import { Sharedservice } from '../../../../shared/services/sharedservice';
-
-
-export interface Task {
-  project_id?:string;
-    epic_id?: string|null,
-  title?: string|null,
-  description?: string|null,
-  assignee:{id: string|null
-    name:string
-  },
-  due_date?:string|null,
-  status?: string|null
-}
-
+import { Task } from '../../../Tasks/models/ITask';
+import { Spinner } from "../../../../shared/components/spinner/spinner";
 @Component({
   selector: 'app-epic-modal',
   imports: [ReactiveFormsModule, DatePipe, Spinner],
@@ -42,8 +29,8 @@ export class EpicModal {
   myDate: Date = new Date();
   members = signal<IMember[]>([]);
   epic = signal<IEpicRes | null>(null);
-  tasks=signal<Task[]>([])
   epicId = input<string>('');
+    tasks=signal<Task[]>([])
   closee = output();
 projectId=''
 loaded=true
@@ -54,6 +41,8 @@ loaded=true
   toastService = inject(Toastr);
   epicService = inject(EpicService);
 sharedService=inject(Sharedservice)
+  router=inject(Router)
+
 
 
   //  title = 'spinnerapp';
@@ -78,8 +67,6 @@ this.spinner()
   closeModal() {
     this.closee.emit();
   }
-
-  
 
 
   value = '';
@@ -240,6 +227,8 @@ this.spinner()
     } catch (err) {
           this.toastService.error('Failed to copy URL: '+ err, 'top-right');
 
-    }
+    }}
+  navToTasks(){
+    this.router.navigate(['/project/'+this.projectId+'/tasks/new'],{state:{data:this.epicId()}})
   }
 }

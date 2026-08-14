@@ -10,7 +10,16 @@ export class TasksService {
 private http= inject(HttpClient)
 
 
-  getProjTasks(projectId:string,status:string){
-    return this.http.get<Task[]>(`/rest/v1/project_tasks?project_id=eq.${projectId}&status=eq.${status}`)
+  createTasks(data:Task){
+    return this.http.post('/rest/v1/tasks',data)
+
+
   }
+
+
+  getProjTasks(projectId:string){
+    return this.http.get(`/rest/v1/project_tasks?project_id=eq.${projectId}`)
+  }
+
+
 }

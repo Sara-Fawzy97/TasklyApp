@@ -3,7 +3,9 @@ export interface Task {
     epic_id?: string|null,
   title?: string|null,
   description?: string|null,
-  assignee_id?: string|null,
+  assignee?:{
+    name:string,
+  },
   due_date?:string|null,
   status?: string|null
 }

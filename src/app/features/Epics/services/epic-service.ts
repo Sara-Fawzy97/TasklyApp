@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { IEpic, IEpicRes } from '../models/IepicReq';
-import {Task} from '../components/epic-modal/epic-modal'
- 
+import { Task } from '../../Tasks/models/ITask';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -39,5 +39,6 @@ export class EpicService {
   getEpicTasks(epicId:string){
     return this.http.get<Task[]>(`/rest/v1/project_tasks?epic_id=eq.${epicId}`)
   }
+  selectecEpic=signal<IEpicRes|null>(null)
 
 }
