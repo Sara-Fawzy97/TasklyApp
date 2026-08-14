@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { IEpic, IEpicRes } from '../models/IepicReq';
 import { Task } from '../../Tasks/models/ITask';
 
