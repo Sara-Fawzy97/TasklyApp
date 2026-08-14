@@ -7,6 +7,6 @@ export const Tasks_routes: Routes = [
     loadComponent: () =>
       import('./components/all-tasks/all-tasks')
         .then(c => c.AllTasks)
-  },
+  },{path:'new', loadComponent:()=>import('./components/add-new-task/add-new-task').then(c=>c.AddNewTask)}
 ];
 

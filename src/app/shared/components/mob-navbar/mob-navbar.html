@@ -9,7 +9,7 @@
         <img class="" src="../../../../assets/epics.png" alt="" />
         <p class="text-[10px]">Epics</p>
       </a>
-      <a class="place-items-center" [routerLink]="['/project', projectId, 'tasks']">
+      <a class="place-items-center" [routerLink]="['/project', projectId, 'tasks']" [queryParams]="{ view: 'board' }">
         <img class="" src="../../../../assets/tasks.png" alt="" />
         <p class="text-[10px]">Tasks</p>
       </a>

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { EpicService } from '../../services/epic-service';
 import { IEpicRes } from '../../models/IepicReq';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MembersService } from '../../../Members/services/members-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,6 +16,7 @@ import { IMember } from '../../../Members/models/member';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { Spinner } from "../../../../shared/components/spinner/spinner";
 import { Sharedservice } from '../../../../shared/services/sharedservice';
+
 
 export interface Task {
   project_id?:string;
@@ -41,20 +42,29 @@ export class EpicModal {
   myDate: Date = new Date();
   members = signal<IMember[]>([]);
   epic = signal<IEpicRes | null>(null);
+  tasks=signal<Task[]>([])
   epicId = input<string>('');
   closee = output();
 projectId=''
 loaded=true
+  showSpinner = false;
    route = inject(ActivatedRoute);
   memberService = inject(MembersService);
   private destroyRef = inject(DestroyRef);
   toastService = inject(Toastr);
   epicService = inject(EpicService);
+  router=inject(Router)
 sharedService=inject(Sharedservice)
 
-   title = 'spinnerapp';
- 
-  showSpinner = false;
+
+  //  title = 'spinnerapp';
+   ngOnInit() {
+  this.projectId = this.route.snapshot.params['id'];
+  
+this.spinner()
+    this.getOneEpic();
+    this.getTasks()
+  }
 
   spinner() {
     
@@ -70,13 +80,8 @@ sharedService=inject(Sharedservice)
     this.closee.emit();
   }
 
-  ngOnInit() {
-  this.projectId = this.route.snapshot.params['id'];
   
-this.spinner()
-    this.getOneEpic();
-    this.getTasks()
-  }
+
 
   value = '';
   getInitials(name: string | undefined) {
@@ -116,7 +121,6 @@ this.spinner()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.epic.set(res[0]);
           this.getMembers();
         },
@@ -215,10 +219,14 @@ this.spinner()
         },
       });
   }
+// "/project",projectId,"tasks","new"
+  navToTasks(){
+    console.log('555')
+    this.router.navigate(['/project/'+this.projectId+'/tasks/new'],{state:{data:this.epicId()}})
 
 
 
-  tasks=signal<Task[]>([])
+  
 
   getTasks(){
     this.epicService.getEpicTasks(this.epicId()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
@@ -227,5 +235,15 @@ this.spinner()
         this.loaded=false
       }
     })
+  }
+
+   async copyPageUrl() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      this.toastService.success('URL copied to clipboard!', 'top-right');
+    } catch (err) {
+          this.toastService.error('Failed to copy URL: '+ err, 'top-right');
+
+    }
   }
 }

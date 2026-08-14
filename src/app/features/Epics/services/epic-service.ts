@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { IEpic, IEpicRes } from '../models/IepicReq';
 import {Task} from '../components/epic-modal/epic-modal'
  
@@ -26,7 +26,6 @@ export class EpicService {
      observe: 'response'
   })
 }
-// {{base_url}}/rest/v1/project_epics?project_id=eq.298be621-59c7-4a62-ad2c-e640ff72135f&id=eq.5360f7b4-5be0-4ca0-b0cc-31bff72434dd
   getEpicDetails(projectId:string,epicId:string){
 
   return this.http.get<IEpicRes[]>(`/rest/v1/project_epics?project_id=eq.${projectId}&id=eq.${epicId}`)
@@ -36,6 +35,7 @@ export class EpicService {
    return this.http.patch(`/rest/v1/epics?id=eq.${epicId}`,data)
   }
 
+  selectecEpic=signal<IEpicRes|null>(null)
   getEpicTasks(epicId:string){
     return this.http.get<Task[]>(`/rest/v1/project_tasks?epic_id=eq.${epicId}`)
   }
