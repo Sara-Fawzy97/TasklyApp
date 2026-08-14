@@ -15,7 +15,8 @@ import { EpicService } from '../../../Epics/services/epic-service';
 import { IEpicRes } from '../../../Epics/models/IepicReq';
 import { Task } from '../../models/ITask';
 import { TasksService } from '../../services/tasks-service';
-// import {  IEpic} from '../../../Epics/models/IepicReq';
+import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
+
 
 @Component({
   selector: 'app-add-new-task',
@@ -28,6 +29,7 @@ export class AddNewTask {
   today = new Date().toISOString().split('T')[0];
   projectId = '';
   epics = signal<IEpicRes[]>([]);
+  toastService = inject(Toastr);
 
   status = [
     'TO_DO',
@@ -127,9 +129,9 @@ isExpanded = false;
       .createTasks(body)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (res) => {
-          console.log(body);
-          console.log(res);
+        next: () => {
+                    this.toastService.success('new task is added', 'top-right');
+
         },
       });
   }
