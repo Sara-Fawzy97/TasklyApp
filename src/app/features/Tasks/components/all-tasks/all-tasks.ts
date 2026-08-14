@@ -58,5 +58,4 @@ getTasks(status:string){
 })
 }
 
-
 }
