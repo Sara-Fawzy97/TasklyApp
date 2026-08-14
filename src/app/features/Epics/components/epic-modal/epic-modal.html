@@ -142,7 +142,7 @@
       <div class="flex justify-between">
         <h4>Tasks</h4>
         <p class="lg:hidden text-[10px] text-grayText font-bold py-0.5 px-2 bg-[#E0E8FF] rounded-xl content-center">{{tasks().length}} Tasks</p>
-        <p class="text-primary hidden lg:block">+ Add Task </p>
+        <a (click)="navToTasks()" class="text-primary hidden lg:block cursor-pointer">+ Add Task </a>
       </div>
 
       <div class="mt-6 lg:border lg:border-light-gray/15 rounded-lg">
@@ -175,11 +175,11 @@
           </li>}
         
         </ul>
-           <div class="bg-white flex justify-center gap-2 md:hidden py-4 rounded-lg border-2 border-light-gray/30 border-dashed">
+           <div class="bg-white  flex justify-center gap-2 lg:hidden py-4 rounded-lg border-2 border-light-gray/30 border-dashed">
           
             <img src="../../../../../assets/pluss.png" alt="" />
           
-          <p class="text-[12px] text-grayText/60 font-bold uppercase">ADD new task</p>
+          <a (click)="navToTasks()" class="text-[12px] cursor-pointer text-grayText/60 font-bold uppercase">ADD new task</a>
           </div>
       </div>
 
@@ -194,7 +194,7 @@
             <p class="pt-4 text-graay lg:text-dark-gray text-body-md lg:text-[16px] font-medium text-center">No tasks have been added to this epic yet</p>
            
            <div>
-            <button class="text-white bg-linear-to-r from-primary to-primary-container px-4 py-2 lg:py-2.5 lg:px-6 mt-4 rounded-xs">+ Add Task</button>
+            <button (click)="navToTasks()" class=" cursor-pointer text-white bg-linear-to-r from-primary to-primary-container px-4 py-2 lg:py-2.5 lg:px-6 mt-4 rounded-xs">+ Add Task</button>
 
            </div>
           </div>

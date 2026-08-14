@@ -134,12 +134,12 @@
       
       <div class="hidden md:flex place-self-end mt-8">
         <button type="button" class="py-3 px-6 text-graay font-bold  cursor-pointer" (click)="goBack()" >Back</button>
-        <button [disabled]="!createTaskForm.valid"  class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Task</button>
+        <button [disabled]="!createTaskForm.valid" (click)="createTask()" class="flex bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Task</button>
 
       </div>
       <!-----------mobile--->
       <div class="mobileDiv bg-white fixed md:hidden z-99999 bottom-0 left-0 w-full p-6 m-0">
-        <button [disabled]="!createTaskForm.valid"  class="flex w-full bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Task</button>
+        <button [disabled]="!createTaskForm.valid" (click)="createTask()" class="flex w-full bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer  py-3 px-6 " >Create Task</button>
     <button type="button" class="py-3 px-6 text-graay font-bold w-full cursor-pointer" (click)="goBack()" >Back</button>
 
       </div>
