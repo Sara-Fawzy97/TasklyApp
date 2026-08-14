@@ -1,1 +1,106 @@
-<p>all-tasks works!</p>
+<section class="md:p-8">
+  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden md:block uppercase">
+    PROJECTS > PR0JECT Alpha > <span class="text-dark-gray">tasks</span>
+  </p>
+
+  <div class="md:flex justify-between md:pt-4 items-center">
+    <div>
+      <h2 class="text-dark-gray hidden md:block font-semibold text-[30px] leading-9">
+        Active Workboard
+      </h2>
+      <p class="text-[#64748B] text-body-md bt-1">
+        Curating Project Alpha's production pipeline and milestones.
+      </p>
+    </div>
+
+    <div class="md:flex gap-8">
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          class="text-[#737685] relative w-full text-[14px] bg-surface-highest border-0 h-9 font-normal rounded-lg md:rounded-sm py-1.5 px-3 mt-4"
+        />
+        <img
+          src="../../../../../assets/search.png"
+          alt=""
+          class="absolute top-6.75 left-3 w-3.25 h-3.25"
+        />
+      </div>
+
+      <div class="relative self-end ">
+        <img
+          src="../../../../../assets/task.png"
+          alt=""
+          class="absolute top-3 left-2 w-3 h-3"
+        />
+
+        <select #view class="bg-white rounded-sm py-2 pl-6 pr-1.5 text-body-md" (change)="0">
+          <option value="Board View" >Board View</option>
+          <option value="List View">List View</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  @if( view.value ==='Board View'){
+
+  
+  <div class=" flex  gap-6 mt-6 overflow-x-scroll overflow-y-hidden  "   >
+    @for (s of statuses; track s) {
+      <div class="w-57 shrink-0">
+        <div class="flex justify-between  ">
+          <div class="flex gap-2"><span
+                class="w-2 h-2 rounded-full mt-1"
+                [class.bg-gray-400]="s === 'TO_DO'"
+                [class.bg-blue-600]="s === 'IN_PROGRESS'"
+                [class.bg-red-600]="s === 'BLOCKED'"
+                [class.bg-[#4F5F7B]]="s === 'IN_REVIEW'"
+                [class.bg-yellow-500]="s === 'READY_FOR_QA'"
+                [class.bg-orange-500]="s === 'REOPENED'"
+                [class.bg-cyan-500]="s === 'READY_FOR_PRODUCTION'"
+                [class.bg-[#82F9BE]]="s === 'DONE'"
+              ></span>
+          <h2 class="text-[#64748B] font-bold text-label-sm">    {{ s.replaceAll('_',' ') }} <span class="bg-[#E0E8FF] px-1.5 py-.5 rounded-xs">{{ gettasksByStatus(s).length}}</span></h2>
+          
+          </div><button>+</button>
+        </div>
+
+        <div
+          class="flex justify-center gap-2 py-4 rounded-lg border-2 border-light-gray/30 border-dashed"
+        >
+          <img src="../../../../../assets/pluss.png" alt="" class="w-3.75 h-3.75" />
+
+          <p class="text-[12px] text-grayText/60 font-bold uppercase">ADD new task</p>
+        </div>
+ 
+        <ul>
+          @for (t of gettasksByStatus(s);track t.id){
+          
+
+          <li class=" mt-3 rounded-lg p-4 " [class.bg-white]="s !== 'BLOCKED'"  [class.border-l-4]="s==='IN_PROGRESS'" [class.border-l-primary]="s==='IN_PROGRESS'"  [class.bg-[#FFDAD680]]="s === 'BLOCKED'"  [class.border]="s==='BLOCKED'" [class.border-[#BA1A1A1A]]="s==='BLOCKED'" >
+            <div>
+              <h3 class="text-dark-gray text-body-md font-medium">{{t.title}}</h3>
+              <div class="flex justify-between mt-4">
+                <div class="flex gap-2 self-center">
+          <img src="../../../../../assets/calender.png" alt="" class="w-2.25 h-2.5 mt-0.5" />
+         <p class="text-[#94A3B8] font-bold text-[10px]" [class.text-primary]="s==='IN_PROGRESS'" [class.text-[#BA1A1A]]="s==='BLOCKED'">{{t.due_date| date:'MMM d'}}</p> 
+</div>
+     <button class=" w-7 h-7 md:w-6 md:h-6   text-[10px] font-bold content-center text-center rounded-xl" [class.bg-primary]="s==='IN_PROGRESS'"   [class.text-white]="s==='IN_PROGRESS'"  
+ [class.bg-[#E0E8FF]]="s!=='IN_PROGRESS'"  [class.text-dark-gray]="s==='TO_DO'"
+      >
+   {{getInitials(t.assignee?.name|| 'NAN')}}
+  
+  </button>
+              </div>
+            </div>
+          
+          </li>
+        }
+        </ul>
+      </div>
+    }
+  </div>}
+  @if(view.value ==='List View'){
+
+ }
+</section>
