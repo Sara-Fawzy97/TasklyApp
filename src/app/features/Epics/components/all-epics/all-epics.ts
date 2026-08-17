@@ -111,7 +111,6 @@ epicID=''
         if (append) {
           this.epics.set([...this.epics(), ...(res.body ?? [])]);
         } else this.epics.set(res.body ?? []);
-console.log(this.epics())
         this.isLoading.set(false);
 
         if ((res.body?.length ?? 0) < this.pageSize) {

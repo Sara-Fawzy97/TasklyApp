@@ -1,12 +1,17 @@
 <div class="flex justify-between pt-12 pb-8">
-        <p class="text-[#434654] text-xs font-medium content-center">Showing {{projectsNums()}} of {{totalItems()}} active projects</p>
+        <p class="text-grayText text-xs font-medium content-center">Showing {{projectsNums()}} of {{totalItems()}} active projects</p>
     <ul class="pagination gap-2">
   <li><button    (click)="prevPage()"
     [disabled]="currentPage() === 1" ><</button></li>
+
     @for(p of pages; track p){
+          @if(p==='...'){
+<span>...</span>
+            }@else {
+<!-- <button>{{currentPage()}}</button> -->
         <button (click)="goToPage(p)" [class.bg-primary]="currentPage() === p"
       [class.text-white]="currentPage() === p">{{p}}</button>
-    }
+    }}
   
   
   <li><button   (click)="nextPage()"
