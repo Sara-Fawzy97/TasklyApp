@@ -226,6 +226,7 @@ this.spinner()
           this.toastService.error('Failed to copy URL: '+ err, 'top-right');
 
     }}
+    
   navToTasks(){
     this.router.navigate(['/project/'+this.projectId+'/tasks/new'],{state:{data:this.epicId()}})
   }
