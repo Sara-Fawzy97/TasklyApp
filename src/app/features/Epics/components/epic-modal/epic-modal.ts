@@ -107,7 +107,6 @@ this.spinner()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.epic.set(res[0]);
           this.getMembers();
         },

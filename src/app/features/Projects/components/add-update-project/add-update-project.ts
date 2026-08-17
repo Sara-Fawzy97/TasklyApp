@@ -22,19 +22,20 @@ export class AddUpdateProject {
   route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
 
-  project = this.projService.selectedProject();
+  project = this.projService.selectedProject;
 
  
 
   ngOnInit() {
     this.checkPageName();
+    
+      this.getProjData();
   }
 
   checkPageName() {
     this.projectId = this.route.snapshot.params['id'];
     if (this.projectId) {
       this.isedit.set(true);
-      this.getProjData();
     }
   }
 
@@ -52,7 +53,7 @@ export class AddUpdateProject {
 checkTitleSpace(control: AbstractControl){
 const name=control.get('name')?.value;
 
-  return name.startsWith(' ')?{startsWithSpace:true} :null
+  return name?.startsWith(' ')?{startsWithSpace:true} :null
   
 }
 
@@ -76,9 +77,13 @@ const name=control.get('name')?.value;
   }
 
   getProjData() {
+    const project=this.project()
+    console.log('ssss')
+    if(!project) return;
+    
     this.createProj.patchValue({
-      name: this.project?.name,
-      description: this.project?.description,
+      name: project?.name,
+      description: project?.description,
     });
   }
 
@@ -89,6 +94,7 @@ const name=control.get('name')?.value;
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
+          
           this.toastrService.success('Your project is updated successfully', 'top-right');
         },
         error: (err) => {
