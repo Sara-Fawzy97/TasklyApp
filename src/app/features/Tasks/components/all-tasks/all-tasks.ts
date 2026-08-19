@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
 import { Task } from '../../models/ITask';
 
@@ -11,25 +11,33 @@ import { Task } from '../../models/ITask';
   styleUrl: './all-tasks.css',
 })
 export class AllTasks {
-
-statuses=['TO_DO','IN_PROGRESS','BLOCKED','IN_REVIEW','READY_FOR_QA','REOPENED','READY_FOR_PRODUCTION','DONE']
-projectId=''
-// tasks=signal<Task[]>([])
+  statuses = [
+    'TO_DO',
+    'IN_PROGRESS',
+    'BLOCKED',
+    'IN_REVIEW',
+    'READY_FOR_QA',
+    'REOPENED',
+    'READY_FOR_PRODUCTION',
+    'DONE',
+  ];
+  projectId = '';  
+  today = new Date()
   myDate: Date = new Date();
-tasksByStatus = signal<Record<string, Task[]>>({});
+  tasksByStatus = signal<Record<string, Task[]>>({});
 
-   route = inject(ActivatedRoute);
-tasksService=inject(TasksService)
+  route = inject(ActivatedRoute);
+  tasksService = inject(TasksService);
+  router = inject(Router);
 
-ngOnInit(){
-  this.projectId = this.route.snapshot.params['id'];
-  this.statuses.forEach(s=>{
-    this.getTasks(s)
-  })
+  ngOnInit() {
+    this.projectId = this.route.snapshot.params['id'];
+    this.statuses.forEach((s) => {
+      this.getTasks(s);
+    });
+  }
 
-}
-
-value = '';
+  value = '';
   getInitials(name: string) {
     if (!name) return '';
 
@@ -42,20 +50,27 @@ value = '';
     return (words[0][0] + words[1][0]).toUpperCase();
   }
 
-gettasksByStatus(status: string): Task[] {
-  return this.tasksByStatus()[status] ?? [];
-}
+  gettasksByStatus(status: string): Task[] {
+    return this.tasksByStatus()[status] ?? [];
+  }
 
-getTasks(status:string){
-  
- this.tasksService.getProjTasks(this.projectId,status).subscribe({
-  next:(res)=>{
-   this.tasksByStatus.update(current => ({
-        ...current,
-        [status]: res
-      }));
-   }
-})
-}
+  getTasks(status: string) {
+    this.tasksService.getProjTasks(this.projectId, status).subscribe({
+      next: (res) => {
+        this.tasksByStatus.update((current) => ({
+          ...current,
+          [status]: res,
+        }));
+      },
+    });
+  }
 
+
+  navToTasks() {
+    this.router.navigate(['/project/' + this.projectId + '/tasks/new']);
+  }
+
+  isToday(date:string){
+return new Date(date).toDateString() === this.today.toDateString()
+  }
 }
