@@ -1,40 +1,47 @@
-
-<section class=" md:p-8 ">
-    <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden md:block">PROJECTS > PR0JECT NAME > <span class="text-primary">EPICS</span></p>
-  @if(showModal()){
-    <app-epic-modal [epicId]="epicID"   (closee)="closeModale()"></app-epic-modal>
-
+<section class="md:p-8">
+  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden md:block">
+    PROJECTS > PR0JECT NAME > <span class="text-primary">EPICS</span>
+  </p>
+  @if (showModal()) {
+    <app-epic-modal [epicId]="epicID" (closee)="closeModale()"></app-epic-modal>
   }
-<div class="md:flex justify-between md:pt-4  items-center">
+  <div class="md:flex justify-between md:pt-4 items-center">
     <div>
-      <h2 class="text-dark-gray hidden md:block font-semibold text-[30px] leading-9 ">Project Epic</h2>
+      <h2 class="text-dark-gray hidden md:block font-semibold text-[30px] leading-9">
+        Project Epic
+      </h2>
     </div>
 
-    <div class="md:flex  gap-8">
+    <div class="md:flex gap-8">
       <div class="relative">
-
-        <input type="text" placeholder="Search epics..." class=" text-[#737685] relative w-full text-[14px] bg-surface-highest border-0 h-12  font-normal rounded-lg md:rounded-sm py-1.5 px-3 mt-4">
-                <img src="../../../../../assets/search.png" alt="" class="absolute top-8.75 left-3 w-2.5 h-2.5" />
-
+        <input
+          type="text"
+          placeholder="Search Epics..."
+          class="text-[#737685] relative w-full text-[14px] bg-surface-highest border-0 h-12 font-normal rounded-lg md:rounded-sm py-1.5 px-9 md:px-3 mt-4"
+        />
+        <img 
+          src="../../../../../assets/search.png"
+          alt=""
+          class="absolute top-7.75 left-4 w-4.5 h-4.5 md:w-2.5 md:h-2.5 md:top-9 md:left-3"
+        />
       </div>
 
-        <a  routerLink="new"
-      class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-6 py-3 content-center cursor-pointer rounded-xs self-end h-12"
-    >
-      + New Epic
-    </a>
+      <a
+        routerLink="new"
+        class="hidden md:flex bg-linear-to-r from-primary to-primary-container  items-center gap-1.5 text-white px-6 py-3 content-center cursor-pointer rounded-xs self-end h-12"
+      >
+        <img src="../../../../../assets/addI.png" alt="" class="w-2.5 h-2.5">
+        New Epic
+      </a>
     </div>
-    
   </div>
 
   <!-- (click)="showModal.set(true)" -->
-     @if (isLoading()) {
-    
-
+  @if (isLoading()) {
     <!-------skeleton--------->
     <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
       @for (item of [1, 2, 3, 4, 5, 6]; track item) {
-        <div class="bg-white rounded-lg p-6 animate-pulse" >
+        <div class="bg-white rounded-lg p-6 animate-pulse">
           <div class="w-full h-40 bg-[#E8EDFF] rounded-lg"></div>
 
           <!-- <div class="mt-5 h-6 w-2/3 bg-gray-200 rounded"></div> -->
@@ -48,84 +55,101 @@
   } @else {
     <!----------epics list------->
     @if (epics().length > 0) {
-      <div class="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2  gap-6  ">
+      <div class="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
         @for (p of epics(); track p) {
-         
-          <div  (click)="openModal(p.id)" class="bg-white p-4 rounded-lg hover:bg-blue-100 cursor-pointer md:border-l-4 md:border-[#004E32]" >
-            <div class="flex justify-between" >
-              <h5 class="text-primary md:text-[#005235]  bg-surface-highest md:bg-success rounded-xs py-1 px-2.5 text-[10px] font-bold">{{p.epic_id}}</h5> 
-              <button class="cursor-pointer" >
-                <img src="../../../../../assets/dots.png" alt="" />
+          <button
+          (click)="openModal(p.id)"
+            class="oneEpic bg-white p-5 md:p-4 rounded-lg hover:bg-blue-100 cursor-pointer md:border-l-4 md:border-[#004E32]"
+          >
+            <div class="flex justify-between">
+              <h5
+                class="text-primary  md:text-[#005235] bg-surface-highest md:bg-success rounded-xs py-1 px-2.5 text-[10px] font-bold"
+              >
+                {{ p.epic_id }}
+              </h5>
+              <button class="cursor-pointer">
+                <img src="../../../../../assets/dots.png" alt="" class="rotate-90 md:rotate-0 "/>
               </button>
             </div>
-            <h3 class="text-dark-gray text-[18px] md:text-[20px] font-semibold pt-4 pb-3" > @if(p.title.length===50||p.title.length>50){ {{ p.title.slice(0,20) }}
-             <span>...</span>
-            }@else{  {{p.title}}   } </h3>
-            
-            <div class="flex justify-between  ">
-               
-              <div class="flex gap-4"><div >
-                    <button class=" w-7 h-7 md:w-10 md:h-10 bg-primary md:bg-success text-white md:text-[#002113] text-[14px] font-bold content-center text-center rounded-xl">
-   {{getInitials(p.assignee.name||'')}}
-  
-  </button>
-   
+            <h3 class="text-dark-gray text-left text-[18px] md:text-[20px] font-semibold pt-4 pb-3">
+              @if (p.title.length === 50 || p.title.length > 50) {
+                {{ p.title.slice(0, 20) }}
+                <span>...</span>
+              } @else {
+                {{ p.title }}
+              }
+            </h3>
 
+            <div class="flex justify-between">
+              <div class="flex gap-4">
+                <div>
+                  <button
+                    class="w-7 h-7 md:w-10 md:h-10 md:pb-1 bg-primary md:bg-success text-white md:text-[#002113] text-[10px] md:text-[14px] font-bold content-center text-center rounded-xl"
+                  >
+                    @if (p.assignee.name) {
+                      {{ getInitials(p.assignee.name || '') }}
+                    } @else {
+                      <img src="../../../../../assets/personI.png" alt="" />
+                    }
+                  </button>
                 </div>
-       
-         <div class="md:pb-6">
-      <h4 class="text-grayText font-medium text-[12px] hidden md:block">Assignee</h4>
-      <p class="text-dark-gray font-medium md:font-semibold text-[12px] md:text-body-md">{{p.assignee.name||"Unassigned"}}</p>
-      <p class="text-[#737685] text-[10px] md:hidden">Assignee</p>
-    </div></div>
-     <p class="block md:hidden col- col-span-2 text-[12px] text-dark-gray font-medium gap-2 items-center">
-               <span class="text-[10px] font-bold text-[#737685]"> DEADLINE</span>  <br>
-       
-            <span>  {{ p.deadline| date: 'MMM d, y' }}</span>
-    </p>
-      </div>
-            <div class="justify-between pt-4  border-t border-t-light-gray/10 hidden md:flex ">
-              <p class="hidden md:flex self-center text-label-sm font-normal tracking-normal text-[#434654CC] gap-2 items-center">
-                <img src="../../../../../assets/own.png" alt="" class="w-2.75 h-2.25" />
 
-                Created by: <span class="font-semibold "> {{p.created_by.name}}</span>
-              </p>
-              <p class="flex text-[11px] text-[#434654CC] font-medium gap-2 items-center">
-                <img src="../../../../../assets/calender.png" alt="" class="w-2.5 h-2.75"/>
-                
-                {{ p.created_at| date: 'd MMM y' }}
+                <div class="md:pb-6">
+                  <h4 class="text-grayText font-medium text-[12px] hidden md:block">Assignee</h4>
+                  <p
+                    class="text-dark-gray font-medium md:font-semibold text-[12px] md:text-body-md"
+                  >
+                    {{ p.assignee.name || 'Unassigned' }}
+                  </p>
+                  <p class="text-[#737685] text-[10px] md:hidden">Assignee</p>
+                </div>
+              </div>
+              <p
+                class="block md:hidden col- col-span-2 text-[12px] text-dark-gray font-medium gap-2 items-center text-right"
+              >
+                <span class="text-[10px] font-bold text-[#737685]"> DEADLINE</span> <br />
+
+                <span> @if(p.deadline){ {{ p.deadline | date: 'MMM d, y' }} } @else {---}</span>
               </p>
             </div>
-          </div>
+            <div class="justify-between pt-4 border-t border-t-light-gray/10 hidden md:flex">
+             <div class='hidden md:flex items-center gap-2'>
+                <img src="../../../../../assets/own.png" alt="" class="w-2.75 h-2.5" />
+
+             <p
+                class=" text-label-sm font-normal tracking-normal text-[#434654CC]  items-center"
+              >
+
+                Created by: <span class="font-semibold"> {{ p.created_by.name }}</span>
+              </p>
+               </div>
+              <p class="flex text-[11px] text-[#434654CC] font-medium gap-2 items-center">
+                <img src="../../../../../assets/calender.png" alt="" class="w-2.5 h-3" />
+
+                {{ p.created_at | date: 'd MMM y' }}
+              </p>
+            </div>
+          </button>
         }
-       
       </div>
 
       <!----------pagination-------->
-      <!-- <div class="flex justify-between pt-12">
-        <p class="text-grayText text-xs font-medium">Showing 5 of 24 active projects</p>
-        <ul class="pagination">
-          <li><a href="#">&laquo;</a></li>
-          <li><a class="active" href="#">1</a></li>
-          <li><a href="#">2</a></li>
+      <app-pagination
+        class="hidden md:block"
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageNum)="changePage($event)"
+        [projectsNums]="epics().length"
+        [totalItems]="totalItems"
+      ></app-pagination>
 
-          <li><a href="#">&raquo;</a></li>
-        </ul>
-      </div> -->
-
-  <!----------pagination-------->
-    <app-pagination class="hidden md:block"
-    [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="epics().length" [totalItems]="totalItems"></app-pagination>
-
-<button
-        routerLink="/add"
-        class="hover:cursor-pointer fixed right-8 bottom-10 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl"
+      <button
+        routerLink="new"
+        class="hover:cursor-pointer fixed right-8 bottom-20 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl"
       >
-        +
+        <img src="../../../../../assets/addI.png" alt="" class="justify-self-center" />
       </button>
-        <!-----------to observe scrolling-------------->
-<div #loadMoreTrigger class="h-5 md:hidden"></div>
-
+    
     } @else {
       <!-----------------no epics--->
       <section class="w-full h-full p-10.75">
@@ -134,9 +158,8 @@
           <div class="w-md text-center my-10.75">
             <h2 class="font-semibold text-dark-gray text-3xl">No epics in this project yet.</h2>
             <p class="text-grayText text-[18px]">
-            Break down your large project into manageable
-epics to track progress better and maintain
-architectural clarity.
+              Break down your large project into manageable epics to track progress better and
+              maintain architectural clarity.
             </p>
           </div>
           <a
@@ -144,9 +167,10 @@ architectural clarity.
             class="hidden md:block bg-linear-to-r from-primary to-primary-container text-white px-8 py-4 content-center cursor-pointer rounded-xs font-bold"
           >
             + Create First Epic
-        </a>
+          </a>
         </div>
       </section>
     }
-  }
+  }  <!-----------to observe scrolling-------------->
+      <div #loadMoreTrigger class="h-5 md:hidden"></div>
 </section>
