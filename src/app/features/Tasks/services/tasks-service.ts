@@ -20,5 +20,9 @@ private http= inject(HttpClient)
     return this.http.get<Task[]>(`/rest/v1/project_tasks?project_id=eq.${projectId}&status=eq.${status}`)
   }
 
+  getAllTask(projectId:string){
+    return this.http.get<Task[]>(`/rest/v1/project_tasks?project_id=eq.${projectId}`)
+  }
+
 
 }

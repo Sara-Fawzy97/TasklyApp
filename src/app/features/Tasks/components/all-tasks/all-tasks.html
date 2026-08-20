@@ -1,51 +1,61 @@
-<section class="md:p-8">
-  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden md:block uppercase">
+<section class="">
+  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden lg:block lg:px-8 lg:pt-8  uppercase">
     PROJECTS > PR0JECT Alpha > <span class="text-dark-gray">tasks</span>
   </p>
 
-  <div class="md:flex justify-between md:pt-4 items-center">
+  <div class="lg:flex px-4 lg:px-8 pt-5.5 justify-between md:pt-4 items-center">
     <div>
-      <h2 class="text-dark-gray hidden md:block font-semibold text-[30px] leading-9">
+      <h2 class="text-dark-gray  font-semibold text-[30px] leading-9">
         Active Workboard
       </h2>
-      <p class="text-[#64748B] text-body-md bt-1">
+      <p class="text-[#64748B] hidden lg:block text-body-md bt-1">
         Curating Project Alpha's production pipeline and milestones.
       </p>
     </div>
 
-    <div class="md:flex gap-8">
+    <div class="lg:flex gap-8">
       <div class="relative">
         <input
           type="text"
           placeholder="Search tasks..."
-          class="text-[#737685] relative  text-[14px] bg-surface-highest border-0 h-9 font-normal rounded-lg md:rounded-sm py-1.5 pl-10 pr-4 mt-4"
+          class="text-[#737685] relative  text-[14px] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-1.5 pl-10 pr-4 mt-4"
         />
         <img
           src="../../../../../assets/search.png"
           alt=""
-          class="absolute top-7.25 left-4 w-3.25 h-3.25"
+          class="absolute top-6.75 left-4 w-3.25 h-3.25"
         />
       </div>
+   
+         <button  (click)="navToTasks()"
+      class="lg:hidden flex mt-4 bg-linear-to-r from-primary to-primary-container items-center gap-2 text-white py-2 px-4  w-full justify-center rounded-s"
+    >
+              <img src="../../../../../assets/addI.png" alt="" class="w-2.5 h-2.5">
+Create Task
+         </button>
+  
 
-      <div class="relative self-end ">
+      <div class="relative self-end hidden lg:block">
         <img
           src="../../../../../assets/task.png"
           alt=""
           class="absolute top-3 left-2 w-3 h-3"
         />
 
-        <select #view class="bg-white rounded-sm py-2 pl-6 pr-1.5 text-body-md" (change)="0">
-          <option value="Board View" >Board View</option>
-          <option value="List View">List View</option>
+        <select  #view  class=" bg-white cursor-pointer rounded-sm py-2 pl-6 pr-1.5 text-body-md" (change)="changeView($event)">
+          <option value="board" class=" cursor-pointer ">Board View</option>
+          <option value="list" class=" cursor-pointer ">List View</option>
+     
         </select>
       </div>
     </div>
   </div>
 
-  @if( view.value ==='Board View'){
+  <div class="hidden lg:block">
+  @if( view.value ==='board'){
 
-   <div class="min-w-0 w-full  overflow-x-auto overflow-y-hidden ">
-      <div class=" flex w-max gap-6 mt-6   "   >
+   <div class=" min-w-0 w-full lg:ml-8 overflow-x-scroll overflow-y-hidden ">
+      <div class=" flex w-max gap-6 mt-6 pr-9 "   >
     @for (s of statuses; track s) {
       <div class="w-57 shrink-0">
         <div class="flex justify-between px-1 ">
@@ -105,7 +115,105 @@
 </div>
 }
 
-  @if(view.value ==='List View'){
+  @if(view.value ==='list'){
 
- }
+<div class=" place-self-center pt-12 w-full px-8 pb-8 ">
+        <table class="p-1 rounded-lg  w-full">
+          <thead class="bg-surface-low/50 border-b  border-b-light-gray/10">
+            <tr class="uppercase " >
+              <th class=" py-4 px-6  text-left text-grayText text-label-sm font-bold">Task ID</th>
+              <th class=" py-4 px-6 text-left text-grayText text-label-sm font-bold">Title</th>
+              <th class=" py-4 px-6  text-left text-grayText text-label-sm font-bold">Status</th>
+              <th class=" py-4 px-6  text-left text-grayText text-label-sm font-bold">Due Date</th>
+              <th class=" py-4 px-6  text-left text-grayText text-label-sm font-bold">Assignee</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            @for (t of tasks(); track t) {
+              <tr>
+                <td class="px-6 py-5 text-primary text-[12px]">
+                  {{t.task_id}}
+                </td>
+                <td class="px-6 py-6.5 text-[14px] text-dark-gray font-medium">
+                  <p>{{t.title}}</p>
+                </td>
+                <td class="px-6 py-5 text-[11px] font-bold text-grayText uppercase">
+                  <p class="px-2 py-1 rounded-xs w-fit "[class.text-[#93000A]]="t.status === 'BLOCKED'"  [class.text-[#374763]]="t.status === 'IN_PROGRESS'"  [class.bg-[#CDDDFF]]="t.status==='IN_PROGRESS'" [class.bg-[#82F9BE]]="t.status === 'DONE'"  [class.bg-[#D7E2FF]]="t.status==='TO_DO' ||t.status==='IN_REVIEW'||t.status==='READY_FOR_PRODUCTION' ||t.status==='READY_FOR_QA'||t.status==='IN_REVIEW'"  [class.bg-[#FFDAD6]]="t.status === 'BLOCKED'"   [class.text-[#002113]]="t.status === 'DONE'"  >
+                   {{ t.status === 'DONE' ? 'COMPLETE' :  t.status?.replaceAll('_',' ')}}
+                  </p>
+                </td>
+                <td class="px-6 py-5 text-[14px] text-grayText">
+                 {{t.due_date|date:'dd MMM yyyy'}}
+                </td>
+                <td class="flex px-6 py-5 gap-3">
+                  <div class="w-7 h-7 bg-[#DAE2FF] rounded-xl text-label-sm font-bold text-[#001848] content-center text-center">  {{getInitials(t.assignee?.name|| 'NAN')}}</div>
+                 <p class="text-[14px] text-dark-gray">{{t.assignee?.name}}</p>
+                </td>
+              </tr>
+            }
+          </tbody>
+          <tfoot class="bg-surface-low/20 text-grayText text-[12px] font-medium  ">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="flex py-4 px-6 gap-2 w-full">
+              
+              <span><</span> 
+            <p class="  px-2">
+             Page 1 of 5
+            </p>
+            <span>></span> 
+          </div>
+              </td>
+            </tr>
+            
+             
+          </tfoot>
+        </table>
+
+        <button (click)="navToTasks()" class=" fixed cursor-pointer right-8 bottom-20  w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">
+              <img src="../../../../../assets/addI.png" alt="" class="justify-self-center">
+     
+    </button>
+      </div>
+      
+
+ }</div>
+
+
+  <!-------------mobile view----------->
+      <div class='lg:hidden px-4'>
+        <ul class="mb-20">
+          @for(t of tasks(); track t){
+          <li class="bg-white  card p-4 rounded-lg mt-3 ">
+            
+               <div class="flex   justify-between">
+                 <div>
+                <p class="text-[11px] font-bold text-grayText/50">{{t.task_id}}</p>
+                <h3 class="text-[18px] font-medium text-dark-gray">{{t.title}}</h3>
+                </div>
+                <p class=" font-bold text-[11px] py-0.5 px-2 w-fit h-fit" [class.text-[#93000A]]="t.status === 'BLOCKED'"  [class.text-[#374763]]="t.status === 'IN_PROGRESS'"  [class.bg-[#CDDDFF]]="t.status==='IN_PROGRESS'" [class.bg-[#82F9BE]]="t.status === 'DONE'"  [class.bg-[#D7E2FF]]="t.status==='TO_DO' ||t.status==='IN_REVIEW'||t.status==='READY_FOR_PRODUCTION' ||t.status==='READY_FOR_QA'||t.status==='IN_REVIEW'"  [class.bg-[#FFDAD6]]="t.status === 'BLOCKED'"   [class.text-[#002113]]="t.status === 'DONE'"  >
+                   {{ t.status === 'DONE' ? 'COMPLETE' :  t.status?.replaceAll('_',' ')}}</p>
+              </div>
+
+              <div class="flex gap-3 pt-1 items-center mt-3">
+                    <button
+                      class=" relative w-7 h-7 bg-[#DAE2FF] text-[#001848]  font-bold content-center text-center rounded-xl text-[11px]"
+                    >
+                      {{ getInitials(t.assignee?.name!) }}
+                    </button>
+                    <div>
+                      <p class="uppercase text-[11px] text-grayText/70 font-bold" >Due Date</p>
+                      <p class="text-[12px] font-medium text-dark-gray"> {{t.due_date|date:' MMM dd, yyyy'}}</p>
+                    </div>
+                  </div>
+
+                
+          </li>
+        }
+        </ul>
+      </div>
 </section>

@@ -25,16 +25,19 @@ export class AllTasks {
   today = new Date()
   myDate: Date = new Date();
   tasksByStatus = signal<Record<string, Task[]>>({});
+  tasks=signal<Task[]>([])
 
   route = inject(ActivatedRoute);
   tasksService = inject(TasksService);
   router = inject(Router);
+
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
     this.statuses.forEach((s) => {
       this.getTasks(s);
     });
+    this.getAllTasks()
   }
 
   value = '';
@@ -65,6 +68,14 @@ export class AllTasks {
     });
   }
 
+  getAllTasks(){
+    this.tasksService.getAllTask(this.projectId).subscribe({
+      next:(res)=>{
+        console.log(res)
+this.tasks.set(res)
+      }
+    })
+  }
 
   navToTasks() {
     this.router.navigate(['/project/' + this.projectId + '/tasks/new']);
@@ -72,5 +83,19 @@ export class AllTasks {
 
   isToday(date:string){
 return new Date(date).toDateString() === this.today.toDateString()
+  }
+
+  changeView(e:Event){
+     const selectElement = e.target as HTMLSelectElement
+     const selectedValue=selectElement.value
+
+     this.router.navigate([],{
+         relativeTo:this.route,
+            queryParams:{
+              view:selectedValue
+            },
+            queryParamsHandling:'merge'
+     })
+
   }
 }

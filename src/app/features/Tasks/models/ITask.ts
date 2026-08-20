@@ -8,5 +8,6 @@ export interface Task {
     name:string,
   },
   due_date?:string|null,
-  status?: string|null
+  status?: string|null,
+task_id?:string
 }
