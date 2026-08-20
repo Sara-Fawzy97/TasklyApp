@@ -8,3 +8,9 @@ button:disabled{
 backdrop-filter: blur(24px)
 
 }
+
+select,input {
+  -webkit-appearance: none;  
+  -moz-appearance: none;    
+  appearance: none;          
+}

@@ -1,10 +1,10 @@
-<section class="py-8 px-6 md:p-4 ">
+<section class="py-8 px-6 md:p-10 ">
   <section>
     <p class=" hidden md:block text-[#43465499] font-bold gap-2 font-sans text-xs uppercase">
       PROJECTS > Project Alpha > Tasks ><span class="text-dark-gray"> New Task</span>
     </p>
 
-    <h2 class="text-4xl font-semibold mt-4">Create New Task</h2>
+    <h2 class="text-4xl font-semibold mt-8">Create New Task</h2>
     <p class="text-grayText text-body-md pt-1">
       Initialize a new work item within the Architectural Workspace ecosystem.
     </p>
@@ -38,55 +38,63 @@
 
       <div class="md:grid md:grid-cols-2 mt-6 md:mt-8 gap-8">
         <!------------Status--------->
-        <div>
+        <div >
           <label for="status" class="text-dark-gray text-[11px] font-bold uppercase">Status <span class="text-error">*</span></label>
-         <select
+        <div class="relative">
+        <select
             formControlName="status"
             name="status"
             id="status"
-            class="text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-4"
+            class="cursor-pointer text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-2"
           >
             <!-- <option value=" " selected >TO DO</option> -->
             @for (s of status; track s) {
               <option value="{{ s }}">{{ s.replaceAll('_',' ') }}</option>
             }
           </select>
+              <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-7 right-4 " />
+</div>
         </div>
 
         <!----------------assignee---------->
         <div class="hidden md:block">
           <label for="cars" class="text-dark-gray text-[11px] font-bold uppercase">Assignee</label>
-
+<div class="relative">
           <select
             formControlName="assignee_id"
             name="assignee_id"
             id="assignee_id"
-            class="text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-2"
+            class="cursor-pointer text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-2"
           >
             <option value="">Select Team Member</option>
             @for (m of members(); track m) {
               <option value="{{ m.user_id }}">{{ m.metadata.name }}</option>
             }
           </select>
+              <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-7 right-4 " />
+</div>
         </div>
       </div>
 <!----------------epic--------->
       <div class="mt-6 md:mt-8">
         <label for="epic_id" class="text-dark-gray text-[11px] font-bold uppercase">Epic</label>
 
+        <div class="relative">
         <select
           formControlName="epic_id"
           name="epic_id"
           id="epic_id"
-          class="text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-4"
+          class="text-dark-gray py-3 pr-10 bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm px-4 mt-2"
         >
-          <option value="">Select Epic Link</option>
+          <option value="" >Select Epic Link </option>
           @for (e of epics(); track e) {
             <option value="{{ e.id }}"><span class="pr-3">{{e.epic_id }}  </span>    @if(e.title.length===100||e.title.length>100){ {{ e.title.slice(0,20) }}
              <span>...</span>
             }@else{  {{e.title}}   }            </option>
           }
         </select>
+              <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-7 right-4 " />
+</div>
       </div>
 
         <!----------------assignee mobile---------->

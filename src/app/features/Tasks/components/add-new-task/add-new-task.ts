@@ -75,7 +75,7 @@ isExpanded = false;
         Validators.minLength(3),
         Validators.pattern(/^(?=.{3,100}$)[\p{L}\d\s\-_.()&]+$/u),
       ]),
-      epic_id: new FormControl(this.epicId),
+      epic_id: new FormControl(this.epicId||''),
       description: new FormControl('', [Validators.maxLength(500)]),
       assignee_id: new FormControl(''),
       due_date: new FormControl(this.today),
