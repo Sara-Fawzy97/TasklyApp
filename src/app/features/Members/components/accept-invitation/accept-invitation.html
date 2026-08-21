@@ -1,1 +1,28 @@
-<p>accept-invitation works!</p>
+<section class="h-screen content-center">
+  <div>
+    <div class= "flex gap-2 justify-self-center items-center mb-12">
+    <img src="../../../../../assets/logo-noText.png" alt="" class="w-4.5 h-5" />
+    <p class="text-dark-gray text-[24px] font-bold ">TASKLY</p>
+</div>
+    <div
+      class="card bg-white  mx-4  md:m-auto  w-fit text-center justify-center p-6 md:p-12 rounded-lg border-t-4 border-primary "
+    >
+      <div class="bg-[#E0E8FF] py-1 px-3 rounded-xl w-fit flex gap-1.5 items-center justify-self-center ">
+        <img src="../../../../../assets/fileI.png" alt="" class="w-[11.67px] h-[9.33px] place-self-center" />
+
+        <p class="text-[11px] font-bold text-grayText uppercase">New Project Invitation</p>
+      </div>
+      <h3 class="md:text-[30px] font-semibold text-dark-gray mt-6 pb-4 w-2/3 justify-self-center text-center ">
+        You've been invited to join new project
+      </h3>
+
+      <button
+        (click)="acceptInvitation()"
+        [disabled]="!isLoading"
+        class="cursor-pointer bg-linear-to-r from-primary to-primary-container text-white py-4 px-6 md:w-full"
+      >
+        Accept Invitation
+      </button>
+    </div>
+  </div>
+</section>

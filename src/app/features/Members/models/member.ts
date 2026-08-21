@@ -18,3 +18,8 @@ export interface Invitation{
     p_app_url:string,
     p_base_url:string
 }
+
+export interface Token{
+p_token?:string|null
+
+}

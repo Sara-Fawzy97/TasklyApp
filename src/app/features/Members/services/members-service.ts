@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IMember, Invitation } from '../models/member';
+import { IMember, Invitation, Token } from '../models/member';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ sendInvit(data:Invitation){
   return this.http.post('/rest/v1/rpc/invite_member',data)
 }
 
-reciveInvit(token:string){
+recieveInvit(token:Token){
 return this.http.post('/rest/v1/rpc/accept_invitation',token)
 }
 
