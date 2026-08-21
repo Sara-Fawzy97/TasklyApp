@@ -11,3 +11,10 @@ metadata:{
 }
 
 }
+
+export interface Invitation{
+    p_email:string,
+    p_project_id:string,
+    p_app_url:string,
+    p_base_url:string
+}

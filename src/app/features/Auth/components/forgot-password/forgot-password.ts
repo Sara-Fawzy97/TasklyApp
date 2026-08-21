@@ -16,6 +16,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class ForgotPassword {
   errorMsg = signal('');
   display = signal(false);
+  timeRemaining$!: Observable<number>;
+  seconds = 300; //5 mins
 
   authService = inject(Auth);
   router = inject(Router);
@@ -50,8 +52,7 @@ export class ForgotPassword {
       });
   }
 
-  timeRemaining$!: Observable<number>;
-  seconds = 300; //5 mins
+  
 
   countdown() {
     this.timeRemaining$ = timer(0, 1000).pipe(

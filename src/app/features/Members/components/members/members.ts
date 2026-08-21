@@ -4,10 +4,11 @@ import { Toastr } from '../../../../shared/components/success-toastr/service/toa
 import { ActivatedRoute } from '@angular/router';
 import { IMember } from '../../models/member';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AddMember } from "./add-member/add-member";
 
 @Component({
   selector: 'app-members',
-  imports: [],
+  imports: [AddMember],
   templateUrl: './members.html',
   styleUrl: './members.css',
 })
@@ -15,6 +16,7 @@ export class Members {
   isLoading = signal(true);
   errorDisplayed = signal(false);
   members = signal<IMember[]>([]);
+   showModal= signal(false);
 
   memberService = inject(MembersService);
   toastrService = inject(Toastr);
