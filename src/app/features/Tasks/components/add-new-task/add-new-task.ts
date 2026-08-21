@@ -133,6 +133,10 @@ isExpanded = false;
                     this.toastService.success('new task is added', 'top-right');
 
         },
+        error:(error)=>{
+                    this.toastService.success(error.message, 'top-right');
+
+        }
       });
   }
 

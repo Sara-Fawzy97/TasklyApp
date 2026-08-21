@@ -1,16 +1,16 @@
-<section  class="md:p-4 px-6">
+<section  class="p-4 md:p-10 ">
 
-<section class=" hidden md:block">
+<section class="  ">
      
-    <p class="text-[#43465499] font-semibold gap-2 font-sans text-xs">PROJECTS > Project Alpha > Epics > <span class="text-dark-gray">New Epic</span></p>
+    <p class="text-[#43465499]hidden md:flex font-semibold gap-2 font-sans text-xs"><span>PROJECTS</span><span> ></span> <span>Project Alpha</span><span> ></span><span> Epics</span><span> ></span> <span class="text-dark-gray">New Epic</span></p>
 
-    <h2 class="text-4xl font-bold mt-8">Create New Epic</h2>
-    <p class="text-grayText w-[462.5px] pt-2">Define a major project phase or high-level milestone to group
+    <h2 class="text-[24px] md:text-4xl font-bold mt-8">Create New Epic</h2>
+    <p class="text-grayText w-[462.5px] text-[14px] md:text-[16px] pt-2">Define a major project phase or high-level milestone to group
 related tasks and track architectural progress.</p>
 
 </section>
 
-<div class="bg-white rounded-lg pt-2 pb-4 mt-8" >
+<div class="md:bg-white rounded-lg pt-2 pb-4 mt-8" >
     <form class="p-8"  [formGroup]="createEpicForm" (ngSubmit)="createEpic()">
 
          <div class="grid grid-cols-4">
