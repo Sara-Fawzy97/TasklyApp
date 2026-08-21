@@ -34,9 +34,15 @@ export class AddUpdateProject {
 
   checkPageName() {
     this.projectId = this.route.snapshot.params['id'];
-    if (this.projectId) {
+    
+    // const addn=this.route.snapshot.params['edit']
+    if (this.isEdit()) {
       this.isedit.set(true);
     }
+  }
+
+  isEdit(){
+    return this.router.url.includes('/edit')
   }
 
   createProj = new FormGroup({
@@ -78,13 +84,13 @@ const name=control.get('name')?.value;
 
   getProjData() {
     const project=this.project()
-    console.log('ssss')
-    if(!project) return;
+
+    if(project ) {
     
     this.createProj.patchValue({
       name: project?.name,
       description: project?.description,
-    });
+    });}else return;
   }
 
   

@@ -1,6 +1,6 @@
 <section class="">
-  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden lg:block lg:px-8 lg:pt-8  uppercase">
-    PROJECTS > PR0JECT Alpha > <span class="text-dark-gray">tasks</span>
+  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden lg:flex lg:px-8 lg:pt-8  uppercase">
+  <span>  PROJECTS</span> <span> > </span> <span> PR0JECT Alpha</span> <span> ></span> <span class="text-dark-gray">tasks</span>
   </p>
 
   <div class="lg:flex px-4 lg:px-8 pt-5.5 justify-between md:pt-4 items-center">
@@ -135,7 +135,12 @@ Create Task
                   {{t.task_id}}
                 </td>
                 <td class="px-6 py-6.5 text-[14px] text-dark-gray font-medium">
-                  <p>{{t.title}}</p>
+                  <p>  @if (t.title!.length >= 20 )  {
+                {{ t.title?.slice(0, 15) }}
+                <span>...</span>
+              } @else {
+                {{ t.title }}
+              }</p>
                 </td>
                 <td class="px-6 py-5 text-[11px] font-bold text-grayText uppercase">
                   <p class="px-2 py-1 rounded-xs w-fit "[class.text-[#93000A]]="t.status === 'BLOCKED'"  [class.text-[#374763]]="t.status === 'IN_PROGRESS'"  [class.bg-[#CDDDFF]]="t.status==='IN_PROGRESS'" [class.bg-[#82F9BE]]="t.status === 'DONE'"  [class.bg-[#D7E2FF]]="t.status==='TO_DO' ||t.status==='IN_REVIEW'||t.status==='READY_FOR_PRODUCTION' ||t.status==='READY_FOR_QA'||t.status==='IN_REVIEW'"  [class.bg-[#FFDAD6]]="t.status === 'BLOCKED'"   [class.text-[#002113]]="t.status === 'DONE'"  >
@@ -193,7 +198,12 @@ Create Task
                <div class="flex   justify-between">
                  <div>
                 <p class="text-[11px] font-bold text-grayText/50">{{t.task_id}}</p>
-                <h3 class="text-[18px] font-medium text-dark-gray">{{t.title}}</h3>
+                <h3 class="text-[18px] font-medium text-dark-gray">@if (t.title!.length >= 20 )  {
+                {{ t.title?.slice(0, 15) }}
+                <span>...</span>
+              } @else {
+                {{ t.title }}
+              }</h3>
                 </div>
                 <p class=" font-bold text-[11px] py-0.5 px-2 w-fit h-fit" [class.text-[#93000A]]="t.status === 'BLOCKED'"  [class.text-[#374763]]="t.status === 'IN_PROGRESS'"  [class.bg-[#CDDDFF]]="t.status==='IN_PROGRESS'" [class.bg-[#82F9BE]]="t.status === 'DONE'"  [class.bg-[#D7E2FF]]="t.status==='TO_DO' ||t.status==='IN_REVIEW'||t.status==='READY_FOR_PRODUCTION' ||t.status==='READY_FOR_QA'||t.status==='IN_REVIEW'"  [class.bg-[#FFDAD6]]="t.status === 'BLOCKED'"   [class.text-[#002113]]="t.status === 'DONE'"  >
                    {{ t.status === 'DONE' ? 'COMPLETE' :  t.status?.replaceAll('_',' ')}}</p>

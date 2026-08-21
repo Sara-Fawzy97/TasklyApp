@@ -19,7 +19,14 @@ getProject(){
 updateProject(data:Project,id:number){
   return this.http.patch(`/rest/v1/projects?id=eq.${id}`,data)
 }
-selectedProject=signal<Project|null>(null)
+selectedProject=signal<Project|null>(
+  JSON.parse(localStorage.getItem('project')||'null')
+)
+
+selectOneProj(project:Project){
+  this.selectedProject.set(project)
+  localStorage.setItem('project',JSON.stringify(project))
+}
 
 getPaginatedProjects(limit:number,offset:number){
   return this.http.get<Project[]>( `/rest/v1/rpc/get_projects?limit=${limit}&offset=${offset}`,{

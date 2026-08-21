@@ -35,7 +35,7 @@ Create New Project
 <div class=" mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-scroll md:overflow-auto" >
 
         @for(p of projects()  ;track p){
-            <div class="bg-white p-6 rounded-lg hover:bg-blue-100 cursor-pointer " routerLink="/project/{{p.id}}/epics">
+            <div class="bg-white p-6 rounded-lg hover:bg-blue-100 cursor-pointer " (click)="openProject(p)" >
            <div class="flex justify-between">
                 <h3 class="text-dark-gray text-title-md font-medium "   >{{p.name}}</h3>
             <button class="cursor-pointer" (click)="getOneProj(p); $event.stopPropagation()">
@@ -70,7 +70,7 @@ Create New Project
     <app-pagination class="hidden md:block"
     [currentPage]="currentPage" [totalPages]="totalPages"  (pageNum)="changePage($event)" [projectsNums]="projects().length" [totalItems]="totalItems"></app-pagination>
    
-    <button routerLink="/add" class=" fixed right-8 bottom-20 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">
+    <button routerLink="add" class=" fixed right-8 bottom-20 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl">
               <img src="../../../../../assets/addI.png" alt="" class="justify-self-center">
      
     </button>

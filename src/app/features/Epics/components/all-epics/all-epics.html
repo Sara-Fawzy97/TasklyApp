@@ -1,6 +1,6 @@
-<section class="md:p-8">
-  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden md:block">
-    PROJECTS > PR0JECT NAME > <span class="text-primary">EPICS</span>
+<section class="px-6 md:p-8">
+  <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden md:flex ">
+    <span>PROJECTS</span><span> > </span> <span> PR0JECT NAME </span> <span>></span> <span class="text-primary">EPICS</span>
   </p>
   @if (showModal()) {
     <app-epic-modal [epicId]="epicID" (closee)="closeModale()"></app-epic-modal>
@@ -19,7 +19,7 @@
           type="text"
          
           placeholder="Search Epics..."
-          class="text-[#737685] relative w-full text-[14px] bg-surface-highest border-0 h-12 font-normal rounded-lg md:rounded-sm py-1.5 pr-9 md:px-3 mt-4"
+          class="text-[#737685] relative w-full text-[14px] bg-surface-highest border-0 h-12 font-normal rounded-lg md:rounded-sm py-1.5 pr-9 px-9 mt-4"
         />
         
         <img 
@@ -40,7 +40,7 @@
     </div>
   </div>
 @if(searchTerm() && epics().length===0){
-        <p class="text-error float-end">No epics found matching your search</p>}
+        <p class="text-error md:float-end">No epics found matching your search</p>}
 
   <!-- (click)="showModal.set(true)" -->
   @if (isLoading()) {
@@ -107,7 +107,7 @@
                   >
                     {{ p.assignee.name || 'Unassigned' }}
                   </p>
-                  <p class="text-[#737685] text-[10px] md:hidden">Assignee</p>
+                  <p class="text-[#737685] text-[10px] md:hidden text-left">Assignee</p>
                 </div>
               </div>
               <p

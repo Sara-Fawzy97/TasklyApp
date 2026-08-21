@@ -74,9 +74,14 @@ export class ListProjects implements AfterViewInit {
   //   });
   // }
 
+  openProject(project: Project){
+    this.projeService.selectOneProj(project);
+    this.router.navigate(['project/' + project.id + '/epics']);
+
+  }
   getOneProj(project: Project) {
       console.log('BEFORE SET:', project);
-    this.projeService.selectedProject.set(project);
+    this.projeService.selectOneProj(project);
 
 
   console.log(

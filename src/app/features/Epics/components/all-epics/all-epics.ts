@@ -17,6 +17,7 @@ import { debounceTime } from 'rxjs';
 })
 
 export class AllEpics {
+  searchTerm = signal('');
   isLoading = signal(true);
   myDate: Date = new Date();
   epics = signal<IEpicRes[]>([]);
@@ -174,7 +175,7 @@ closeModale(){
    this.showModal= signal(false);
 }
  
-searchTerm = signal('');
+
 
 serchEpics(e:Event){
   this.currentPage=1
