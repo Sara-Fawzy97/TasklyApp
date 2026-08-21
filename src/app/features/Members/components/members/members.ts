@@ -60,4 +60,10 @@ export class Members {
         },
       });
   }
+
+  closeModale(){
+  this.getMembers()
+   this.showModal= signal(false);
+}
+ 
 }

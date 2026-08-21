@@ -11,6 +11,11 @@ export const routes: Routes = [
    {path:'forgot-password', loadComponent:()=>import('./features/Auth/components/forgot-password/forgot-password').then(c=>c.ForgotPassword)},
    {path:'reset-password', loadComponent:()=>import('./features/Auth/components/reset-password/reset-password').then(c=>c.ResetPassword)},
 
-
+{
+    path: 'invite',
+    loadComponent: () =>
+      import('./features/Members/components/accept-invitation/accept-invitation')
+        .then(c => c.AcceptInvitation)
+  },
     
 ];

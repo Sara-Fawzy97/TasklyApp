@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MembersService } from '../../../services/members-service';
 import { Toastr } from '../../../../../shared/components/success-toastr/service/toastr';
@@ -13,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class AddMember {
   projectId = '';
-
+ closee = output();
   memberService = inject(MembersService);
   toastrService = inject(Toastr);
   private destroyRef = inject(DestroyRef);
@@ -26,6 +26,11 @@ export class AddMember {
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
+  }
+
+
+   closeModal() {
+    this.closee.emit();
   }
 
   sendInvitation(data: FormGroup) {

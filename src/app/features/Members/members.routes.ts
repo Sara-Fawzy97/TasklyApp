@@ -7,6 +7,12 @@ export const Members_routes: Routes = [
     loadComponent: () =>
       import('./components/members/members')
         .then(c => c.Members)
-  },
+   },
+  // {
+  //   path: 'invite',
+  //   loadComponent: () =>
+  //     import('./components/accept-invitation/accept-invitation')
+  //       .then(c => c.AcceptInvitation)
+  // },
 ];
 
