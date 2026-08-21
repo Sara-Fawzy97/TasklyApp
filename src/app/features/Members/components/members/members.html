@@ -1,4 +1,4 @@
-<section class="md:p-4 relative">
+<section class="p-4 relative">
   <section >
     <p class="hidden lg:block text-[#43465499] font-bold gap-2 font-sans text-xs">
       PROJECTS > PR0JECT NAME > <span class="text-primary">MEMBERS</span>
@@ -132,7 +132,7 @@
   </section>
   <!-- fixed right-8 bottom-20 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl -->
   <button
-    routerLink="/"
+    (click)=" showModal.set(true)"
     class="hover:cursor-pointer fixed right-8 w-10 h-10 bottom-20 md:hidden p-3 bg-primary rounded-[10px]"
   >
     <img src="../../../../../assets/membersI.png" alt="" class="w-4.5 h-3.25 self-center" />

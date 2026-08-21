@@ -4,7 +4,7 @@ import { Toastr } from '../../../../shared/components/success-toastr/service/toa
 import { ActivatedRoute } from '@angular/router';
 import { IMember } from '../../models/member';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AddMember } from "./add-member/add-member";
+import { AddMember } from '../add-member/add-member';
 
 @Component({
   selector: 'app-members',
@@ -16,7 +16,7 @@ export class Members {
   isLoading = signal(true);
   errorDisplayed = signal(false);
   members = signal<IMember[]>([]);
-   showModal= signal(false);
+  showModal = signal(false);
 
   memberService = inject(MembersService);
   toastrService = inject(Toastr);
@@ -54,16 +54,15 @@ export class Members {
           this.isLoading.set(false);
           this.toastrService.error(err.error.message, 'top-right');
           this.errorDisplayed.set(true);
-        },complete:()=> {
+        },
+        complete: () => {
           this.isLoading.set(false);
-          
         },
       });
   }
 
-  closeModale(){
-  this.getMembers()
-   this.showModal= signal(false);
-}
- 
+  closeModale() {
+    this.getMembers();
+    this.showModal = signal(false);
+  }
 }

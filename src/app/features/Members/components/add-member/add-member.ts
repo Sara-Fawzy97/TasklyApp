@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MembersService } from '../../../services/members-service';
-import { Toastr } from '../../../../../shared/components/success-toastr/service/toastr';
+import { MembersService } from '../../services/members-service';
+import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -13,6 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class AddMember {
   projectId = '';
+  isLoading=false
  closee = output();
   memberService = inject(MembersService);
   toastrService = inject(Toastr);
@@ -34,6 +35,7 @@ export class AddMember {
   }
 
   sendInvitation(data: FormGroup) {
+    this.isLoading=true
     const body = {
       p_email: data.value.email,
       p_project_id: this.projectId,
@@ -45,10 +47,14 @@ export class AddMember {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
+    this.isLoading=false
+
           this.toastService.success('Invitation sent successfully', 'top-right');
         },
         error: (error) => {
-          this.toastService.error(error.msg, 'top-right');
+    this.isLoading=false
+
+          this.toastService.error(error.message, 'top-right');
         },
       });
   }
