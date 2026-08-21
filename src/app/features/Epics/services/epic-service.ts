@@ -41,4 +41,15 @@ export class EpicService {
   }
   selectecEpic=signal<IEpicRes|null>(null)
 
+   getSearchedEpics(PROJECT_ID:string,SEARCH_TERM?:string,offset?:number,limit?: number){
+    
+    return this.http.get<IEpicRes[]>(`/rest/v1/project_epics?project_id=eq.${PROJECT_ID}&title=ilike.%25${SEARCH_TERM}%25&offset=${offset}&limit=${limit}`,
+      {
+    headers:new HttpHeaders({Prefer:`count=exact`}),
+     observe: 'response'
+  }
+    )
+  }
+
+
 }

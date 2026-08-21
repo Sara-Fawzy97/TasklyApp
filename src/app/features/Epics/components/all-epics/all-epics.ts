@@ -7,6 +7,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 import { Pagination } from '../../../../shared/components/pagination/pagination';
 import { EpicModal } from "../epic-modal/epic-modal";
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-all-epics',
@@ -103,12 +104,40 @@ epicID=''
 
   
  paginator(append = false) {
+const term = this.searchTerm().trim();
+    const offset = (this.currentPage - 1) * this.pageSize;
+
+if(term){
+  this.epicService.getSearchedEpics(
+        this.projectId,
+        term,
+        offset,
+        this.pageSize
+      ).pipe(debounceTime(400),takeUntilDestroyed(this.destroyRef)).subscribe({
+    next:(res)=>{
+      console.log(res)
+   this.epics.set(res.body??[])
     this.isLoading.set(false);
 
-    const offset = (this.currentPage - 1) * this.pageSize;
-    this.epicService.getPaginatedProjects(this.pageSize, offset,this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    const ContentRange = res.headers.get('Content-Range');
+        if (ContentRange) {
+          this.totalItems = Number(ContentRange.split('/')[1]);
+          this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+
+        }
+    },
+    error: (error) => {
+      this.toastService.error(error.message,'top-right');
+      this.toastService.error("Failed to search epics "+error.message,'top-right');
+    },
+  })}
+      else{
+
+        ////////without search
+ this.epicService.getPaginatedProjects(this.pageSize, offset,this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         if (append) {
+
           this.epics.set([...this.epics(), ...(res.body ?? [])]);
         } else this.epics.set(res.body ?? []);
         this.isLoading.set(false);
@@ -127,13 +156,16 @@ epicID=''
           this.errorDisplayed.set(true);
       },
     });
+
+      }
+   
   }
 
   //for desktop
   changePage(page: number) {
     this.currentPage = page;
 
-    this.paginator(false);
+    this.paginator();
   }
 
 
@@ -142,6 +174,20 @@ closeModale(){
    this.showModal= signal(false);
 }
  
+searchTerm = signal('');
+
+serchEpics(e:Event){
+  this.currentPage=1
+
+  //  const offset = (this.currentPage - 1) * this.pageSize;
+  const term = (e.target as HTMLInputElement).value;
+  this.searchTerm.set(term)
+
+        this.paginator()
+
+ 
+}
+
 
 
 }
