@@ -19,14 +19,15 @@
           type="text"
          
           placeholder="Search Epics..."
-          class="text-[#737685] relative w-full text-[14px] bg-surface-highest border-0 h-12 font-normal rounded-lg md:rounded-sm py-1.5 pr-9 px-9 mt-4"
+          class="text-[#737685] relative w-full text-[14px] bg-surface-highest border-0 h-12 font-normal rounded-lg md:rounded-sm py-1.5 pr-9 pl-4 mt-4"
         />
         
+        @if(display){
         <img 
           src="../../../../../assets/search.png"
           alt=""
-          class="absolute top-7.75 left-4 w-4.5 h-4.5 md:w-2.5 md:h-2.5 md:top-9 md:left-3"
-        />
+          class="absolute top-7.75 left-3 w-4.5 h-4.5 md:w-2.5 md:h-2.5 md:top-9 md:left-3"
+        />}
 
       </div>
 
@@ -100,7 +101,7 @@
                   </button>
                 </div>
 
-                <div class="md:pb-6">
+                <div class="md:pb-6 text-left">
                   <h4 class="text-grayText font-medium text-[12px] hidden md:block">Assignee</h4>
                   <p
                     class="text-dark-gray font-medium md:font-semibold text-[12px] md:text-body-md"

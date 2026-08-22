@@ -176,8 +176,9 @@ closeModale(){
 }
  
 
-
+display=true
 serchEpics(e:Event){
+  this.display=false // for search icon
   this.currentPage=1
 
   //  const offset = (this.currentPage - 1) * this.pageSize;
