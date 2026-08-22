@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  isSidebarOpen = true;
+  isSidebarOpen = false;
   projId=signal("");
   toastService = inject(Toastr);
   router = inject(Router);

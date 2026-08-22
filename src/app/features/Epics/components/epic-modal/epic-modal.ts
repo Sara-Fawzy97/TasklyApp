@@ -34,6 +34,8 @@ export class EpicModal {
   closee = output();
 projectId=''
 loaded=true
+   title = 'spinnerapp';
+  showSpinner = false;
    route = inject(ActivatedRoute);
   memberService = inject(MembersService);
   private destroyRef = inject(DestroyRef);
@@ -42,10 +44,6 @@ loaded=true
 sharedService=inject(Sharedservice)
   router=inject(Router)
 
-
-   title = 'spinnerapp';
- 
-  showSpinner = false;
 
   spinner() {
     

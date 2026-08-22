@@ -41,6 +41,9 @@ export class AddNewTask {
     'READY_FOR_PRODUCTION',
     'DONE',
   ];
+isExpanded = false;
+recievedData=''
+epicId=history.state.data
 
  epicsService = inject(EpicService);
   memberService = inject(MembersService);
@@ -49,9 +52,7 @@ export class AddNewTask {
   location = inject(Location);
   router=inject(Router);
   taskService = inject(TasksService);
-    // currentUrl=''
-recievedData=''
-epicId=history.state.data
+
 
   ngOnInit() {
     this.projectId = this.route.snapshot.paramMap.get('id')!;
@@ -60,7 +61,7 @@ epicId=history.state.data
 
   }
 
-isExpanded = false;
+
 
         toggleText(){
 
@@ -107,9 +108,7 @@ isExpanded = false;
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          // this.epics.set(r)
           this.epics.set(res);
-          console.log(res);
         },
       });
   }
@@ -134,7 +133,7 @@ isExpanded = false;
 
         },
         error:(error)=>{
-                    this.toastService.success(error.message, 'top-right');
+                    this.toastService.error(error.message, 'top-right');
 
         }
       });

@@ -17,7 +17,7 @@
         >
           <img src="../../../../../assets/membersI.png" alt="" class="w-4.5 h-3.25 self-center" />
           Invite members
-      </button>
+      </button> 
       </div>
     </div>
   </section>
@@ -65,26 +65,32 @@
             </tr>
           </thead>
           <tbody class="bg-white">
+            
             @for (m of members(); track m) {
               <tr>
                 <td class="px-8 py-5">
                   <div class="flex gap-4 items-center">
-                    <div
-                      class=" relative w-12 h-12 bg-[#DAE2FF] text-primary text-[16px] font-bold content-center text-center rounded-xl"
+                    <div [class.bg-[#82F9BE]]="m.role==='member'" [class.text-[#002113]]="m.role==='member'" [class.text-[primary]]="m.role==='owner'" [class.bg-[#DAE2FF]]="m.role==='owner'"
+                      class=" relative w-12 h-12   text-[16px] font-bold content-center text-center rounded-xl"
                     >
-                      {{ getInitials(m.metadata.name) }}
+                    @if (m.metadata.name) {
+                      {{ getInitials(m.metadata.name || '') }}
+                    } @else {
+                      <img src="../../../../../assets/personI.png" alt="" />
+                    }
+                      
                   </div>
                     <div class="">
                       <h4 class="text-dark-gray font-semibold text-body-md">
-                        {{ m.metadata.name }}
+                        {{ m.metadata?.name||'Unknown User' }}
                       </h4>
                       <p class="text-grayText text-[12px]">{{ m.metadata.email }}</p>
                     </div>
                   </div>
                 </td>
                 <td class="px-8 py-8.5">
-                  <div
-                    class="bg-primary-container text-white py-1 px-3 rounded-xl w-fit text-[10px] font-bold uppercase"
+                  <div [class.bg-[#D7E2FF]]="m.role==='member'" [class.text-[#434654]]="m.role==='member'" [class.text-white]="m.role==='owner'" [class.bg-primary-container]="m.role==='owner'"
+                    class="  py-1 px-3 rounded-xl w-fit text-[10px] font-bold uppercase"
                   >
                     {{ m.role }}
                   </div>

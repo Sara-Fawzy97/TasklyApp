@@ -99,7 +99,11 @@ Create Task
      <button class=" w-7 h-7 md:w-6 md:h-6   text-[10px] font-bold content-center text-center rounded-xl" [class.bg-primary]="s==='IN_PROGRESS'"   [class.text-white]="s==='IN_PROGRESS'"  
  [class.bg-[#E0E8FF]]="s!=='IN_PROGRESS'"  [class.text-dark-gray]="s==='TO_DO'"
       >
-   {{getInitials(t.assignee?.name|| 'NAN')}}
+        @if (t.assignee?.name) {
+                      {{ getInitials(t.assignee?.name || '') }}
+                    } @else {
+                      <img src="../../../../../assets/members.png" alt="" class="w-4 h-3 place-self-center" />
+                    }
   
   </button>
               </div>
@@ -151,8 +155,13 @@ Create Task
                  {{t.due_date|date:'dd MMM yyyy'}}
                 </td>
                 <td class="flex px-6 py-5 gap-3">
-                  <div class="w-7 h-7 bg-[#DAE2FF] rounded-xl text-label-sm font-bold text-[#001848] content-center text-center">  {{getInitials(t.assignee?.name|| 'NAN')}}</div>
-                 <p class="text-[14px] text-dark-gray">{{t.assignee?.name}}</p>
+                  <div class="w-7 h-7 bg-[#DAE2FF] rounded-xl text-label-sm font-bold text-[#001848] content-center text-center">   @if (t.assignee?.name) {
+                      {{ getInitials(t.assignee?.name || '') }}
+                    } @else {
+                            <img src="../../../../../assets/members.png" alt="" class="w-4 h-3 place-self-center" />
+
+                    }</div>
+                 <p class="text-[14px] text-dark-gray">{{t.assignee?.name||"Unknown user"}}</p>
                 </td>
               </tr>
             }
@@ -213,7 +222,11 @@ Create Task
                     <button
                       class=" relative w-7 h-7 bg-[#DAE2FF] text-[#001848]  font-bold content-center text-center rounded-xl text-[11px]"
                     >
-                      {{ getInitials(t.assignee?.name!) }}
+                     @if (t.assignee?.name) {
+                      {{ getInitials(t.assignee?.name || '') }}
+                    } @else {
+                      <img src="../../../../../assets/members.png" alt="" class="w-4 h-3 place-self-center" />
+                    }
                     </button>
                     <div>
                       <p class="uppercase text-[11px] text-grayText/70 font-bold" >Due Date</p>

@@ -5,11 +5,16 @@
   </div>
   <div class="flex pl-2  border-l border-l-black/10 lg:justify-self-end">
     <div class="pl-4 pr-3 text-right">
-      <h4 class="text-dark-gray font-bold text-body-md">{{userName()}}</h4>
+      <h4 class="text-dark-gray font-bold text-body-md">{{userName()||"Unkonwn"}}</h4>
       <p class="text-primary font-bold text-[10px]">{{jobTitle()}}</p>
     </div>
     <button (click)="avatarClicked()" class="hover:cursor-pointer relative w-10 h-10 bg-primary text-white text-[16px] font-bold content-center text-center rounded-lg">
-   {{getInitials(userName())}}
+   @if (userName()) {
+                      {{ getInitials(userName() || '') }}
+                    } @else {
+                      <img src="../../../../../assets/personI.png" alt="" />
+                    }
+      <!-- {{getInitials(userName())}} -->
    @if(logOutDisplay){
       <div class="dropMenu">
             <button (click)="logOut()" class=" absolute right-0 top-11 z-50 cursor-pointer hover:bg-error/50  bg-white w-max rounded-md text-error py-2.5 px-3 text-base font-medium"><img  class="inline pr-3" src="../../../../assets/logOut.png" alt=""><span>Log Out</span></button>

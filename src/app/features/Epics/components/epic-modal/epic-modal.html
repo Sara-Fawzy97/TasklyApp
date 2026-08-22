@@ -63,10 +63,15 @@
               <a
                 class="w-6 h-6 lg:w-7 lg:h-7 md:w-7 md:h-7 content-center text-center bg-[#DAE2FF] lg:bg-primary text-[10px] text-[#001848] lg:text-white font-bold rounded-xl"
               >
-                {{ getInitials(epic()?.created_by?.name) }}
+              @if (epic()?.created_by?.name) {
+                      {{ getInitials(epic()?.created_by?.name || '') }}
+                    } @else {
+                      <img src="../../../../../assets/personI.png" alt="" />
+                    }
+                <!-- {{ getInitials(epic()?.created_by?.name) }} -->
             </a>
               <p class="text-dark-gray  font-medium md:font-semibold text-[12px] md:text-body-md">
-               {{epic()?.created_by?.name}}
+               {{epic()?.created_by?.name||"Unknown user"}}
               </p>
             </div>
           </div>
@@ -158,10 +163,14 @@
               <a
                 class="w-6 h-6 lg:w-5 lg:h-5 md:w-5 md:h-5 content-center text-center bg-[#DAE2FF] lg:bg-primary text-[8px] text-[#001848] lg:text-white font-bold rounded-xl"
               >
-                {{ getInitials(t.assignee?.name) }}
+              @if (t.assignee?.name) {
+                      {{ getInitials(t.assignee?.name || '') }}
+                    } @else {
+                      <img src="../../../../../assets/personI.png" alt="" />
+                    }
             </a>
               <p class="text-dark-gray/40  font-medium md:font-semibold text-[12px] md:text-body-md">
-               {{t.assignee?.name}}
+               {{t.assignee?.name ||"Unknown User"}}
               </p>
             </div>
             </div>
@@ -184,7 +193,7 @@
           </div>
       </div>
 
-      @if(tasks().length===0){
+      @if(tasks().length===0 && loaded===false){
       <div class="mt-6 bg-surface-low border-2  border-light-gray/30 border-dashed rounded-lg p-12 ">
           <div class="place-items-center">
             <div class="bg-surface-highest w-12 h-12 rounded-lg content-center ">
