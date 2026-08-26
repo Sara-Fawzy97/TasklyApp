@@ -59,6 +59,7 @@ export class Navbar implements OnInit {
       next: () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        localStorage.removeItem('project')
         this.toastService.success('Now You are logged out !', 'top-right');
       },
       error: () => {

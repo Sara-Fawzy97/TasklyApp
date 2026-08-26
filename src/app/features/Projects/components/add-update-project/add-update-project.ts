@@ -28,16 +28,18 @@ export class AddUpdateProject {
 
   ngOnInit() {
     this.checkPageName();
-    
-      this.getProjData();
+      
+    this.getProjData()
+ 
   }
 
   checkPageName() {
     this.projectId = this.route.snapshot.params['id'];
     
-    // const addn=this.route.snapshot.params['edit']
     if (this.isEdit()) {
       this.isedit.set(true);
+    }else{
+        this.project.set(null)
     }
   }
 
@@ -88,9 +90,9 @@ const name=control.get('name')?.value;
     if(project ) {
     
     this.createProj.patchValue({
-      name: project?.name,
-      description: project?.description,
-    });}else return;
+      name: project.name,
+      description: project.description,
+    });}else return ;
   }
 
   

@@ -34,6 +34,7 @@ export class ListProjects implements AfterViewInit {
 
 
   ngOnInit() {
+    this.removeProjFromSession()
     this.hasMore = true;
     this.paginator();
   }
@@ -119,6 +120,11 @@ export class ListProjects implements AfterViewInit {
           this.errorDisplayed.set(true);
       },
     });
+  }
+
+  removeProjFromSession(){
+    if(localStorage.getItem('project')){
+    localStorage.removeItem('project')}
   }
 
   //for desktop
