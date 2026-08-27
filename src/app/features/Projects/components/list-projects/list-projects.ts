@@ -95,7 +95,7 @@ export class ListProjects implements AfterViewInit {
   }
 
   paginator(append = false) {
-    this.isLoading.set(false);
+    this.isLoading.set(true);
 
     const offset = (this.currentPage - 1) * this.pageSize;
     this.projeService.getPaginatedProjects(this.pageSize, offset).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
