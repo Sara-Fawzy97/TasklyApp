@@ -1,9 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
 import { Task } from '../../models/ITask';
 import { TaskPopup } from '../task-popup/task-popup';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
 
 @Component({
   selector: 'app-all-tasks',
@@ -12,6 +14,11 @@ import { TaskPopup } from '../task-popup/task-popup';
   styleUrl: './all-tasks.css',
 })
 export class AllTasks {
+
+  currentPage=signal(1)
+  isLoading = signal(true);
+
+
   statuses = [
     'TO_DO',
     'IN_PROGRESS',
@@ -33,14 +40,75 @@ taskId=''
   route = inject(ActivatedRoute);
   tasksService = inject(TasksService);
   router = inject(Router);
+  private destroyRef = inject(DestroyRef);
+  toastService=inject(Toastr)
 
+
+   pageSize = 6;
+  // currentPage = 1;
+  totalItems = 0;
+  totalPages = 0;
+  @ViewChild('loadMoreTrigger')
+  loadMoreTrigger!: ElementRef;
+
+  observer!: IntersectionObserver;
+  hasMore = true
+
+ ngAfterViewInit() {
+    this.observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        this.loadMore();
+      }
+    });
+    this.observer.observe(this.loadMoreTrigger.nativeElement);
+  }
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
     this.statuses.forEach((s) => {
       this.getTasks(s);
     });
-    this.getAllTasks()
+      this.hasMore=true;
+    // this.getAllTasks()
+    this.paginator(true)
+  }
+
+
+   //mobile only
+  loadMore() {
+    if (this.isLoading() || !this.hasMore) return;
+    this.isLoading.set(true);
+    this.currentPage.update(page=> page+1)
+    this.paginator(true);
+  }
+
+ paginator(append = false) {
+    this.isLoading.set(true);
+
+    const offset = (this.currentPage() - 1) * this.pageSize;
+    this.tasksService.getPaginatedTasks(this.pageSize, offset,this.projectId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (res) => {
+        if (append) {
+          this.tasks.set([...this.tasks(), ...(res.body ?? [])]);
+        } else this.tasks.set(res.body ?? []);
+
+        this.isLoading.set(false);
+
+        if ((res.body?.length ?? 0) < this.pageSize) {
+          this.hasMore = false;
+        }
+        const ContentRange = res.headers.get('Content-Range');
+        if (ContentRange) {
+          this.totalItems = Number(ContentRange.split('/')[1]);
+          this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+
+        }
+      },
+      error: (error) => {
+                this.toastService.error(error.message,'top-right');
+
+      },
+    });
   }
 
   value = '';
@@ -111,5 +179,19 @@ return new Date(date).toDateString() === this.today.toDateString()
   }
   closeModale(){
    this.showModal= signal(false);
+}
+
+nextPage(){
+if (this.currentPage() < this.totalPages!) {
+    this.currentPage.set(this.currentPage() +1)
+    this.paginator()
+  }
+}
+prevPage(){
+if (this.currentPage() > 1) {
+    this.currentPage.set(this.currentPage()-1)
+    this.paginator()
+
+  }
 }
 }

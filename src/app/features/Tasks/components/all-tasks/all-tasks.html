@@ -177,11 +177,11 @@ Create Task
               <td>
                 <div class="flex py-4 px-6 gap-2 w-full">
               
-              <span><</span> 
+              <button class="cursor-pointer"  (click)="prevPage()"><</button> 
             <p class="  px-2">
-             Page 1 of 5
+             Page {{currentPage()}} of {{totalPages}}
             </p>
-            <span>></span> 
+            <button class="cursor-pointer" (click)="nextPage()">></button> 
           </div>
               </td>
             </tr>
@@ -238,7 +238,9 @@ Create Task
 
                 
           </li>
-        }
+        }   <!-----------to observe scrolling-------------->
+<div #loadMoreTrigger class="h-5 md:hidden"></div>
+
         </ul>
       </div>
 </section>
