@@ -25,4 +25,8 @@ private http= inject(HttpClient)
   }
 
 
+  getTaskDetails(projectId:string, taskId:string){
+    return this.http.get<Task[]>(`/rest/v1/project_tasks?project_id=eq.${projectId}&id=eq.${taskId}`)
+  }
+
 }

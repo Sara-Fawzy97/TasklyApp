@@ -1,0 +1,9 @@
+select,input {
+  -webkit-appearance: none;  
+  -moz-appearance: none;    
+  appearance: none;          
+}
+
+select{
+    border: 1px solid #D7E2FF
+}

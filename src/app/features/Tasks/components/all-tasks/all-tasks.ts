@@ -3,10 +3,11 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
 import { Task } from '../../models/ITask';
+import { TaskPopup } from '../task-popup/task-popup';
 
 @Component({
   selector: 'app-all-tasks',
-  imports: [DatePipe],
+  imports: [DatePipe,TaskPopup],
   templateUrl: './all-tasks.html',
   styleUrl: './all-tasks.css',
 })
@@ -26,7 +27,9 @@ export class AllTasks {
   myDate: Date = new Date();
   tasksByStatus = signal<Record<string, Task[]>>({});
   tasks=signal<Task[]>([])
-
+  showModal= signal(false);
+epicID=''
+taskId=''
   route = inject(ActivatedRoute);
   tasksService = inject(TasksService);
   router = inject(Router);
@@ -98,4 +101,15 @@ return new Date(date).toDateString() === this.today.toDateString()
      })
 
   }
+
+  
+
+
+  openModal(taskId:string){
+      this.taskId=taskId
+      this.showModal= signal(true);
+  }
+  closeModale(){
+   this.showModal= signal(false);
+}
 }

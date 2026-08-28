@@ -17,9 +17,11 @@ import { Toastr } from '../../../../shared/components/success-toastr/service/toa
 import { Sharedservice } from '../../../../shared/services/sharedservice';
 import { Task } from '../../../Tasks/models/ITask';
 import { Spinner } from "../../../../shared/components/spinner/spinner";
+import { TaskPopup } from '../../../Tasks/components/task-popup/task-popup';
+
 @Component({
   selector: 'app-epic-modal',
-  imports: [ReactiveFormsModule, DatePipe, Spinner],
+  imports: [ReactiveFormsModule, DatePipe, Spinner,TaskPopup],
   templateUrl: './epic-modal.html',
   styleUrl: './epic-modal.css',
 })
@@ -32,6 +34,8 @@ export class EpicModal {
   epicId = input<string>('');
     tasks=signal<Task[]>([])
   closee = output();
+taskId=''
+showModal=signal(false)
 projectId=''
 loaded=true
    title = 'spinnerapp';
@@ -228,4 +232,12 @@ this.spinner()
   navToTasks(){
     this.router.navigate(['/project/'+this.projectId+'/tasks/new'],{state:{data:this.epicId()}})
   }
+
+   openTaskModal(taskId:string){
+      this.taskId=taskId
+      this.showModal= signal(true);
+  }
+  closeTaskModale(){
+   this.showModal= signal(false);
+}
 }

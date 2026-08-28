@@ -1,4 +1,7 @@
 <div class="lg:pt-5 p-4 bg-dark-gray/20 fixed inset-0 z-999 ">
+      
+    @if (showModal()) {
+          <app-task-popup  [taskId]="taskId" (closee)="closeTaskModale()"></app-task-popup>}
   <div class="bg-white p-6 lg:p-8 lg:m-auto lg:w-2xl max-h-[95vh] overflow-y-auto rounded-lg">
     <div class="flex justify-between">
       <div class="flex gap-2 items-center">
@@ -14,6 +17,7 @@
         </button> 
       </div>
     </div>
+
 
     <div class="mt-4 ">
       <form [formGroup]="EpicForm">
@@ -156,7 +160,7 @@
           @if(loaded){
           <app-spinner></app-spinner>}
           @for(t of tasks(); track t){
-          <li class="flex justify-between p-4 border mb-3 lg:border-none border-light-gray/15 rounded-lg lg:rounded-none border-b-light-gray/15 ">
+          <li (click)="openTaskModal(t.id||'')" class="flex justify-between cursor-pointer p-4 border mb-3 lg:border-none border-light-gray/15 rounded-lg lg:rounded-none border-b-light-gray/15 ">
             <div>
               <h2 class="text-dark-gray text-[16px] font-medium">{{t.title}}</h2>
               <div class="flex gap-1.5 mt-3">

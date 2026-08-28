@@ -2,7 +2,8 @@
   <p class="text-[rgba(67,70,84,0.6)] font-bold gap-2 font-sans text-xs hidden lg:flex lg:px-8 lg:pt-8  uppercase">
   <span>  PROJECTS</span> <span> > </span> <span> PR0JECT Alpha</span> <span> ></span> <span class="text-dark-gray">tasks</span>
   </p>
-
+    @if (showModal()) {
+          <app-task-popup  [taskId]="taskId" (closee)="closeModale()"></app-task-popup>}
   <div class="lg:flex px-4 lg:px-8 pt-5.5 justify-between md:pt-4 items-center">
     <div>
       <h2 class="text-dark-gray  font-semibold text-[30px] leading-9">
@@ -88,8 +89,8 @@ Create Task
           
 
           <li class=" mt-4 rounded-lg p-4 " [class.bg-white]="s !== 'BLOCKED'"  [class.border-l-4]="s==='IN_PROGRESS'" [class.border-l-primary]="s==='IN_PROGRESS'"  [class.bg-[#FFDAD680]]="s === 'BLOCKED'"  [class.border]="s==='BLOCKED'" [class.border-[#BA1A1A1A]]="s==='BLOCKED'" >
-            <div>
-              <h3 class="text-dark-gray text-body-md font-medium">{{t.title}}</h3>
+            <button class="w-full cursor-pointer hover:opacity-60"   (click)="openModal(t.id||'')">
+              <h3 class="text-dark-gray text-body-md font-medium justify-self-start">{{t.title}}</h3>
               <div class="flex justify-between mt-4">
                 <div class="flex gap-2 self-center">
           <img src="../../../../../assets/calender.png" alt="" class="w-2.25 h-2.5 mt-0.5" />
@@ -107,9 +108,10 @@ Create Task
   
   </button>
               </div>
-            </div>
+            </button>
           
           </li>
+       
         }
         </ul>
       </div>
@@ -134,7 +136,7 @@ Create Task
           </thead>
           <tbody class="bg-white">
             @for (t of tasks(); track t) {
-              <tr>
+              <tr class="cursor-pointer hover:bg-gray-300" (click)="openModal(t.id||'')">
                 <td class="px-6 py-5 text-primary text-[12px]">
                   {{t.task_id}}
                 </td>
@@ -202,7 +204,7 @@ Create Task
       <div class='lg:hidden px-4'>
         <ul class="mb-20">
           @for(t of tasks(); track t){
-          <li class="bg-white  card p-4 rounded-lg mt-3 ">
+          <li (click)="openModal(t.id||'')" class="bg-white  card p-4 rounded-lg mt-3 ">
             
                <div class="flex   justify-between">
                  <div>

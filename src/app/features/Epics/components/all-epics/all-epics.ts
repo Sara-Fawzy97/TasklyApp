@@ -17,6 +17,8 @@ import { debounceTime } from 'rxjs';
 })
 
 export class AllEpics {
+
+  display=true //for search icon 
   searchTerm = signal('');
   isLoading = signal(true);
   myDate: Date = new Date();
@@ -176,7 +178,7 @@ closeModale(){
 }
  
 
-display=true
+
 serchEpics(e:Event){
   this.display=false // for search icon
   this.currentPage=1
