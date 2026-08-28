@@ -36,4 +36,17 @@ private http= inject(HttpClient)
      observe: 'response'
   })
 }
+
+// GET /rest/v1/project_tasks?project_id=eq.{PROJECT_ID}&title=ilike.%25{SEARCH_TERM}%25
+ getSearchedTasks(PROJECT_ID:string,SEARCH_TERM?:string,offset?:number,limit?: number){
+    
+    return this.http.get<Task[]>(`/rest/v1/project_tasks?project_id=eq.${PROJECT_ID}&title=ilike.%25${SEARCH_TERM}%25&offset=${offset}&limit=${limit}`,
+      {
+    headers:new HttpHeaders({Prefer:`count=exact`}),
+     observe: 'response'
+  }
+    )
+  }
+
+
 }

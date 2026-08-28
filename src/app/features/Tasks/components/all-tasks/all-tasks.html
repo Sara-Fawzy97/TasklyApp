@@ -17,6 +17,7 @@
     <div class="lg:flex gap-8">
       <div class="relative">
         <input
+         (input)="serchTasks($event)"
           type="text"
           placeholder="Search tasks..."
           class="text-[#737685] relative  text-[14px] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-1.5 pl-10 pr-4 mt-4"
@@ -27,7 +28,7 @@
           class="absolute top-6.75 left-4 w-3.25 h-3.25"
         />
       </div>
-   
+  
          <button  (click)="navToTasks()"
       class="lg:hidden flex mt-4 bg-linear-to-r from-primary to-primary-container items-center gap-2 text-white py-2 px-4  w-full justify-center rounded-s"
     >
@@ -50,13 +51,19 @@ Create Task
         </select>
       </div>
     </div>
+    
   </div>
+     @if(searchTerm() && tasks().length===0){
+        <p class="text-error  place-self-center">No tasks found matching your search</p>}
+
 
   <div class="hidden lg:block">
   @if( view.value ==='board'){
 
    <div class=" min-w-0 w-full lg:ml-8 overflow-x-scroll overflow-y-hidden ">
-      <div class=" flex w-max gap-6 mt-6 pr-9 "   >
+     
+    <div class=" flex w-max gap-6 mt-6 pr-9 "   >
+        
     @for (s of statuses; track s) {
       <div class="w-57 shrink-0">
         <div class="flex justify-between px-1 ">
@@ -83,7 +90,7 @@ Create Task
 
           <p class="text-[12px] text-grayText/60 font-bold uppercase">ADD new task</p>
         </button>
- 
+                
         <ul>
           @for (t of gettasksByStatus(s);track t.id){
           
@@ -134,7 +141,8 @@ Create Task
               <th class=" py-4 px-6  text-left text-grayText text-label-sm font-bold">Assignee</th>
             </tr>
           </thead>
-          <tbody class="bg-white">
+          <tbody class="bg-white w-full">
+          
             @for (t of tasks(); track t) {
               <tr class="cursor-pointer hover:bg-gray-300" (click)="openModal(t.id||'')">
                 <td class="px-6 py-5 text-primary text-[12px]">

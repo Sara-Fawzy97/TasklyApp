@@ -118,7 +118,6 @@ if(term){
         this.pageSize
       ).pipe(debounceTime(400),takeUntilDestroyed(this.destroyRef)).subscribe({
     next:(res)=>{
-      console.log(res)
    this.epics.set(res.body??[])
     this.isLoading.set(false);
 
