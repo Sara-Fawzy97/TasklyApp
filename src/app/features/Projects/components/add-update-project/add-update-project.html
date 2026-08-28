@@ -39,7 +39,7 @@
             Project name is required</p>}
           @if(createProj.hasError('startsWithSpace')){ <p>Epic title mustn't start with space</p>}
 
-          @else if(createProj.get('name')?.errors?.['pattern']){ <p>Project name must be at least 3 characters and maximum 100 characters.</p>}
+          @else if(createProj.get('name')?.errors?.['pattern']){ <p>Project name must be at least 3 characters.</p>}
         </div>
         }
 

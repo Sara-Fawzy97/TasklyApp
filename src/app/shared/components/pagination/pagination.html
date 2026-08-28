@@ -6,7 +6,8 @@
 
     @for(p of pages; track p){
           @if(p==='...'){
-<span>...</span>
+                <li><span>...</span></li>
+                
             }@else {
 <!-- <button>{{currentPage()}}</button> -->
         <button (click)="goToPage(p)" [class.bg-primary]="currentPage() === p"

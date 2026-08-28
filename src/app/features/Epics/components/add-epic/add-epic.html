@@ -1,11 +1,11 @@
-<section  class="px-6  md:p-10 ">
+<section  class="px-6  md:p-10 md:mx-6">
 
 <section class="  ">
      
     <p class="text-[#43465499] hidden md:flex font-semibold gap-2 font-sans text-xs uppercase"><span>PROJECTS</span><span> ></span> <span>Project Alpha</span><span> ></span><span> Epics</span><span> ></span> <span class="text-dark-gray">New Epic</span></p>
 
     <h2 class="text-[24px] md:text-4xl font-bold mt-8">Create New Epic</h2>
-    <p class="text-grayText md:w-[462.5px] text-[14px] md:text-[16px] pt-2">Define a major project phase or high-level milestone to group
+    <p class="text-grayText md:w-lg text-[14px] md:text-[16px] pt-2">Define a major project phase or high-level milestone to group 
 related tasks and track architectural progress.</p>
 
 </section>
@@ -13,8 +13,8 @@ related tasks and track architectural progress.</p>
 <div class="md:bg-white rounded-lg pt-2 pb-4 mt-8" >
     <form class="md:p-8 mb-12"  [formGroup]="createEpicForm" (ngSubmit)="createEpic()">
 
-         <div class="grid grid-cols-1 md:grid-cols-4">
-        <label class="text-graay text-label-sm font-bold pl-1 pt-2  " for="title"> TITLE <span class='text-error'>*</span></label>
+         <div class="grid grid-cols-1 md:grid-cols-4 ">
+        <label class="text-graay text-label-sm font-bold pl-1 pt-2 col  " for="title"> TITLE <span class='text-error'>*</span></label>
        <div class="col-span-3">
         <input formControlName="title" type="text" placeholder="e.g. Structural Foundation Phase" id="title" class=" text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-3.5 px-4 mt-2 " /><br>
      <!--------------error handle-------->
@@ -24,7 +24,7 @@ related tasks and track architectural progress.</p>
             Title is required</p>}
           @if(createEpicForm.hasError('startsWithSpace')){ <p>Epic title mustn't start with space</p>}
 
-          @else if(createEpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters and maximum 100 characters.</p>}
+          @else if(createEpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters.</p>}
         </div>
         }</div>  
       </div>
@@ -65,7 +65,7 @@ related tasks and track architectural progress.</p>
 
       <div class="flex md:flex-row flex-col-reverse gap-3 pt-6  place-self-end mt-8 w-full md:w-fit">
         <button type="button" class="py-3 px-6 text-graay font-bold w-full md:w-fit cursor-pointer" (click)="goBack()" >Cancel</button>
-        <button [disabled]="!createEpicForm.valid"  class="flex w-full md:w-fit bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer py-4 md:py-3 px-6 " >Create Epic</button>
+        <button [disabled]="!createEpicForm.valid"  class="flex w-full md:w-fit bg-linear-to-r from-primary to-primary-container items-center justify-center  text-[14px] font-bold rounded-sm text-white cursor-pointer py-4 md:py-3 px-10 " >Create Epic</button>
 
       </div>
     </form>
