@@ -11,6 +11,7 @@ import { Toastr } from '../../../../shared/components/success-toastr/service/toa
 })
 export class AcceptInvitation {
  
+  token=''
   isLoading="false"
 route=inject(ActivatedRoute)
 membersService=inject(MembersService)
@@ -18,11 +19,21 @@ toastService=inject(Toastr)
 router=inject(Router)
 
 
-acceptInvitation(){
+ngOnInit(){
 const token=this.route.snapshot.queryParamMap.get('token');
   
+if(token){
+  this.token=token
+ sessionStorage.setItem('inviteToken', token);}
+}
+
+
+
+acceptInvitation(){
+// const token=this.route.snapshot.queryParamMap.get('token');
+  
 const body={
-    p_token:token 
+    p_token:this.token 
   }
 
   this.membersService.recieveInvit(body).subscribe({
