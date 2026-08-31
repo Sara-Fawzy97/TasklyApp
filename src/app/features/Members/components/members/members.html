@@ -1,23 +1,26 @@
 <section class="p-4 lg:p-8 relative">
-  <section >
+  <section>
     <p class="hidden lg:flex text-[#43465499] font-bold gap-2 font-sans text-xs">
-     <span> PROJECTS </span> <span> > </span> <span> PR0JECT NAME </span> <span> ></span> <span class="text-primary">MEMBERS</span>
+      <span> PROJECTS </span> <span> > </span> <span> PR0JECT NAME </span> <span> ></span>
+      <span class="text-primary">MEMBERS</span>
     </p>
     <!----------modal------------->
     @if (showModal()) {
-   <app-add-member (closee)="closeModale()"></app-add-member>
+      <app-add-member (closee)="closeModale()"></app-add-member>
     }
 
     <div class="md:flex md:justify-between place-content-center">
-      <h2 class=" text-center text-[32px] md:text-4xl font-semibold mt-8  md:mt-4">Project Members</h2>
-      <div class="content-end ">
+      <h2 class="text-center text-[32px] md:text-4xl font-semibold mt-8 md:mt-4">
+        Project Members
+      </h2>
+      <div class="content-end">
         <button
-          (click)=" showModal.set(true)"
+          (click)="showModal.set(true)"
           class="hidden md:flex gap-2 bg-linear-to-r from-primary to-primary-container text-white px-6 py-3 content-center cursor-pointer rounded-xs"
         >
           <img src="../../../../../assets/membersI.png" alt="" class="w-4.5 h-3.25 self-center" />
           Invite members
-      </button> 
+        </button>
       </div>
     </div>
   </section>
@@ -55,90 +58,112 @@
       </div>
     } @else if (members()) {
       <!-------------desktop view---------->
-      <div class="hidden md:block place-self-center pt-12 lg:w-[789px]">
-        <table class="p-1 rounded-lg lg:w-full ">
-          <thead class="bg-[#E0E8FF4D]">
-            <tr >
-              <th class="py-5 px-13  text-left text-grayText text-label-sm font-bold">MEMBER</th>
-              <th class="py-5 px-13 text-left text-grayText text-label-sm font-bold">ROLE</th>
-              <th class="py-5 px-13  text-right text-grayText text-label-sm font-bold">ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white">
-            
-            @for (m of members(); track m) {
-              <tr>
-                <td class="px-8 py-5">
-                  <div class="flex gap-4 items-center">
-                    <div [class.bg-[#82F9BE]]="m.role==='member'" [class.text-[#002113]]="m.role==='member'" [class.text-[primary]]="m.role==='owner'" [class.bg-[#DAE2FF]]="m.role==='owner'"
-                      class=" relative w-12 h-12   text-[16px] font-bold content-center text-center rounded-xl"
-                    >
-                    @if (m.metadata.name) {
-                      {{ getInitials(m.metadata.name || '') }}
-                    } @else {
-                      <img src="../../../../../assets/personI.png" alt="" />
-                    }
-                      
-                  </div>
-                    <div class="">
-                      <h4 class="text-dark-gray font-semibold text-body-md">
-                        {{ m.metadata.name||'Unknown User' }}
-                      </h4>
-                      <p class="text-grayText text-[12px]">{{ m.metadata.email }}</p>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-8 py-8.5">
-                  <div [class.bg-[#D7E2FF]]="m.role==='member'" [class.text-[#434654]]="m.role==='member'" [class.text-white]="m.role==='owner'" [class.bg-primary-container]="m.role==='owner'"
-                    class="  py-1 px-3 rounded-xl w-fit text-[10px] font-bold uppercase"
-                  >
-                    {{ m.role }}
-                  </div>
-                </td>
-                <td class="px-8 py-8.5 justify-items-end">
-                  <img src="../../../../../assets/actions.png" alt="" />
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
+
+      <div class="hidden lg:block ml-26.5 mr-32.25 mt-12 rounded-lg">
+        <div class="grid grid-cols-3">
+          <div
+            class="bg-[#E0E8FF4D] py-5 px-13 text-left text-grayText text-label-sm font-bold uppercase"
+          >
+            member
+          </div>
+          <div
+            class="bg-[#E0E8FF4D] py-5 px-13 text-center text-grayText text-label-sm font-bold uppercase"
+          >
+            role
+          </div>
+          <div
+            class="bg-[#E0E8FF4D] py-5 px-13 text-right text-grayText text-label-sm font-bold uppercase"
+          >
+            action
+          </div>
+
+          @for (m of members(); track m) {
+            <!---------------name and email---->
+            <div class="bg-white px-8 py-5 border-t border-t-[#E8EDFF]">
+              <div class="flex gap-4 items-center w-81">
+                <div
+                  [class.bg-[#82F9BE]]="m.role === 'member'"
+                  [class.text-[#002113]]="m.role === 'member'"
+                  [class.text-[primary]]="m.role === 'owner'"
+                  [class.bg-[#DAE2FF]]="m.role === 'owner'"
+                  class="w-12 h-12 text-[16px] font-bold content-center text-center rounded-xl"
+                >
+                  @if (m.metadata.name) {
+                    {{ getInitials(m.metadata.name || '') }}
+                  } @else {
+                    <img src="../../../../../assets/personI.png" alt="" />
+                  }
+                </div>
+                <div class="">
+                  <h4 class="text-dark-gray font-semibold text-body-md">
+                    {{ m.metadata.name || 'Unknown User' }}
+                  </h4>
+                  <p class="text-grayText text-[12px]">{{ m.metadata.email }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!---------------------  roles------->
+
+            <div class="bg-white px-8 py-8.5 border-t border-t-[#E8EDFF] place-items-center">
+              <div
+                [class.bg-[#D7E2FF]]="m.role === 'member'"
+                [class.text-[#434654]]="m.role === 'member'"
+                [class.text-white]="m.role === 'owner'"
+                [class.bg-primary-container]="m.role === 'owner'"
+                class="py-1 px-3 rounded-xl w-fit text-[10px] font-bold uppercase"
+              >
+                {{ m.role }}
+              </div>
+            </div>
+
+            <!---------------------  actions------->
+
+            <div class="bg-white px-8 py-8.5 border-t border-t-[#E8EDFF]">
+              <img src="../../../../../assets/actions.png" alt="" class="float-right" />
+            </div>
+          }
+        </div>
       </div>
 
       <!-------------mobile view----------->
-      <div class='md:hidden'>
+      <div class="lg:hidden">
         <ul>
-          @for(m of members(); track m){
-          <li class="bg-white p-4 rounded-lg mt-3">
-            <div class="flex  justify-between">
-               <div class="flex gap-4 items-center">
-                    <button
-                      class=" relative w-12 h-12 bg-[#DAE2FF] text-primary text-[16px] font-bold content-center text-center rounded-xl"
-                    >
-                      {{ getInitials(m.metadata.name) }}
-                    </button>
-                    <div class="">
-                      <h4 class="text-dark-gray font-semibold text-body-md">
-                        {{ m.metadata.name }}
-                      </h4>
-                      <p class="text-grayText text-[11px] md:text-[12px]">{{ m.metadata.email }}</p>
-                    </div>
+          @for (m of members(); track m) {
+            <li class="bg-white p-4 rounded-lg mt-3">
+              <div class="flex justify-between">
+                <div class="flex gap-4 items-center">
+                  <button
+                    class="relative w-12 h-12 bg-[#DAE2FF] text-primary text-[16px] font-bold content-center text-center rounded-xl"
+                  >
+                    {{ getInitials(m.metadata.name) }}
+                  </button>
+                  <div class="">
+                    <h4 class="text-dark-gray font-semibold text-body-md">
+                      {{ m.metadata.name }}
+                    </h4>
+                    <p class="text-grayText text-[11px] md:text-[12px]">{{ m.metadata.email }}</p>
                   </div>
+                </div>
 
-                  <div class="" >
-                    <p class="text-[10px] text-grayText font-bold py-0.5 px-2 bg-surface-highest uppercase">viewer</p>
-                  <img class="float-right pt-2 " src="../../../../../assets/actions.png" alt="" />
-
-                  </div>
-            </div>
-          </li>
-        }
+                <div class="">
+                  <p
+                    class="text-[10px] text-grayText font-bold py-0.5 px-2 bg-surface-highest uppercase"
+                  >
+                    viewer
+                  </p>
+                  <img class="float-right pt-2" src="../../../../../assets/actions.png" alt="" />
+                </div>
+              </div>
+            </li>
+          }
         </ul>
       </div>
     }
   </section>
   <!-- fixed right-8 bottom-20 md:hidden w-14 h-14 bg-primary text-white text-[16px] font-bold content-center text-center rounded-xl -->
   <button
-    (click)=" showModal.set(true)"
+    (click)="showModal.set(true)"
     class="hover:cursor-pointer fixed right-8 w-10 h-10 bottom-20 md:hidden p-3 bg-primary rounded-[10px]"
   >
     <img src="../../../../../assets/membersI.png" alt="" class="w-4.5 h-3.25 self-center" />
