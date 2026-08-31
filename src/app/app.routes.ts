@@ -12,7 +12,7 @@ export const routes: Routes = [
    {path:'reset-password', loadComponent:()=>import('./features/Auth/components/reset-password/reset-password').then(c=>c.ResetPassword)},
 
 {
-    path: 'invite',canActivate:[authGuard],
+    path: 'invite',
     loadComponent: () =>
       import('./features/Members/components/accept-invitation/accept-invitation')
         .then(c => c.AcceptInvitation)

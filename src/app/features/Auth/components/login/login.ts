@@ -31,9 +31,9 @@ export class Login {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          localStorage.setItem('accessToken', res.access_token);
-          localStorage.setItem('refreshToken', res.refresh_token);
-
+          sessionStorage.setItem('accessToken', res.access_token);
+          sessionStorage.setItem('refreshToken', res.refresh_token);
+           
           this.toastService.success('You are logged in successfully', 'top-right');
         },
         error: (err) => {
@@ -41,7 +41,15 @@ export class Login {
           this.toastService.error(err.error.msg, 'top-right');
         },
         complete: () => {
-          this.router.navigateByUrl('/project');
+         const inviteToken=sessionStorage.getItem('inviteToken')
+         if(inviteToken){
+          this.router.navigate(['/invite'],{
+            queryParams:{
+              token:inviteToken
+            }})
+           
+        }else{
+          this.router.navigateByUrl('/project');}
         },
       });
   }

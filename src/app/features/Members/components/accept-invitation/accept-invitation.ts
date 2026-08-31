@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MembersService } from '../../services/members-service';
 import { Toastr } from '../../../../shared/components/success-toastr/service/toastr';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-accept-invitation',
@@ -17,14 +18,26 @@ route=inject(ActivatedRoute)
 membersService=inject(MembersService)
 toastService=inject(Toastr)
 router=inject(Router)
+  private destroyRef = inject(DestroyRef);
 
 
 ngOnInit(){
-const token=this.route.snapshot.queryParamMap.get('token');
-  
-if(token){
-  this.token=token
- sessionStorage.setItem('inviteToken', token);}
+this.token=this.route.snapshot.queryParamMap.get('token')||'';
+console.log(this.token)
+
+if(this.token){
+sessionStorage.setItem('inviteToken',this.token)
+}
+
+const accessToken=sessionStorage.getItem('accessToken')
+
+if(!accessToken){
+  this.router.navigate(['/login'])
+ 
+}
+
+
+
 }
 
 
@@ -36,17 +49,21 @@ const body={
     p_token:this.token 
   }
 
-  this.membersService.recieveInvit(body).subscribe({
+  this.membersService.recieveInvit(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
     next:()=>{
       this.isLoading='true'
-       this.toastService.success('Invitation is accepted','top-right');
+       this.toastService.success('Invitation accepted successfully','top-right');
 
-      this.router.navigateByUrl('/project')
     },
     error:(error)=>{
       this.isLoading='false'
       
        this.toastService.error(error.message,'top-right');
+    },
+    complete:()=>{
+      sessionStorage.removeItem('inviteToken')
+      this.router.navigateByUrl('/project')
+
     }
   })
 }
