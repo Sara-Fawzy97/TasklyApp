@@ -8,7 +8,7 @@ import { MembersService } from '../../../Members/services/members-service';
 import { ActivatedRoute } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
 import { Task } from '../../models/ITask';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -51,11 +51,12 @@ export class TaskPopup {
   }
 
   taskForm = new FormGroup({
-    // description: new FormControl('', [Validators.maxLength(500)]),
-    assignee_id: new FormControl(''),
-    deadline: new FormControl(''),
+      title: new FormControl('', Validators.required),
+    description: new FormControl('', [Validators.maxLength(500)]),
+    assignee_id: new FormControl<string|null>(''),
+    due_date: new FormControl<string|null>(''),
     status: new FormControl(''),
-    epic_id:new FormControl('')
+    epic_id:new FormControl<string|null>('')
   });
 
   value = '';
@@ -73,6 +74,7 @@ export class TaskPopup {
 
   closeModal() {
     this.closee.emit();
+    this.getTaskDetails()
   }
 
   getTaskDetails() {
@@ -90,7 +92,9 @@ export class TaskPopup {
         },
         complete: () => {
           this.taskForm.patchValue({
-            deadline: this.task()[0]?.deadline,
+            title:this.task()[0]?.title,
+            description:this.task()[0]?.description,
+            due_date: this.task()[0]?.deadline,
             assignee_id: this.task()[0]?.assignee?.id,
             status: this.task()[0].status,
             epic_id:this.task()[0].epic_id
@@ -133,5 +137,123 @@ export class TaskPopup {
     } catch (err) {
       this.toastService.error('Failed to copy URL: ' + err, 'top-right');
     }
+  }
+
+isEditMode = false;
+
+startEditTitle() {
+  this.isEditMode = true;
+}
+
+  
+
+   updateTitle() {
+    const title = this.taskForm.get('title')?.value?.trim()
+   
+    if (!title || !this.taskId()) {
+      this.taskForm.get('title')?.markAsTouched();
+      return;
+    }
+    this.taskService
+      .updateTaskStaus(this.taskId(), { title:title })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.success('Title is updated successfully', 'top-right');
+        },
+        error: () => {
+          this.toastService.error('Failed to update task. Please try again.', 'top-right');
+        },
+        complete: () => {
+          this.toastService.success('Title is updated successfully', 'top-right');
+        },
+      });
+  }
+
+   updateDescription() {
+    const description = this.taskForm.get('description')?.value?.trim()
+   
+    if (!description || !this.taskId()) {
+      this.taskForm.get('title')?.markAsTouched();
+      return;
+    }
+    this.taskService
+      .updateTaskStaus(this.taskId(), { description:description })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.success('Description is updated successfully', 'top-right');
+        },
+        error: () => {
+          this.toastService.error('Failed to update task. Please try again.', 'top-right');
+        },
+        complete: () => {
+          this.toastService.success('Description is updated successfully', 'top-right');
+        },
+      });
+  }
+
+  changeAssigne(){
+      const assignee_id = this.taskForm.get('assignee_id')?.value?.trim();
+
+    this.taskService
+      .updateTaskStaus(this.taskId(), { assignee_id: assignee_id||null })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.success('Task is updated successfully', 'top-right');
+        },
+        error: () => {
+          this.toastService.error('Failed to update task. Please try again.', 'top-right');
+        },
+      });
+  }
+
+   changeEpic(){
+      const epic_id = this.taskForm.get('epic_id')?.value?.trim()||null;
+
+    this.taskService
+      .updateTaskStaus(this.taskId(), { epic_id:epic_id||'' })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.success('Task is updated successfully', 'top-right');
+        },
+        error: () => {
+          this.toastService.error('Failed to update task. Please try again.', 'top-right');
+        },
+      });
+  }
+
+   changedate(){
+      const deadline = this.taskForm.get('due_date')?.value?.trim()||null;
+
+    this.taskService
+      .updateTaskStaus(this.taskId(), {due_date:deadline||'' })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.success('Task is updated successfully', 'top-right');
+        },
+        error: () => {
+          this.toastService.error('Failed to update task. Please try again.', 'top-right');
+        },
+      });
+  }
+
+  changeStatus(){
+      const status = this.taskForm.get('status')?.value?.trim()||null;
+
+    this.taskService
+      .updateTaskStaus(this.taskId(), {status:status||'' })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.success('Task is updated successfully', 'top-right');
+        },
+        error: () => {
+          this.toastService.error('Failed to update task. Please try again.', 'top-right');
+        },
+      });
   }
 }

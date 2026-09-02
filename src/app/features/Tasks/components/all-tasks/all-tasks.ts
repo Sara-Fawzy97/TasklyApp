@@ -218,6 +218,7 @@ export class AllTasks {
   }
   closeModale() {
     this.showModal = signal(false);
+    this.getAllTasks()
   }
 
   nextPage() {

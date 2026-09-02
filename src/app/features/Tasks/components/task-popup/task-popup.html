@@ -25,6 +25,7 @@
               <img src="../../../../../assets/epics (2).png" alt="" class="absolute top-5.5 left-2" />
               
               <select
+              (change)="changeEpic()"
                 formControlName="epic_id"
                 name="epic_id"
                 id="epic_id"
@@ -52,7 +53,22 @@
             </div>
           </form>
         </div>
-        <h3 class="text-[30px] font-bold text-dark-gray mt-2">{{ task()[0].title }}</h3>
+        @if(!isEditMode){
+        <h3 (click)="startEditTitle()" class="text-[30px] font-bold text-dark-gray mt-2 hover:underline cursor-pointer">{{ task()[0].title }}</h3>
+      }@else{
+        <form [formGroup]="taskForm" >
+        <input
+          formControlName="title"
+          value={{task()[0].title}}
+          type="text"
+          id="'title"
+          (blur)="updateTitle()"
+          class="mt-2 p-2 border border-[#CDDDFF] rounded-lg w-full"
+        >
+        </form>
+      }
+
+
         <div class="flex lg:hidden text-[11px] font-bold gap-2 pt-4">
           <p class="rounded-xl py-1 px-3" [class.bg-[#CDDDFF]]="task()[0].status === 'IN_PROGRESS'"
               [class.bg-[#82F9BE]]="task()[0].status === 'DONE'" 
@@ -74,6 +90,7 @@
 
         <div class="bg-surface-low p-4 rounded-lg lg:hidden h-20">
           <p class="text-[#737685] font-bold text-[11px] uppercase pb-1">Assignee</p>
+          @if(!isEditMode){
           <div class="flex gap-2">
           <div
             class="w-7 h-7   bg-[#CDDDFF] text-primary text-[14px] font-bold content-center text-center rounded-xl"
@@ -84,6 +101,41 @@
             {{ task()[0].assignee?.name ||'Unknown user'}}
           </p>
           </div>
+        }@else {
+   <div class="relative">
+            <img
+              src="../../../../../assets/assignee.png"
+              alt=""
+              class="absolute top-6.5 left-2 bg-[#E0E8FF] rounded-xl w-3 h-3"
+            />
+        <form [formGroup]="taskForm" >
+
+            <select
+              formControlName="assignee_id"
+              (change)="changeAssigne()"
+              name="cars"
+              id="cars"
+              class="text-dark-gray bg-white p-2 h-10 w-full font-semibold text-[14px] rounded-lg px-8 mt-3"
+            >
+              <option [ngValue]="null"  class="">Unassigned</option>
+
+              @for (m of members(); track m) {
+                <option value="{{ m.user_id }}">
+                  <div
+                    class="w-7 h-7 md:w-6 md:h-6 md:bg-[#CDDDFF] md:text-[#51617E] text-[14px] font-bold content-center text-center rounded-xl"
+                  >
+                    {{ getInitials(m.metadata.name) }}
+                  </div>
+                  <p class="text-dark-gray font-medium md:font-medium text-[12px] md:text-body-md">
+                    {{ m.metadata.name }}
+                  </p>
+                </option>
+              }
+            </select>
+            </form>
+            <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-7.5 right-4" />
+          </div>
+        }
         </div>
 
         <div class="bg-surface-low p-4 rounded-lg lg:hidden content-end h-20">
@@ -127,9 +179,10 @@
       <hr class="bg-[#E8EDFF] h-px border-0" />
       <div class="p-8">
         <p class="text-[10px] font-bold  text-grayText uppercase">description</p>
-        <textarea
+         <form [formGroup]="taskForm" >
+        <textarea (blur)="updateDescription()"  formControlName="description"
           class="p-3 mt-2.75 border lg:h-118 bg-white border-surface-highest rounded-xl text-[14px] text-dark-gray w-full"
-          >{{ task()[0].description }}</textarea>
+          >{{ task()[0].description }}</textarea></form>
       </div>
 
       <div class="hidden lg:flex justify-between bg-surface-low py-4 px-8">
@@ -158,6 +211,7 @@
           <p class="text-grayText font-bold text-[12px] uppercase">status</p>
           <div class="relative">
             <select
+            (change)="changeStatus()"
               formControlName="status"
               name="status"
               id="status"
@@ -195,11 +249,12 @@
 
             <select
               formControlName="assignee_id"
+              (change)="changeAssigne()"
               name="cars"
               id="cars"
               class="text-dark-gray bg-white p-2 h-10 w-full font-semibold text-[14px] rounded-lg px-8 mt-3"
             >
-              <option class="">Unassigned</option>
+              <option [ngValue]="null"  class="">Unassigned</option>
 
               @for (m of members(); track m) {
                 <option value="{{ m.user_id }}">
@@ -240,7 +295,8 @@
           <img src="../../../../../assets/calender.png" alt="" class="absolute top-3.5 left-2" />
 
           <input
-            formControlName="deadline"
+          (change)="changedate()"
+            formControlName="due_date"
             type="date"
             id="start-date"
             name="trip-start"

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Task } from '../models/ITask';
+import { Task, TaskReq } from '../models/ITask';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +48,7 @@ private http= inject(HttpClient)
     )
   }
 
-  updateTaskStaus(taskId:string, data :{status:string}){
+  updateTaskStaus(taskId:string, data:Partial<TaskReq>){
   return this.http.patch(`/rest/v1/tasks?id=eq.${taskId}`,data)
   }
 

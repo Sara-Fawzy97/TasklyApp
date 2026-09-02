@@ -5,8 +5,8 @@ export interface Task {
   title?: string | null;
   description?: string | null;
   assignee?: {
-    name: string;
-    id: string;
+    name?: string;
+    id?: string;
   };
   due_date?: string | null;
   status?: string | null;
@@ -21,4 +21,13 @@ export interface Task {
     id:string,
     epic_id:string
   }
+}
+
+export interface TaskReq{
+   title?:string,
+   description?:string
+  assignee_id?:string|null,
+  due_date?:string,
+  status?:string,
+  epic_id?:string,
 }
