@@ -25,9 +25,9 @@ export interface Task {
 
 export interface TaskReq{
    title?:string,
-   description?:string
+   description?:string|null
   assignee_id?:string|null,
-  due_date?:string,
+  due_date?:string|null,
   status?:string,
-  epic_id?:string,
+  epic_id?:string|null,
 }

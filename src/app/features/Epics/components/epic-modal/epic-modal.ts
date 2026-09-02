@@ -239,5 +239,6 @@ this.spinner()
   }
   closeTaskModale(){
    this.showModal= signal(false);
+   this.getTasks()
 }
 }

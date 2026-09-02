@@ -218,6 +218,9 @@ export class AllTasks {
   }
   closeModale() {
     this.showModal = signal(false);
+    this.statuses.forEach((s) => {
+      this.getTasks(s);
+    });
     this.getAllTasks()
   }
 

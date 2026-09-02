@@ -38,7 +38,7 @@
             Title is required</p>}
           @if(EpicForm.hasError('startsWithSpace')){ <p>Epic title mustn't start with space</p>}
 
-          @else if(EpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters and maximum 100 characters.</p>}
+          @else if(EpicForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters </p>}
         </div>
         }
         </div>

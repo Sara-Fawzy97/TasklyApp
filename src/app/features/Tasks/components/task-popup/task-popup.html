@@ -1,221 +1,98 @@
-<div class="lg:pt-5 lg:p-4 bg-dark-gray/20 fixed inset-0 z-9999 lg:justify-center">
+<div class="lg:pt-5 lg:p-4 bg-dark-gray/20 fixed inset-0 z-9999 lg:justify-center" (click)="closeModal()" >
   <div class="absolute bottom-0 lg:relative w-full">
-  <div
-    class="   lg:flex bg-[#EEEFF3] lg:bg-surface-low lg:m-auto w-full lg:w-4xl max-h-[95vh] overflow-y-auto rounded-tl-3xl rounded-tr-3xl lg:rounded-lg"
-  >
-    <div class="lg:bg-white w-full lg:w-xl h-full">
-      <hr
-        class="md:hidden mb-2.5 w-12 bg-light-gray/30 border-0 place-self-center h-1.5 my-3 rounded-xl"
-      />
+    <div  (click)="$event.stopPropagation()" 
+      class="lg:flex bg-[#EEEFF3]  lg:bg-surface-low lg:m-auto w-full lg:w-4xl max-h-[95vh] overflow-y-auto rounded-tl-3xl rounded-tr-3xl lg:rounded-lg"
+    >
+      <div class="lg:bg-white w-full lg:w-xl h-full">
+        <hr
+          class="md:hidden mb-2.5 w-12 bg-light-gray/30 border-0 place-self-center h-1.5 my-3 rounded-xl"
+        />
 
-      <div class="py-6 px-8">
-        <div class="flex justify-between lg:justify-start lg:gap-3 items-center">
-          <p
-            class="bg-transparent lg:bg-[#DAE2FF] text-graay lg:text-primary  text-[12px] font-bold w-fit h-fit py-.5 px-2 rounded-xs"
-          >
-            {{ task()[0].task_id }}
-          </p>
-
-          <button (click)="closeModal()">
-            <img src="../../../../../assets/close.png" alt="" class="block lg:hidden" />
-          </button>
-
-          <form [formGroup]="taskForm" class="hidden lg:block">
-            <div class="relative">
-              <img src="../../../../../assets/epics (2).png" alt="" class="absolute top-5.5 left-2" />
-              
-              <select
-              (change)="changeEpic()"
-                formControlName="epic_id"
-                name="epic_id"
-                id="epic_id"
-                class="text-grayText text-[14px] px-6 font-medium p-2 w-full rounded-lg md:rounded-sm mt-2"
-              >
-             
-
-                <option value="{{ task()[0].epic_id }}">
-                  <span class="pr-3">{{ task()[0].epic?.epic_id }} </span>
-                  {{ task()[0].epic?.title }}
-                </option>
-                @for (e of epics(); track e) {
-                  <option value="{{ e.id }}">
-                    <span class="pr-3">{{ e.epic_id }} </span>
-                    @if (e.title.length === 100 || e.title.length > 100) {
-                      {{ e.title.slice(0, 20) }}
-                      <span>...</span>
-                    } @else {
-                      {{ e.title }}
-                    }
-                  </option>
-                }
-              </select>
-              <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-6.5 right-2" />
-            </div>
-          </form>
-        </div>
-        @if(!isEditMode){
-        <h3 (click)="startEditTitle()" class="text-[30px] font-bold text-dark-gray mt-2 hover:underline cursor-pointer">{{ task()[0].title }}</h3>
-      }@else{
-        <form [formGroup]="taskForm" >
-        <input
-          formControlName="title"
-          value={{task()[0].title}}
-          type="text"
-          id="'title"
-          (blur)="updateTitle()"
-          class="mt-2 p-2 border border-[#CDDDFF] rounded-lg w-full"
-        >
-        </form>
-      }
-
-
-        <div class="flex lg:hidden text-[11px] font-bold gap-2 pt-4">
-          <p class="rounded-xl py-1 px-3" [class.bg-[#CDDDFF]]="task()[0].status === 'IN_PROGRESS'"
-              [class.bg-[#82F9BE]]="task()[0].status === 'DONE'" 
-              [class.bg-[#D7E2FF]]="
-                task()[0].status === 'TO_DO' ||
-                task()[0].status === 'IN_REVIEW' ||
-                task()[0].status === 'READY_FOR_PRODUCTION' ||
-                task()[0].status === 'READY_FOR_QA' ||
-                task()[0].status === 'IN_REVIEW'
-              "
-              [class.bg-[#FFDAD6]]="task()[0].status === 'BLOCKED'"  [class.text-[#BA1A1A]]="task()[0].status==='BLOCKED'">{{ task()[0].status }}</p>
-          <p class="text-[#374763] bg-[#CDDDFF] rounded-xl py-1 px-3">
-            {{ task()[0].epic?.title }}
-          </p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 px-6 gap-3">
-
-        <div class="bg-surface-low p-4 rounded-lg lg:hidden h-20">
-          <p class="text-[#737685] font-bold text-[11px] uppercase pb-1">Assignee</p>
-          @if(!isEditMode){
-          <div class="flex gap-2">
-          <div
-            class="w-7 h-7   bg-[#CDDDFF] text-primary text-[14px] font-bold content-center text-center rounded-xl"
-          >
-            {{ getInitials(task()[0].assignee?.name ||'NAN') }}
-          </div>
-          <p class="text-dark-gray font-medium text-[12px] text-body-md">
-            {{ task()[0].assignee?.name ||'Unknown user'}}
-          </p>
-          </div>
-        }@else {
-   <div class="relative">
-            <img
-              src="../../../../../assets/assignee.png"
-              alt=""
-              class="absolute top-6.5 left-2 bg-[#E0E8FF] rounded-xl w-3 h-3"
-            />
-        <form [formGroup]="taskForm" >
-
-            <select
-              formControlName="assignee_id"
-              (change)="changeAssigne()"
-              name="cars"
-              id="cars"
-              class="text-dark-gray bg-white p-2 h-10 w-full font-semibold text-[14px] rounded-lg px-8 mt-3"
+        <div class="py-6 px-8">
+          <div class="flex justify-between lg:justify-start lg:gap-3 items-center">
+            <p
+              class="bg-transparent lg:bg-[#DAE2FF] text-graay lg:text-primary text-[12px] font-bold w-fit h-fit py-.5 px-2 rounded-xs"
             >
-              <option [ngValue]="null"  class="">Unassigned</option>
+              {{ task()[0]?.task_id }}
+            </p>
 
-              @for (m of members(); track m) {
-                <option value="{{ m.user_id }}">
-                  <div
-                    class="w-7 h-7 md:w-6 md:h-6 md:bg-[#CDDDFF] md:text-[#51617E] text-[14px] font-bold content-center text-center rounded-xl"
-                  >
-                    {{ getInitials(m.metadata.name) }}
-                  </div>
-                  <p class="text-dark-gray font-medium md:font-medium text-[12px] md:text-body-md">
-                    {{ m.metadata.name }}
-                  </p>
-                </option>
-              }
-            </select>
+            <button (click)="closeModal()">
+              <img src="../../../../../assets/close.png" alt="" class="block lg:hidden" />
+            </button>
+
+            <form [formGroup]="taskForm" class="hidden lg:block">
+              <div class="relative">
+                <img
+                  src="../../../../../assets/epics (2).png"
+                  alt=""
+                  class="absolute top-5.5 left-2"
+                />
+
+                <select
+                  (change)="changeEpic()"
+                  formControlName="epic_id"
+                  name="epic_id"
+                  id="epic_id"
+                  class="text-grayText text-[14px] px-6 font-medium p-2 w-full rounded-lg md:rounded-sm mt-2"
+                >
+                  <option value="{{ task()[0]?.epic_id }}">
+                    <span class="pr-3">{{ task()[0]?.epic?.epic_id }} </span>
+                    {{ task()[0]?.epic?.title }}
+                  </option>
+                  @for (e of epics(); track e) {
+                    <option value="{{ e.id }}">
+                      <span class="pr-3">{{ e.epic_id }} </span>
+                      @if (e.title.length === 100 || e.title.length > 100) {
+                        {{ e.title.slice(0, 20) }}
+                        <span>...</span>
+                      } @else {
+                        {{ e.title }}
+                      }
+                    </option>
+                  }
+                </select>
+                <img
+                  src="../../../../../assets/BArrow.png"
+                  alt=""
+                  class="absolute top-6.5 right-2"
+                />
+              </div>
             </form>
-            <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-7.5 right-4" />
           </div>
+          @if (!isEditMode) {
+            <h3
+              (click)="startEditTitle()"
+              class="text-[30px] font-bold text-dark-gray mt-2 hover:underline cursor-pointer"
+            >
+              {{ task()[0].title }}
+            </h3>
+          } @else {
+            <form [formGroup]="taskForm">
+              <input
+                formControlName="title"
+                value="{{ task()[0].title }}"
+                [disabled]="loadingUpdate()"
+                type="text"
+                id="'title"
+                (blur)="updateTitle()"
+                class="mt-2 p-2 border border-[#CDDDFF] rounded-lg w-full"
+              />
+                 <!--------------error handle-------->
+        @if ( taskForm.get('title')?.touched) {
+        <div class="text-error">
+          @if(taskForm.get('title')?.errors?.['required']){ <p>
+            Title is required</p>}
+          @if(taskForm.hasError('startsWithSpace')){ <p>Epic title mustn't start with space</p>}
+
+          @else if(taskForm.get('title')?.errors?.['pattern']){ <p>Epic title must be at least 3 characters </p>}
+        </div>
         }
-        </div>
+            </form>
+          }
 
-        <div class="bg-surface-low p-4 rounded-lg lg:hidden content-end h-20">
-          <div class="flex gap-2 items-center">
-          <img src="../../../../../assets/calender.png" alt="" class=" w-3 h-2" />
-         
-          <p class="text-dark-gray font-medium text-[12px] text-body-md">
-            {{ task()[0].due_date|date:'dd MMM yyyy'}}
-          </p>
-          </div>
-        </div>
-        
- <div class="bg-surface-low p-4 rounded-lg lg:hidden self-end h-20">
-          <p class="text-[#737685] font-bold text-[11px] uppercase pb-1">Created by</p>
-
-          <div class="flex gap-2 items-center">
-         <div
-            class="w-7 h-7   bg-[#CDDDFF] text-primary text-[14px] font-bold content-center text-center rounded-xl"
-          >
-            {{getInitials( task()[0].created_by?.name )}}
-          </div>
-          <p class="text-dark-gray font-medium text-[12px] text-body-md">
-            {{ task()[0].created_by?.name}}
-          </p>
-          </div>
-        </div>
-        
- <div class="bg-surface-low p-4 rounded-lg lg:hidden self-end h-20">
-          <p class="text-[#737685] font-bold text-[11px] uppercase pb-1">Created at</p>
-
-          <div class="flex gap-2 items-center">
-          <img src="../../../../../assets/calender.png" alt="" class=" w-3 h-2" />
-         
-          <p class="text-dark-gray font-medium text-[12px] text-body-md">
-            {{ task()[0].created_at|date:'dd MMM yyyy'}}
-          </p>
-          </div>
-        </div>
-      </div>
-
-      <hr class="bg-[#E8EDFF] h-px border-0" />
-      <div class="p-8">
-        <p class="text-[10px] font-bold  text-grayText uppercase">description</p>
-         <form [formGroup]="taskForm" >
-        <textarea (blur)="updateDescription()"  formControlName="description"
-          class="p-3 mt-2.75 border lg:h-118 bg-white border-surface-highest rounded-xl text-[14px] text-dark-gray w-full"
-          >{{ task()[0].description }}</textarea></form>
-      </div>
-
-      <div class="hidden lg:flex justify-between bg-surface-low py-4 px-8">
-        <div class="flex gap-2 items-center">
-          <img src="../../../../../assets/copy.png" alt="" class="w-3.75 h-1.75" />
-          <button
-            class="text-grayText text-[12px] lg:text-body-md font-medium pr-6 lg:p-0 cursor-pointer hover:opacity-70"
-            (click)="copyPageUrl()"
-          >
-            Copy link
-          </button>
-        </div>
-        <button
-          (click)="closeModal()"
-          class="bg-surface-highest text-dark-gray font-semibold text-[14px] px-4 py-2 rounded-b-sm cursor-pointer"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-
-    <div class="bg-surface-low hidden lg:block p-8 lg:w-[320px]">
-      <form [formGroup]="taskForm">
-        <!--------------status-------->
-        <div>
-          <p class="text-grayText font-bold text-[12px] uppercase">status</p>
-          <div class="relative">
-            <select
-            (change)="changeStatus()"
-              formControlName="status"
-              name="status"
-              id="status"
-              class="cursor-pointer text-[#002113] py-2.5 px-4 border-0 w-full font-bold text-[12px] rounded-lg md:rounded-sm mt-4"
+          <div class="flex lg:hidden text-[11px] font-bold gap-2 pt-4">
+            <p
+              class="rounded-xl py-1 px-3"
               [class.bg-[#CDDDFF]]="task()[0].status === 'IN_PROGRESS'"
               [class.bg-[#82F9BE]]="task()[0].status === 'DONE'"
               [class.bg-[#D7E2FF]]="
@@ -224,97 +101,263 @@
                 task()[0].status === 'READY_FOR_PRODUCTION' ||
                 task()[0].status === 'READY_FOR_QA' ||
                 task()[0].status === 'IN_REVIEW'
-              " [class.text-[#BA1A1A]]="task()[0].status==='BLOCKED'"
-                [class.text-[#002113]]="task()[0].status === 'DONE'"
+              "
               [class.bg-[#FFDAD6]]="task()[0].status === 'BLOCKED'"
+              [class.text-[#BA1A1A]]="task()[0].status === 'BLOCKED'"
             >
-              <!-- <option value=" " selected >TO DO</option> -->
-              @for (s of statuses; track s) {
-                <option value="{{ s }}">{{ s.replaceAll('_', ' ') }}</option>
-              }
-            </select>
-            <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-8 right-4" />
+              {{ task()[0].status }}
+            </p>
+            <p class="text-[#374763] bg-[#CDDDFF] rounded-xl py-1 px-3">
+              {{ task()[0].epic?.title }}
+            </p>
           </div>
         </div>
 
-        <!----------------assignee ---->
-        <div class="mt-10">
-          <p class="text-grayText font-bold text-[12px] uppercase">Assignee</p>
-          <div class="relative">
-            <img
-              src="../../../../../assets/assignee.png"
-              alt=""
-              class="absolute top-6.5 left-2 bg-[#E0E8FF] rounded-xl w-3 h-3"
-            />
-
-            <select
-              formControlName="assignee_id"
-              (change)="changeAssigne()"
-              name="cars"
-              id="cars"
-              class="text-dark-gray bg-white p-2 h-10 w-full font-semibold text-[14px] rounded-lg px-8 mt-3"
-            >
-              <option [ngValue]="null"  class="">Unassigned</option>
-
-              @for (m of members(); track m) {
-                <option value="{{ m.user_id }}">
-                  <div
-                    class="w-7 h-7 md:w-6 md:h-6 md:bg-[#CDDDFF] md:text-[#51617E] text-[14px] font-bold content-center text-center rounded-xl"
+        <div class="grid grid-cols-2 px-6 gap-3">
+          <div class="bg-surface-low p-4 rounded-lg lg:hidden h-20">
+            <p class="text-[#737685] font-bold text-[11px] uppercase pb-1">Assignee</p>
+            @if (!isEditMode) {
+              <div class="flex gap-2" (click)="startEditTitle()">
+                <div
+                  class="w-7 h-7 bg-[#CDDDFF] text-primary text-[14px] font-bold content-center text-center rounded-xl"
+                >
+                  {{ getInitials(task()[0].assignee?.name || 'NAN') }}
+                </div>
+                <p class="text-dark-gray font-medium text-[12px] text-body-md">
+                  {{ task()[0].assignee?.name || 'Unknown user' }}
+                </p>
+              </div>
+            } @else {
+              <div class="relative">
+                <img
+                  src="../../../../../assets/assignee.png"
+                  alt=""
+                  class="absolute top-6.5 left-2 bg-[#E0E8FF] rounded-xl w-3 h-3"
+                />
+                <form [formGroup]="taskForm">
+                  <select
+                    formControlName="assignee_id"
+                    (change)="changeAssigne()"
+                    name="cars"
+                    id="cars"
+                    class="text-dark-gray bg-white p-2 h-10 w-full font-semibold text-[14px] rounded-lg px-8 mt-3"
                   >
-                    {{ getInitials(m.metadata.name) }}
-                  </div>
-                  <p class="text-dark-gray font-medium md:font-medium text-[12px] md:text-body-md">
-                    {{ m.metadata.name }}
-                  </p>
-                </option>
-              }
-            </select>
-            <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-7.5 right-4" />
+                    <option [ngValue]="null" class="">Unassigned</option>
+
+                    @for (m of members(); track m) {
+                      <option value="{{ m.user_id }}">
+                        <div
+                          class="w-7 h-7 md:w-6 md:h-6 md:bg-[#CDDDFF] md:text-[#51617E] text-[14px] font-bold content-center text-center rounded-xl"
+                        >
+                          {{ getInitials(m.metadata.name) }}
+                        </div>
+                        <p
+                          class="text-dark-gray font-medium md:font-medium text-[12px] md:text-body-md"
+                        >
+                          {{ m.metadata.name }}
+                        </p>
+                      </option>
+                    }
+                  </select>
+                </form>
+                <img
+                  src="../../../../../assets/BArrow.png"
+                  alt=""
+                  class="absolute top-7.5 right-4"
+                />
+              </div>
+            }
           </div>
-        </div>
 
-        <!---------------reporter----->
-        <div class="mt-6">
-          <p class="text-grayText font-bold text-[12px] uppercase">reporter</p>
+          <div class="bg-surface-low p-4 rounded-lg lg:hidden content-end h-20">
+            <div class="flex gap-2 items-center">
+              <img src="../../../../../assets/calender.png" alt="" class="w-3 h-2" />
 
-          <div class="flex gap-3 mt-3">
-            <div
-              class="w-7 h-7 md:w-6 md:h-6 md:bg-[#DAE2FF] md:text-[#001848] text-[11px] font-bold content-center text-center rounded-xl"
-            >
-              {{ getInitials(task()[0].created_by?.name) }}
+              <p class="text-dark-gray font-medium text-[12px] text-body-md">
+                {{ task()[0].due_date | date: 'dd MMM yyyy' }}
+              </p>
             </div>
-            <p class="text-dark-gray font-medium text-[14px]">{{ task()[0].created_by?.name }}</p>
+          </div>
+
+          <div class="bg-surface-low p-4 rounded-lg lg:hidden self-end h-20">
+            <p class="text-[#737685] font-bold text-[11px] uppercase pb-1">Created by</p>
+
+            <div class="flex gap-2 items-center">
+              <div
+                class="w-7 h-7 bg-[#CDDDFF] text-primary text-[14px] font-bold content-center text-center rounded-xl"
+              >
+                {{ getInitials(task()[0].created_by?.name) }}
+              </div>
+              <p class="text-dark-gray font-medium text-[12px] text-body-md">
+                {{ task()[0].created_by?.name }}
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-surface-low p-4 rounded-lg lg:hidden self-end h-20">
+            <p class="text-[#737685] font-bold text-[11px] uppercase pb-1">Created at</p>
+
+            <div class="flex gap-2 items-center">
+              <img src="../../../../../assets/calender.png" alt="" class="w-3 h-2" />
+
+              <p class="text-dark-gray font-medium text-[12px] text-body-md">
+                {{ task()[0].created_at | date: 'dd MMM yyyy' }}
+              </p>
+            </div>
           </div>
         </div>
 
-      <!------------------due date------->
-      <div class="pt-4 mt-8 border-t border-t-light-gray/20">
-        <p class="text-grayText font-bold text-[12px]">Due Date</p>
-
-        <div class="relative mt-4">
-          <img src="../../../../../assets/calender.png" alt="" class="absolute top-3.5 left-2" />
-
-          <input
-          (change)="changedate()"
-            formControlName="due_date"
-            type="date"
-            id="start-date"
-            name="trip-start"
-            [min]="today"
-            class="text-dark-gray lg:w-full bg-white text-[14px] font-medium rounded-lg md:rounded-sm p-2 px-6"
-          />
+        <hr class="bg-[#E8EDFF] h-px border-0" />
+        <div class="p-8">
+          <p class="text-[10px] font-bold text-grayText uppercase">description</p>
+          <form [formGroup]="taskForm">
+            <textarea
+              (blur)="updateDescription()"
+              formControlName="description"
+              placeholder="No description provided"
+              class="p-3 mt-2.75 border lg:h-118 bg-white border-surface-highest rounded-xl text-[14px] text-dark-gray w-full"
+            >
+            </textarea>
+          </form>
         </div>
-        
-        <p class="flex justify-between items-center mt-4 text-grayText font-bold text-[12px]">
-          created at
-          <span class="text-dark-gray text-[14px] font-medium">{{
-            task()[0].due_date | date: 'dd MMM yyyy'
-          }}</span>
-        </p>
-      </div>
-      </form>
 
+        <div class="hidden lg:flex justify-between bg-surface-low py-4 px-8">
+          <div class="flex gap-2 items-center">
+            <img src="../../../../../assets/copy.png" alt="" class="w-3.75 h-1.75" />
+            <button
+              class="text-grayText text-[12px] lg:text-body-md font-medium pr-6 lg:p-0 cursor-pointer hover:opacity-70"
+              (click)="copyPageUrl()"
+            >
+              Copy link
+            </button>
+          </div>
+          <button
+            (click)="closeModal()"
+          
+            class="bg-surface-highest text-dark-gray font-semibold text-[14px] px-4 py-2 rounded-b-sm cursor-pointer"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-surface-low hidden lg:block p-8 lg:w-[320px]">
+        <form [formGroup]="taskForm">
+          <!--------------status-------->
+          <div>
+            <p class="text-grayText font-bold text-[12px] uppercase">status</p>
+            <div class="relative">
+              <select
+                (change)="changeStatus()"
+                formControlName="status"
+                name="status"
+                id="status"
+                class="cursor-pointer text-[#002113] py-2.5 px-4 border-0 w-full font-bold text-[12px] rounded-lg md:rounded-sm mt-4"
+                [class.bg-[#CDDDFF]]="task()[0].status === 'IN_PROGRESS'"
+                [class.bg-[#82F9BE]]="task()[0].status === 'DONE'"
+                [class.bg-[#D7E2FF]]="
+                  task()[0].status === 'TO_DO' ||
+                  task()[0].status === 'IN_REVIEW' ||
+                  task()[0].status === 'READY_FOR_PRODUCTION' ||
+                  task()[0].status === 'READY_FOR_QA' ||
+                  task()[0].status === 'IN_REVIEW'
+                "
+                [class.text-[#BA1A1A]]="task()[0].status === 'BLOCKED'"
+                [class.text-[#002113]]="task()[0].status === 'DONE'"
+                [class.bg-[#FFDAD6]]="task()[0].status === 'BLOCKED'"
+              >
+                <!-- <option value=" " selected >TO DO</option> -->
+                @for (s of statuses; track s) {
+                  <option value="{{ s }}">{{ s.replaceAll('_', ' ') }}</option>
+                }
+              </select>
+              <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-8 right-4" />
+            </div>
+          </div>
+
+          <!----------------assignee ---->
+          <div class="mt-10">
+            <p class="text-grayText font-bold text-[12px] uppercase">Assignee</p>
+            <div class="relative">
+              <img
+                src="../../../../../assets/assignee.png"
+                alt=""
+                class="absolute top-6.5 left-2 bg-[#E0E8FF] rounded-xl w-3 h-3"
+              />
+
+              <select
+                formControlName="assignee_id"
+                (change)="changeAssigne()"
+                name="cars"
+                id="cars"
+                class="text-dark-gray bg-white p-2 h-10 w-full font-semibold text-[14px] rounded-lg px-8 mt-3"
+              >
+                <option [ngValue]="null" class="">Unassigned</option>
+
+                @for (m of members(); track m) {
+                  <option value="{{ m.user_id }}">
+                    <div
+                      class="w-7 h-7 md:w-6 md:h-6 md:bg-[#CDDDFF] md:text-[#51617E] text-[14px] font-bold content-center text-center rounded-xl"
+                    >
+                      {{ getInitials(m.metadata.name) }}
+                    </div>
+                    <p
+                      class="text-dark-gray font-medium md:font-medium text-[12px] md:text-body-md"
+                    >
+                      {{ m.metadata.name }}
+                    </p>
+                  </option>
+                }
+              </select>
+              <img src="../../../../../assets/BArrow.png" alt="" class="absolute top-7.5 right-4" />
+            </div>
+          </div>
+
+          <!---------------reporter----->
+          <div class="mt-6">
+            <p class="text-grayText font-bold text-[12px] uppercase">reporter</p>
+
+            <div class="flex gap-3 mt-3">
+              <div
+                class="w-7 h-7 md:w-6 md:h-6 md:bg-[#DAE2FF] md:text-[#001848] text-[11px] font-bold content-center text-center rounded-xl"
+              >
+                {{ getInitials(task()[0].created_by?.name) }}
+              </div>
+              <p class="text-dark-gray font-medium text-[14px]">{{ task()[0].created_by?.name }}</p>
+            </div>
+          </div>
+
+          <!------------------due date------->
+          <div class="pt-4 mt-8 border-t border-t-light-gray/20">
+            <p class="text-grayText font-bold text-[12px]">Due Date</p>
+
+            <div class="relative mt-4">
+              <img
+                src="../../../../../assets/calender.png"
+                alt=""
+                class="absolute top-3.5 left-2"
+              />
+
+              <input
+                (change)="changedate()"
+                formControlName="due_date"
+                type="date"
+                id="start-date"
+                name="trip-start"
+                [min]="today"
+                class="text-dark-gray lg:w-full bg-white text-[14px] font-medium rounded-lg md:rounded-sm p-2 px-6"
+              />
+            </div>
+
+            <p class="flex justify-between items-center mt-4 text-grayText font-bold text-[12px]">
+              created at
+              <span class="text-dark-gray text-[14px] font-medium">{{
+                task()[0].created_at | date: 'dd MMM yyyy'
+              }}</span>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
   </div>
 </div>
