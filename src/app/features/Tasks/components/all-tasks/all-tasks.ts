@@ -1,5 +1,5 @@
 import { Component, DestroyRef, ElementRef, inject, signal, ViewChild } from '@angular/core';
-import {CdkDrag,  CdkDragDrop,CdkDropList, moveItemInArray, transferArrayItem,  CdkDragPreview} from '@angular/cdk/drag-drop';
+import {CdkDrag,  CdkDragDrop,CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
@@ -11,7 +11,7 @@ import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-all-tasks',
-  imports: [DatePipe, TaskPopup, CdkDrag, CdkDropList, CdkDragPreview],
+  imports: [DatePipe, TaskPopup, CdkDrag, CdkDropList],
   templateUrl: './all-tasks.html',
   styleUrl: './all-tasks.css',
 })

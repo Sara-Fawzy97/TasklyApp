@@ -15,16 +15,23 @@
           >
             {{ task()[0].task_id }}
           </p>
-          <img src="../../../../../assets/close.png" alt="" class="block lg:hidden" (click)="closeModal()"/>
+
+          <button (click)="closeModal()">
+            <img src="../../../../../assets/close.png" alt="" class="block lg:hidden" />
+          </button>
 
           <form [formGroup]="taskForm" class="hidden lg:block">
             <div class="relative">
+              <img src="../../../../../assets/epics (2).png" alt="" class="absolute top-5.5 left-2" />
+              
               <select
                 formControlName="epic_id"
                 name="epic_id"
                 id="epic_id"
-                class="text-grayText text-[14px] font-medium p-2 w-full rounded-lg md:rounded-sm mt-2"
+                class="text-grayText text-[14px] px-6 font-medium p-2 w-full rounded-lg md:rounded-sm mt-2"
               >
+             
+
                 <option value="{{ task()[0].epic_id }}">
                   <span class="pr-3">{{ task()[0].epic?.epic_id }} </span>
                   {{ task()[0].epic?.title }}
@@ -48,7 +55,7 @@
         <h3 class="text-[30px] font-bold text-dark-gray mt-2">{{ task()[0].title }}</h3>
         <div class="flex lg:hidden text-[11px] font-bold gap-2 pt-4">
           <p class="rounded-xl py-1 px-3" [class.bg-[#CDDDFF]]="task()[0].status === 'IN_PROGRESS'"
-              [class.bg-[#82F9BE]]="task()[0].status === 'DONE'"
+              [class.bg-[#82F9BE]]="task()[0].status === 'DONE'" 
               [class.bg-[#D7E2FF]]="
                 task()[0].status === 'TO_DO' ||
                 task()[0].status === 'IN_REVIEW' ||
@@ -56,7 +63,7 @@
                 task()[0].status === 'READY_FOR_QA' ||
                 task()[0].status === 'IN_REVIEW'
               "
-              [class.bg-[#FFDAD6]]="task()[0].status === 'BLOCKED'">{{ task()[0].status }}</p>
+              [class.bg-[#FFDAD6]]="task()[0].status === 'BLOCKED'"  [class.text-[#BA1A1A]]="task()[0].status==='BLOCKED'">{{ task()[0].status }}</p>
           <p class="text-[#374763] bg-[#CDDDFF] rounded-xl py-1 px-3">
             {{ task()[0].epic?.title }}
           </p>
@@ -163,7 +170,8 @@
                 task()[0].status === 'READY_FOR_PRODUCTION' ||
                 task()[0].status === 'READY_FOR_QA' ||
                 task()[0].status === 'IN_REVIEW'
-              "
+              " [class.text-[#BA1A1A]]="task()[0].status==='BLOCKED'"
+                [class.text-[#002113]]="task()[0].status === 'DONE'"
               [class.bg-[#FFDAD6]]="task()[0].status === 'BLOCKED'"
             >
               <!-- <option value=" " selected >TO DO</option> -->
@@ -223,7 +231,6 @@
             <p class="text-dark-gray font-medium text-[14px]">{{ task()[0].created_by?.name }}</p>
           </div>
         </div>
-      </form>
 
       <!------------------due date------->
       <div class="pt-4 mt-8 border-t border-t-light-gray/20">
@@ -241,6 +248,7 @@
             class="text-dark-gray lg:w-full bg-white text-[14px] font-medium rounded-lg md:rounded-sm p-2 px-6"
           />
         </div>
+        
         <p class="flex justify-between items-center mt-4 text-grayText font-bold text-[12px]">
           created at
           <span class="text-dark-gray text-[14px] font-medium">{{
@@ -248,6 +256,8 @@
           }}</span>
         </p>
       </div>
+      </form>
+
     </div>
   </div>
   </div>

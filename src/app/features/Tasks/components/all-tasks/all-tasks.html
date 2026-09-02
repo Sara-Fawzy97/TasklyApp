@@ -91,7 +91,7 @@ Create Task
           <p class="text-[12px] text-grayText/60 font-bold uppercase">ADD new task</p>
         </button>
                 
-        <ul cdkDropList [id]="'status-' + s"    [cdkDropListConnectedTo]="dropListIds"  [cdkDropListData]="gettasksByStatus(s)"  (cdkDropListDropped)="drop($event,s)">
+        <ul cdkDropList [id]="'status-' + s"    [cdkDropListConnectedTo]="dropListIds"  [cdkDropListData]="gettasksByStatus(s)"  (cdkDropListDropped)="drop($event,s)" class="min-h-20">
           @for (t of gettasksByStatus(s);track t.id){
           
 
