@@ -65,7 +65,7 @@ Create Task
     <div class=" flex w-max gap-6 mt-6 pr-9 "   >
         
     @for (s of statuses; track s) {
-      <div class="w-57 shrink-0">
+      <div   class="w-57 shrink-0">
         <div class="flex justify-between px-1 ">
           <div class="flex gap-2"><span
                 class="w-2 h-2 rounded-full self-center"
@@ -91,11 +91,12 @@ Create Task
           <p class="text-[12px] text-grayText/60 font-bold uppercase">ADD new task</p>
         </button>
                 
-        <ul>
+        <ul cdkDropList [id]="'status-' + s"    [cdkDropListConnectedTo]="dropListIds"  [cdkDropListData]="gettasksByStatus(s)"  (cdkDropListDropped)="drop($event,s)">
           @for (t of gettasksByStatus(s);track t.id){
           
 
-          <li class=" mt-4 rounded-lg p-4 " [class.bg-white]="s !== 'BLOCKED'"  [class.border-l-4]="s==='IN_PROGRESS'" [class.border-l-primary]="s==='IN_PROGRESS'"  [class.bg-[#FFDAD680]]="s === 'BLOCKED'"  [class.border]="s==='BLOCKED'" [class.border-[#BA1A1A1A]]="s==='BLOCKED'" >
+          <li cdkDrag [cdkDragData]="t"  class=" mt-4 rounded-lg p-4 " [class.bg-white]="s !== 'BLOCKED'"  [class.border-l-4]="s==='IN_PROGRESS'" [class.border-l-primary]="s==='IN_PROGRESS'"  [class.bg-[#FFDAD680]]="s === 'BLOCKED'"  [class.border]="s==='BLOCKED'" [class.border-[#BA1A1A1A]]="s==='BLOCKED'" >
+            
             <button class="w-full cursor-pointer hover:opacity-60"   (click)="openModal(t.id||'')">
               <h3 class="text-dark-gray text-body-md font-medium justify-self-start">{{t.title}}</h3>
               <div class="flex justify-between mt-4">
@@ -104,7 +105,7 @@ Create Task
          <p class="text-[#94A3B8] font-bold text-[10px]" [class.text-primary]="s==='IN_PROGRESS'" [class.text-[#BA1A1A]]="s==='BLOCKED'">@if(isToday(t.due_date!)){ TODAY }@else{ {{t.due_date| date:'MMM d'}}}      
          </p> 
 </div>
-     <button class=" w-7 h-7 md:w-6 md:h-6   text-[10px] font-bold content-center text-center rounded-xl" [class.bg-primary]="s==='IN_PROGRESS'"   [class.text-white]="s==='IN_PROGRESS'"  
+     <div class=" w-7 h-7 md:w-6 md:h-6   text-[10px] font-bold content-center text-center rounded-xl" [class.bg-primary]="s==='IN_PROGRESS'"   [class.text-white]="s==='IN_PROGRESS'"  
  [class.bg-[#E0E8FF]]="s!=='IN_PROGRESS'"  [class.text-dark-gray]="s==='TO_DO'"
       >
         @if (t.assignee?.name) {
@@ -113,7 +114,7 @@ Create Task
                       <img src="../../../../../assets/members.png" alt="" class="w-4 h-3 place-self-center" />
                     }
   
-  </button>
+                  </div>
               </div>
             </button>
           
@@ -212,8 +213,8 @@ Create Task
       <div class='lg:hidden px-4'>
         <ul class="mb-20">
           @for(t of tasks(); track t){
-          <li (click)="openModal(t.id||'')" class="bg-white  card p-4 rounded-lg mt-3 ">
-            
+          <li  class="bg-white  card p-4 rounded-lg mt-3 ">
+            <button (click)="openModal(t.id||'')" class="w-full text-left">
                <div class="flex   justify-between">
                  <div>
                 <p class="text-[11px] font-bold text-grayText/50">{{t.task_id}}</p>
@@ -244,7 +245,7 @@ Create Task
                     </div>
                   </div>
 
-                
+                </button>
           </li>
         }   <!-----------to observe scrolling-------------->
 <div #loadMoreTrigger class="h-5 md:hidden"></div>

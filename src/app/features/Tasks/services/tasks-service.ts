@@ -48,5 +48,9 @@ private http= inject(HttpClient)
     )
   }
 
+  updateTaskStaus(taskId:string, data :{status:string}){
+  return this.http.patch(`/rest/v1/tasks?id=eq.${taskId}`,data)
+  }
+
 
 }

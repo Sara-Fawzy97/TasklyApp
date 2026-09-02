@@ -2,3 +2,14 @@
     box-shadow: 0px 4px 24px 0px #041B3C0A;
 
 }
+
+.cdk-drag-placeholder {
+  opacity:0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

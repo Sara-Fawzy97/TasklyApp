@@ -27,14 +27,14 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           break;
         case 401:
           toastService.error('Unauthorized. Please log in again.', 'top-right');
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
+          sessionStorage.removeItem('accessToken');
+          sessionStorage.removeItem('refreshToken');
           router.navigateByUrl('/');
           break;
         case 403:
           toastService.error('Forbidden. Please log in again.', 'top-right');
-           localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
+           sessionStorage.removeItem('accessToken');
+          sessionStorage.removeItem('refreshToken');
           router.navigateByUrl('/');
           break;
 

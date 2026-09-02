@@ -1,4 +1,5 @@
 import { Component, DestroyRef, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import {CdkDrag,  CdkDragDrop,CdkDropList, moveItemInArray, transferArrayItem,  CdkDragPreview} from '@angular/cdk/drag-drop';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../../services/tasks-service';
@@ -10,7 +11,7 @@ import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-all-tasks',
-  imports: [DatePipe, TaskPopup],
+  imports: [DatePipe, TaskPopup, CdkDrag, CdkDropList, CdkDragPreview],
   templateUrl: './all-tasks.html',
   styleUrl: './all-tasks.css',
 })
@@ -28,6 +29,7 @@ export class AllTasks {
     'READY_FOR_PRODUCTION',
     'DONE',
   ];
+  dropListIds = this.statuses.map(status => `status-${status}`); //// ids for statuses cols
   projectId = '';
   searchTerm = signal('');
   today = new Date();
@@ -239,5 +241,36 @@ export class AllTasks {
     this.hasMore=true
 
     this.paginator(false);
+  }
+
+
+   drop(event: CdkDragDrop<Task[]>,newStatus:string) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      return;
+    }
+    
+     const task = event.previousContainer.data[event.previousIndex];
+  const oldStatus = task.status;
+
+    transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      task.status=newStatus
+
+      this.tasksService.updateTaskStaus(task.id!,{status: newStatus}).subscribe({
+        next:(res)=>{
+          console.log(res)
+        },
+        error:(err)=>{
+          console.log(err)
+             task.status = oldStatus;
+        },
+      })
+
   }
 }
