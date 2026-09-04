@@ -1,0 +1,40 @@
+select,input {
+  -webkit-appearance: none;  
+  -moz-appearance: none;    
+  appearance: none;   
+  
+  box-shadow: 0px 1px 2px 0px #0000000D;
+
+}
+.bg-white{
+  box-shadow: 0px 1px 2px 0px #0000000D;
+
+}
+
+.mat-mdc-datepicker-content{
+  background-color: #fff !important ;
+}
+.mat-calendar {
+  background-color: #ffffff !important;
+}.mat-datepicker-content-container {
+  background-color: #ffffff !important;
+}
+
+.mat-calendar-table {
+  background-color: #ffffff !important;
+}
+mat-date-range-::ng-deep .mat-datepicker-content {
+ 
+  background-color: #fff !important;
+}
+
+/* Selected date */
+::ng-deep .mat-calendar-body-selected {
+  background-color: #003D9B !important;
+  color: white !important;
+}
+
+/* Dates inside selected range */
+::ng-deep .mat-calendar-body-in-range::before {
+  background-color: #E0E8FF !important;
+}

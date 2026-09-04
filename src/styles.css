@@ -45,3 +45,21 @@ body{
     background-color: #F9F9FF;
     
 } 
+
+
+/* .mat-datepicker-content-container {
+  background-color: #ffffff !important;
+}
+
+.mat-calendar-table {
+  background-color: #ffffff !important;
+} */
+.mat-mdc-datepicker-content{
+  background-color: #fff !important ;
+}
+.mat-calendar {
+  background-color: #ffffff !important;
+}
+mat-date-range-picker-actions{
+  align-items: center;
+}

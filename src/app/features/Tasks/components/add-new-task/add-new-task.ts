@@ -109,6 +109,7 @@ epicId=history.state.data
       .subscribe({
         next: (res) => {
           this.epics.set(res);
+          console.log(this.epics())
         },
       });
   }

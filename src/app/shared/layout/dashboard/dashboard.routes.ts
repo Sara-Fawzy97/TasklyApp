@@ -15,5 +15,11 @@ export const Dashboard_routes: Routes = [
       import('../../../features/Projects/projects.routes')
         .then(m => m.Projects_routes)
   },
+  {
+    path: 'my-statistics',
+    loadChildren: () =>
+      import('../../../features/statistics/statistics.routes')
+        .then(m => m.Statistics_routes)
+  },
 ]}
-];
+]
