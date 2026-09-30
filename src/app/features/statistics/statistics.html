@@ -1,21 +1,22 @@
-<section class="p-8">
+<section class="p-4 lg:p-8">
+  <div class="hidden lg:block">
   <h3 class="text-[30px] text-dark-gray font-bold">Weekly Planner</h3>
-  <p class="text-grayText text-[16px]">Manage your deadlines and track team velocity.</p>
-
+  <p class="text-grayText text-[16px] mt-4">Manage your deadlines and track team velocity.</p>
+</div>
   <!------------filters---->
-  <div class="flex justify-between mt-8 bg-surface-low p-4 rounded-lg items-center">
-    <div class="text-[14px] text-dark-gray font-bold flex gap-3">
+  <div class="  lg:flex justify-between lg:mt-8 lg:bg-surface-low lg:p-4 rounded-lg items-center">
+    <div class="hidden text-[14px] text-dark-gray font-bold lg:flex gap-3">
      <button
         type="button"
         (click)="getPreviousWeek()"
-        class="w-8 h-8 flex items-center justify-center
+        class="w-8 h-8 hidden lg:flex items-center justify-center
                rounded-full hover:bg-gray-100
                cursor-pointer">
 
         &lt;
 
     </button>
-      <button (click)="rangePicker.open()" class="content-center text-[14px] font-bold text-dark-gray">{{ startDate | date:'MMM d' }}-  {{ endDate | date:'MMM d, y' }}</button>
+      <button (click)="rangePicker.open()" class=" bg-surface-low lg:bg-transparent content-center text-[14px] font-bold text-dark-gray cursor-pointer ">{{ startDate | date:'MMM d' }}-  {{ endDate | date:'MMM d, y' }}</button>
      
 <mat-form-field
   appearance="outline"
@@ -43,19 +44,19 @@
   </mat-date-range-input>
 
   <mat-date-range-picker #rangePicker>
-   <mat-date-range-picker-actions>
+   <mat-date-range-picker-actions >
 
     <button
       matDateRangePickerCancel
       type="button"
-      class="cancel-btn" (click)="cancelRange()">
+      class="cancel-btn w-33.75 text-[12px] font-semibold rounded-2 py-0.5 hover:opacity-80 cursor-pointer " (click)="cancelRange()">
       Cancel
     </button>
 
     <button
       matDateRangePickerApply
       type="button"
-      class="apply-btn"
+      class="apply-btn w-33.75 bg-primary text-white text-[12px] font-semibold rounded-2 py-0.5 ml-2 hover:opacity-80 cursor-pointer "
       (click)="applyRange()">
       Apply Range
     </button>
@@ -67,7 +68,7 @@
     <button
         type="button"
         (click)="getNextWeek()"
-        class="w-8 h-8 flex items-center justify-center
+        class="hidden lg:flex w-8 h-8  items-center justify-center
                rounded-full hover:bg-gray-100
                cursor-pointer">
 
@@ -77,15 +78,15 @@
 </div>
       
   
-    <div >
-      <form [formGroup]="filterTask"  class="flex gap-4 text-center">
+    <div class="" >
+      <form [formGroup]="filterTask"  class="  lg:flex gap-4 text-center">
       <div class="relative">
         <select
          formControlName="projectId"
       (change)="onFilterChange()"
           name="projects"
           id="projects"
-          class="bg-[#FFFFFF] rounded-xs py-2 pl-4 pr-10 text-[14px] font-medium text-dark-gray cursor-pointer"
+          class="bg-surface-low lg:bg-[#FFFFFF] w-full rounded-xs py-2 pl-4 pr-10 text-[14px] font-medium text-dark-gray cursor-pointer"
         >
           <option [ngValue]="null" selected>All Projects</option>
           @for (p of projects(); track p.id) {
@@ -98,13 +99,14 @@
           class="absolute top-4.5 right-2 w-2 h-1"
         />
       </div>
+      <div class="grid grid-cols-2 lg:grid-cols-1 mt-4 lg:mt-0 gap-2 ">
       <div class="relative">
         <select
          formControlName="status"
           (change)="onFilterChange()"
           name="status"
           id="status"
-          class="bg-[#FFFFFF] rounded-xs py-2 pl-4 pr-10 text-[14px] font-medium text-dark-gray cursor-pointer"
+          class="bg-surface-low lg:bg-[#FFFFFF] w-full rounded-xs py-2 pl-4 pr-10 text-[14px] font-medium text-dark-gray cursor-pointer"
         >
           <option [ngValue]="null" selected>All Statuses</option>
           @for (s of status; track s) {
@@ -117,79 +119,250 @@
           class="absolute top-4.5 right-2 w-2 h-1"
         />
       </div>
+      <div class="lg:hidden">
+         <button (click)="rangePicker.open()" class="w-full bg-surface-low lg:bg-transparent  py-2.5 px-4  text-[14px] font-bold text-dark-gray cursor-pointer ">{{ startDate | date:'MMM d' }}-  {{ endDate | date:'MMM d, y' }}</button>
+     
+<mat-form-field
+  appearance="outline"
+  class="absolute w-0 h-0 opacity-0 overflow-hidden"
+>
+  <mat-date-range-input
+    [formGroup]="filterTask"
+    [rangePicker]="rangePicker"
+  >
+    <input
+      matStartDate
+      formControlName="startDate"
+      placeholder="Start date"
+      (dateChange)="onChangeStartDate($event.value)"
+    />
+
+    <input
+      matEndDate
+      formControlName="endDate"
+      placeholder="End date"
+      [min]="startDate"
+      [max]="maxEndDate"
+      (dateChange)="onChangeEndDate($event.value)"
+    />
+  </mat-date-range-input>
+
+  <mat-date-range-picker #rangePicker>
+   <mat-date-range-picker-actions >
+
+    <button
+      matDateRangePickerCancel
+      type="button"
+      class="cancel-btn w-33.75 text-[12px] font-semibold rounded-2 py-0.5 hover:opacity-80 cursor-pointer " (click)="cancelRange()">
+      Cancel
+    </button>
+
+    <button
+      matDateRangePickerApply
+      type="button"
+      class="apply-btn w-33.75 bg-primary text-white text-[12px] font-semibold rounded-2 py-0.5 ml-2 hover:opacity-80 cursor-pointer "
+      (click)="applyRange()">
+      Apply Range
+    </button>
+
+  </mat-date-range-picker-actions>
+  </mat-date-range-picker>
+</mat-form-field>
+</div>
+      </div>
 </form>
 
     </div>
   </div>
 
+  <!---------------mobile view----->
+  <!-- <div class="w-full" >
+      <div class="relative w-full">
+              <select
+              formControlName="projectId"
+            (change)="onFilterChange()"
+                name="projects"
+                id="projects"
+                class="bg-surface-low lg:bg-[#FFFFFF] w-full rounded-xs py-2 pl-4 pr-10 text-[14px] font-medium text-dark-gray cursor-pointer"
+              >
+                <option [ngValue]="null" selected>All Projects</option>
+                @for (p of projects(); track p.id) {
+                  <option [value]="p.id">{{ p.name }}</option>
+                }
+              </select>
+              <img
+                src="../../../../../assets/BArrow.png"
+                alt=""
+                class="absolute top-4.5 right-2 w-2 h-1"
+              />
+            </div>
+
+      <div class="flex gap-2">
+            <div class="relative">
+        <select
+         formControlName="status"
+          (change)="onFilterChange()"
+          name="status"
+          id="status"
+          class="bg-surface-low lg:bg-[#FFFFFF] rounded-xs py-2 pl-4 pr-10 text-[14px] font-medium text-dark-gray cursor-pointer"
+        >
+          <option [ngValue]="null" selected>All Statuses</option>
+          @for (s of status; track s) {
+            <option value="{{ s }}">{{ s.replaceAll('_', ' ') }}</option>
+          }
+        </select>
+        <img
+          src="../../../../../assets/BArrow.png"
+          alt=""
+          class="absolute top-4.5 right-2 w-2 h-1"
+        />
+            </div>
+             <div class="mt-4">
+                    <button (click)="rangePicker.open()" class="content-center text-[14px] font-bold text-dark-gray cursor-pointer ">{{ startDate | date:'MMM d' }}-  {{ endDate | date:'MMM d, y' }}</button>
+     
+                  <mat-form-field
+                    appearance="outline"
+                    class="absolute w-0 h-0 opacity-0 overflow-hidden"
+                  >
+                    <mat-date-range-input
+                      [formGroup]="filterTask"
+                      [rangePicker]="rangePicker"
+                    >
+                      <input
+                        matStartDate
+                        formControlName="startDate"
+                        placeholder="Start date"
+                        (dateChange)="onChangeStartDate($event.value)"
+                      />
+
+                      <input
+                        matEndDate
+                        formControlName="endDate"
+                        placeholder="End date"
+                        [min]="startDate"
+                        [max]="maxEndDate"
+                        (dateChange)="onChangeEndDate($event.value)"
+                      />
+                    </mat-date-range-input>
+
+                    <mat-date-range-picker #rangePicker>
+                    <mat-date-range-picker-actions >
+
+                      <button
+                        matDateRangePickerCancel
+                        type="button"
+                        class="cancel-btn w-33.75 text-[12px] font-semibold rounded-2 py-0.5 hover:opacity-80 cursor-pointer " (click)="cancelRange()">
+                        Cancel
+                      </button>
+
+                      <button
+                        matDateRangePickerApply
+                        type="button"
+                        class="apply-btn w-33.75 bg-primary text-white text-[12px] font-semibold rounded-2 py-0.5 ml-2 hover:opacity-80 cursor-pointer "
+                        (click)="applyRange()">
+                        Apply Range
+                      </button>
+
+                    </mat-date-range-picker-actions>
+                    </mat-date-range-picker>
+                  </mat-form-field>
+
+      </div>
+
+      </div>
+
+  </div> -->
+
   <!----------tasks cards------->
-  <div class="mt-8 grid grid-cols-3 gap-6">
-    <div class="p-6 rounded-lg bg-white flex justify-between">
+  <div class="mt-8">
+     <h2 class="text-[#4F5F7B] text-[10px] font-bold uppercase">QUICK OVERVIEW</h2>
+  <div class=" mt-3 grid grid-cols-3 gap-3 lg:gap-6">
+   
+    <div class="p-4 lg:p-6 rounded-lg bg-white flex  flex-col-reverse lg:flex-row justify-center lg:justify-between">
       <div>
-        <h4 class="uppercase text-[#041B3C99] text-[12px] font-bold">total tasks</h4>
-        <p class="text-[30px] font-bold text-dark-gray">{{ tasksStates()?.total_tasks }}</p>
+        <h4 class="uppercase text-[#434654] lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">total tasks</h4>
+        <p class="text-[20px] lg:text-[30px] font-bold text-dark-gray mt-1">{{ tasksStates()?.total_tasks }}</p>
       </div>
-      <img src="../../../../../assets/tasksC.png" alt="" class="w-12 h-12" />
+      <img src="../../../../../assets/tasksC.png" alt="" class=" w-4 h-4 lg:w-12 lg:h-12" />
     </div>
 
-    <div class="p-6 rounded-lg bg-white flex justify-between">
+    <div class="p-4 lg:p-6 rounded-lg bg-white flex flex-col-reverse lg:flex-row justify-center lg:justify-between">
       <div>
-        <h4 class="uppercase text-[#041B3C99] text-[12px] font-bold">COMPLETED TASKS</h4>
-        <p class="text-[30px] font-bold text-dark-gray">{{ tasksStates()?.done_tasks }}</p>
+        <h4 class="uppercase text-[#434654] lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">COMPLETED TASKS</h4>
+        <p class="text-[20px] lg:text-[30px] font-bold text-dark-gray mt-1">{{ tasksStates()?.done_tasks }}</p>
       </div>
-      <img src="../../../../../assets/tasksD.png" alt="" class="w-12 h-12" />
+      <img src="../../../../../assets/tasksD.png" alt="" class="w-4 h-4 lg:w-12 lg:h-12" />
     </div>
 
-    <div class="p-6 rounded-lg bg-white flex justify-between">
+    <div class="p-4 lg:p-6 rounded-lg bg-white flex flex-col-reverse lg:flex-row justify-center lg:justify-between">
       <div>
-        <h4 class="uppercase text-[#041B3C99] text-[12px] font-bold">OVERDUE TASKS</h4>
-        <p class="text-[30px] font-bold text-error">{{ tasksStates()?.overdue_tasks }}</p>
+        <h4 class="uppercase text-[#434654] lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">OVERDUE TASKS</h4>
+        <p class="text-[20px] lg:text-[30px] font-bold text-error mt-1">{{ tasksStates()?.overdue_tasks }}</p>
       </div>
-      <img src="../../../../../assets/tasksE.png" alt="" class="w-12 h-12" />
+      <img src="../../../../../assets/tasksE.png" alt="" class="w-4 h-4 lg:w-12 lg:h-12" />
     </div>
   </div>
+</div>
+
 
   <!-------------Days------------>
-  <div class="grid grid-cols-7 gap-3 h-105 mt-8">
+  <div class="lg:grid lg:grid-cols-7 gap-3 lg:h-105 mt-8">
+    <h2 class="lg:hidden text-[18px] px-1 font-bold text-dark-gray mb-2">Calender</h2>
     @for (d of tasksStates()?.daily; track d) {
-      <div class="bg-white p-4 rounded-lg">
-        <p class="text-[12px] font-bold text-[#041B3C66]">{{getDayName(d.day)}}</p>
-        <h3 class="font-bold text-[18px] text-dark-gray">{{ d.day | date: 'dd MMM' }}</h3>
+      <div class="relative bg-surface-low lg:bg-white p-3 lg:p-4 rounded-lg mb-2 " [class.lg:border-2]="d.day === (today | date:'yyyy-MM-dd')" [class.border-1]="d.day === (today | date:'yyyy-MM-dd')" [class.border-l-4]="d.day === (today | date:'yyyy-MM-dd')" [class.bg-white]="d.day === (today | date:'yyyy-MM-dd')"  [class.border-primary]="d.day === (today | date:'yyyy-MM-dd')">
+       @if(d.day === (today | date:'yyyy-MM-dd')){
+        <span class="absolute right-3 top-5 lg:-top-3 lg:left-4/12 bg-primary text-white uppercase py-0.5 px-2 rounded-xl text-[7px] lg:text-[10px] font-bold ">Today</span>
+       }
+       <div class="flex lg:block gap-4 items-center  ">
+        <div class=" pr-4 border-r border-r-[#C3C6D64D] lg:border-0 lg:p-0">
+        <p class="text-[9px] lg:text-[12px] font-bold text-[#041B3C66]">{{getDayName(d.day)}}</p>
+        <h3 class="font-bold text-[16px] text-graay lg:hidden">{{ d.day | date: 'dd' }}</h3>
+        <h3 class="font-bold text-[18px] text-dark-gray hidden lg:block">{{ d.day | date: 'dd MMM' }}</h3>
+        </div>
         @if (getStatusKeys(d.statuses).length === 0) {
-          <div class="opacity-30 justify-items-center h-full content-center">
-            <img src="../../../../../assets/noTasks.png" alt="" class="w-7 h-7 mb-2" />
+          <div class="opacity-30 justify-items-center h-full  content-center">
+            <img src="../../../../../assets/noTasks.png" alt="" class="hidden lg:block lg:w-7 lg:h-7 mb-2" />
 
             <p class="uppercase text-[10px] font-bold">no Tasks</p>
           </div>
         } @else {
           @for (s of getStatusKeys(d.statuses); track s) {
             <div
-              class="w-full mt-2 flex justify-between p-2 rounded-xs mb-2"
-              [class.bg-[#0052CC33]]="s === 'IN_PROGRESS'"
+              class="lg:w-full mt-4 flex justify-between py-0.5 px-1.5 lg:p-2 rounded-xs mb-2"
+              [class.bg-[#0052CC33]]="s === 'IN_PROGRESS'" [class.bg-[#0052CC1A]]="s === 'IN_REVIEW'|| 'READY_FOR_QA'||'REOPENED'|| 'READY_FOR_PRODUCTION'" 
               [class.bg-[#0068441A]]="s === 'DONE'"
               [class.bg-[#FFDAD61A]]="s === 'BLOCKED'"
               [class.bg-[#C3C6D61A]]="s === 'TO_DO'"
-              [class.border-l-4]="s === 'IN_PROGRESS'"
-              [class.border-l-primary]="s === 'IN_PROGRESS'"
-              [class.text-[#003D9B]]="s === 'IN_PROGRESS'"
-              [class.text-[#004E32]]="s === 'DONE'"
+              [class.lg:border-l-4]="s === 'IN_PROGRESS'"
+              [class.lg:border-l-primary]="s === 'IN_PROGRESS'"
+              [class.text-[#003D9B]]="s === 'IN_PROGRESS'||'IN_REVIEW'|| 'READY_FOR_QA'||'REOPENED'|| 'READY_FOR_PRODUCTION'" 
+              [class.text-[#004E32]]="s === 'DONE'" [class.text-[#BA1A1A]]="s === 'BLOCKED'" [class.text-[#737685]]="s === 'TO_DO'"
             >
-              <p class="text-[11px] font-bold">{{ s.replaceAll('_', ' ') }}</p>
-              <p class="text-[12px] text-dark-gray font-bold">{{ d.statuses[s] }}</p>
+              <p class="text-[11px] font-bold hidden lg:block">{{ s.replaceAll('_', ' ') }}</p>
+              <p class="text-[9px] lg:text-[12px] text-dark-gray font-bold">{{ d.statuses[s] }}</p>
             </div>
           }
-        }
+        }</div>
       </div>
     }
   </div>
 
   <!--------------charts-------------->
-  <div class="mt-8 grid grid-cols-2 gap-8">
-    <div class="bg-white p-8">
-      <h5 class="text-[18px] text-dark-gray font-bold">Tasks by Status</h5>
+  <div class="mt-8 lg:grid lg:grid-cols-2 gap-8 mb-12">
+    <h2 class="lg:hidden text-[18px] text-dark-gray font-bold">Task Statistics</h2>
+    
+    <div class="bg-white p-5 lg:p-8 mt-4 lg:mt-0 rounded-2xl">
+      <h5 class="text-[18px] text-dark-gray font-bold">Tasks By Status</h5>
 
-      <div class="flex items-center gap-10 mt-10">
-        <div class="w-45 h-45">
+      @if(chartItems.length===0){
+        <div class="opacity-30 justify-items-center h-full content-center">
+            <img src="../../../../../assets/noTasks.png" alt="" class="w-8 h-8 mb-2" />
+
+            <p class="uppercase text-[18px] font-bold">no Tasks</p>
+          </div>
+      }
+      <div class="flex items-center gap-10 mt-10 w-full">
+        <div class="w-45 h-45 ">
           <canvas #doughnutCanvas></canvas>
         </div>
 
@@ -197,22 +370,22 @@
         <div class="flex-1">
           @for (item of chartItems; track item.label) {
             <div class="mb-4 flex gap-3 items-center">
-              <span class="w-3 h-3 rounded-full mt-1 shrink-0" [style.background]="item.color">
+              <span class="w-2 h-2 lg:w-3 lg:h-3 rounded-full lg:mt-1 shrink-0" [style.background]="item.color">
               </span>
               <div class="w-full">
                 <div class="flex justify-between mb-1">
-                  <p class="text-[12px] font-bold text-[#041B3CB2] capitalize">
+                  <p class="text-[10px] lg:text-[12px] lg:font-bold text-dark-gray lg:text-[#041B3CB2] capitalize">
                     {{ item.label }}
                   </p>
 
-                  <span class="text-[12px] font-bold">
+                  <span class="text-[10px] lg:text-[12px] font-bold">
                     {{ item.value }}
                   </span>
                 </div>
 
-                <div class="w-full h-2 bg-gray-200 rounded-full">
+                <div class="hidden lg:block w-full h-2 bg-gray-200 rounded-full">
                   <div
-                    class="h-2 rounded-full"
+                    class="h-1 rounded-full"
                     [style.width.%]="item.percentage"
                     [style.background-color]="item.color"
                   ></div>
@@ -224,16 +397,23 @@
       </div>
     </div>
 
-    <div class="bg-white p-8 pb-13">
+    <div class="bg-white mt-4 lg:mt-0 p-5 lg:p-8 pb-13 rounded-2xl">
       <h5 class="text-[18px] text-dark-gray font-bold">All Projects</h5>
-      <ul class="mt-10">
+      @if(tasks().length===0){
+        <div class="opacity-30 justify-items-center h-full content-center">
+            <img src="../../../../../assets/noTasks.png" alt="" class="w-8 h-8 mb-2" />
+
+            <p class="uppercase text-[18px] font-bold">no Projects</p>
+          </div>
+      }@else{
+      <ul class="mt-4 lg:mt-10">
         @for (t of tasks(); track t) {
           <li class="flex justify-between mb-4">
             <p class="text-[#041B3CB2] text-[12px] font-bold">{{ t.project_name }}</p>
             <span class="text-dark-gray text-[12px] font-bold">{{ t.tasks_count }} Tasks </span>
           </li>
         }
-      </ul>
+      </ul>}
     </div>
   </div>
 </section>

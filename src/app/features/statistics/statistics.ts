@@ -214,6 +214,10 @@ export class Statistics {
       });
   }
 
+   isToday(date: string) {
+    return new Date(date).toDateString() === this.today.toDateString();
+  }
+  
   getPreviousWeek() {
     this.startDate = new Date(this.startDate);
     this.endDate = new Date(this.endDate);
