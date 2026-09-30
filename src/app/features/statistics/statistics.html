@@ -109,8 +109,8 @@
           class="bg-surface-low lg:bg-[#FFFFFF] w-full rounded-xs py-2 pl-4 pr-10 text-[14px] font-medium text-dark-gray cursor-pointer"
         >
           <option [ngValue]="null" selected>All Statuses</option>
-          @for (s of status; track s) {
-            <option value="{{ s }}">{{ s.replaceAll('_', ' ') }}</option>
+          @for (s of statusKeys; track s) {replaceAll('_', ' ')
+            <option value="{{ s }}">{{ status[s]?.label ?? s }}</option>
           }
         </select>
         <img
@@ -275,12 +275,12 @@
 
   <!----------tasks cards------->
   <div class="mt-8">
-     <h2 class="text-[#4F5F7B] text-[10px] font-bold uppercase">QUICK OVERVIEW</h2>
+     <h2 class="text-graay text-[10px] font-bold uppercase">QUICK OVERVIEW</h2>
   <div class=" mt-3 grid grid-cols-3 gap-3 lg:gap-6">
    
     <div class="p-4 lg:p-6 rounded-lg bg-white flex  flex-col-reverse lg:flex-row justify-center lg:justify-between">
       <div>
-        <h4 class="uppercase text-[#434654] lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">total tasks</h4>
+        <h4 class="uppercase text-grayText lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">total tasks</h4>
         <p class="text-[20px] lg:text-[30px] font-bold text-dark-gray mt-1">{{ tasksStates()?.total_tasks }}</p>
       </div>
       <img src="../../../../../assets/tasksC.png" alt="" class=" w-4 h-4 lg:w-12 lg:h-12" />
@@ -288,7 +288,7 @@
 
     <div class="p-4 lg:p-6 rounded-lg bg-white flex flex-col-reverse lg:flex-row justify-center lg:justify-between">
       <div>
-        <h4 class="uppercase text-[#434654] lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">COMPLETED TASKS</h4>
+        <h4 class="uppercase text-grayText lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">COMPLETED TASKS</h4>
         <p class="text-[20px] lg:text-[30px] font-bold text-dark-gray mt-1">{{ tasksStates()?.done_tasks }}</p>
       </div>
       <img src="../../../../../assets/tasksD.png" alt="" class="w-4 h-4 lg:w-12 lg:h-12" />
@@ -296,7 +296,7 @@
 
     <div class="p-4 lg:p-6 rounded-lg bg-white flex flex-col-reverse lg:flex-row justify-center lg:justify-between">
       <div>
-        <h4 class="uppercase text-[#434654] lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">OVERDUE TASKS</h4>
+        <h4 class="uppercase text-grayText lg:text-[#041B3C99] text-[10px] lg:text-[12px] font-medium lg:font-bold pt-2">OVERDUE TASKS</h4>
         <p class="text-[20px] lg:text-[30px] font-bold text-error mt-1">{{ tasksStates()?.overdue_tasks }}</p>
       </div>
       <img src="../../../../../assets/tasksE.png" alt="" class="w-4 h-4 lg:w-12 lg:h-12" />
@@ -311,12 +311,12 @@
     @for (d of tasksStates()?.daily; track d) {
       <div class="relative bg-surface-low lg:bg-white p-3 lg:p-4 rounded-lg mb-2 " [class.lg:border-2]="d.day === (today | date:'yyyy-MM-dd')" [class.border-1]="d.day === (today | date:'yyyy-MM-dd')" [class.border-l-4]="d.day === (today | date:'yyyy-MM-dd')" [class.bg-white]="d.day === (today | date:'yyyy-MM-dd')"  [class.border-primary]="d.day === (today | date:'yyyy-MM-dd')">
        @if(d.day === (today | date:'yyyy-MM-dd')){
-        <span class="absolute right-3 top-5 lg:-top-3 lg:left-4/12 bg-primary text-white uppercase py-0.5 px-2 rounded-xl text-[7px] lg:text-[10px] font-bold ">Today</span>
+        <span class="absolute right-3 top-5 lg:-top-3 lg:left-0 lg:right-0  margin-auto place-self-center bg-primary text-white uppercase py-0.5 px-2 rounded-xl text-[7px] lg:text-[10px] font-bold ">Today</span>
        }
-       <div class="flex lg:block gap-4 items-center  ">
+       <div class="flex lg:block gap-4 items-center  h-full">
         <div class=" pr-4 border-r border-r-[#C3C6D64D] lg:border-0 lg:p-0">
-        <p class="text-[9px] lg:text-[12px] font-bold text-[#041B3C66]">{{getDayName(d.day)}}</p>
-        <h3 class="font-bold text-[16px] text-graay lg:hidden">{{ d.day | date: 'dd' }}</h3>
+        <p class="text-[9px] lg:text-[12px] font-bold text-[#041B3C66]"  [class.lg:text-primary]="d.day === (today | date:'yyyy-MM-dd')">{{getDayName(d.day)}}</p>
+        <h3 class="font-bold text-[16px] text-graay lg:hidden" >{{ d.day | date: 'dd' }}</h3>
         <h3 class="font-bold text-[18px] text-dark-gray hidden lg:block">{{ d.day | date: 'dd MMM' }}</h3>
         </div>
         @if (getStatusKeys(d.statuses).length === 0) {
@@ -383,7 +383,7 @@
                   </span>
                 </div>
 
-                <div class="hidden lg:block w-full h-2 bg-gray-200 rounded-full">
+                <div class="hidden lg:block w-full h-1 bg-gray-200 rounded-full">
                   <div
                     class="h-1 rounded-full"
                     [style.width.%]="item.percentage"

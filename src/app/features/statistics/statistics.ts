@@ -70,16 +70,17 @@ const centerTextPlugin: Plugin<'doughnut'> = {
   styleUrl: './statistics.css',
 })
 export class Statistics {
-  status = [
-    'TO_DO',
-    'IN_PROGRESS',
-    'BLOCKED',
-    'IN_REVIEW',
-    'READY_FOR_QA',
-    'REOPENED',
-    'READY_FOR_PRODUCTION',
-    'DONE',
-  ];
+  status:Record<string,  { label: string; color: string }> = {
+    'TO_DO':{'label':'TO DO','color':'#94A3B8'},
+    'IN_PROGRESS':{'label':'IN PROGRESS','color':'#0052CC'},
+    'BLOCKED':{'label':'BLOCKED','color':'#BA1A1A'},
+    'IN_REVIEW':{'label':'IN REVIEW','color':'#4F5F7B'},
+    'READY_FOR_QA':{'label':'READY FOR QA','color':'#0C56D0'},
+    'REOPENED':{'label':'REOPENED','color':'#BA1A1A'},
+    'READY_FOR_PRODUCTION':{'label':'READY FOR PRODUCTION','color':'#004E32'},
+    'DONE':{'label':'DONE','color':'#65DCA4'},
+  };
+ statusKeys = Object.keys(this.status);
   chartItems: {
     label: string;
     value: number;
@@ -124,11 +125,7 @@ export class Statistics {
     this.getTasksPerProj();
   }
 
-  // ngAfterViewInit() {
-  //   if (this.chartData) {
-  //     this.createChart(this.chartData);
-  //   }
-  // }
+  
 
   getProjects() {
     this.projeService
@@ -346,35 +343,33 @@ export class Statistics {
     const data = Object.values(totals);
     const labels = Object.keys(totals);
 
-    const colors = [
-      '#003D9B',
-      '#004E32',
-      '#BA1A1A',
-      '#C3C6D6',
-      '#E0E8FF',
-      '#FFB86C',
-      '#67E8F9',
-      '#94A3B8',
-    ];
+    const colors = labels.map(
+  label => this.status[label]?.color ?? '#E8EDFF'
+);
     const total = data.reduce((sum, value) => sum + value, 0);
 
     this.chartItems = labels.map((label, index) => ({
-      label: label.replaceAll('_', ' '),
+      label: this.status[label]?.label ??label,
       value: data[index],
       percentage: (data[index] / total) * 100,
-      color: colors[index],
+      color: this.status[label]?.color ?? '#E8EDFF',
     }));
 
+      // Update existing chart
     if (this.chart) {
       this.chart.data.labels = labels.map((status) => status.replaceAll('_', ' '));
       this.chart.data.datasets[0].data = data;
+      this.chart.data.datasets[0].backgroundColor = colors;
       this.chart.update();
+      return;
     }
 
+
+     // Create chart for the first time
     this.chart = new Chart(this.doughnutCanvas?.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: labels.map((status) => status.replaceAll('_', ' ')),
+        labels:labels.map(label=> this.status[label]?.label ??label),
         datasets: [
           {
             data: data,
