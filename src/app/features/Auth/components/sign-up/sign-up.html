@@ -22,16 +22,17 @@
       <div class="">
         <label class="text-graay text-label-sm font-bold pl-1 " for="name">NAME</label><br />
         <input formControlName="name" type="text" placeholder="Enter your full name" id="name" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
-        <p class="text-light-gray text-label-sm px-1 hidden md:block">3-50 characters, letters only.</p>
-      </div>
-        <!-------error handle------>
-        @if (signUpForm.get('name')?.errors && signUpForm.get('name')?.dirty) {
-        <div class="text-error"2>
+         <!-------error handle------>
+        @if (signUpForm.get('name')?.errors && signUpForm.get('name')?.touched) {
+        <div class="text-error  pt-1">
           @if(signUpForm.get('name')?.errors?.['required']){ <p>Name is required</p>} 
           @if(signUpForm.get('name')?.errors?.['pattern']){ <p>The username must contain letters only and be between 3-50 chars</p>} 
         </div>
         }
        
+        <p class="text-light-gray text-label-sm px-1 hidden md:block">3-50 characters, letters only.</p>
+      </div>
+      
         
       <div class="mt-6">
         <label class="text-graay text-label-sm font-bold pl-1 " for="email">EMAIL</label><br />
@@ -40,7 +41,7 @@
 
       <!-------error handle------>
         @if (signUpForm.get('email')?.errors && signUpForm.get('email')?.touched) {
-        <div class="text-error">
+        <div class="text-error  pt-1">
           @if(signUpForm.get('email')?.errors?.['required']){ <p>email is required</p>}
           @if(signUpForm.get('email')?.errors?.['email']){ <p>email has invalid format</p>}
         </div>
@@ -52,7 +53,7 @@
         <input formControlName="jobTitle" type="text" placeholder="e.g. Project Manager" id="job" class="text-[#737685] bg-surface-highest border-0 w-full font-normal rounded-lg md:rounded-sm py-4.5 md:py-3.5 px-4 mt-2" />
       </div>
 
-      <div class="md:flex justify-between gap-4 ">
+      <div class="md:grid md:grid-cols-2  gap-4 ">
         <div>
            <div class="mt-6 relative">
           <label class="text-graay text-label-sm font-bold pl-1 " for="password">PASSWORD</label><br />
@@ -65,7 +66,7 @@
     </div>
         <!-------error handle------>
         @if (signUpForm.get('password')?.errors && signUpForm.get('password')?.touched) {
-        <div class="text-error">
+        <div class="text-error pt-1">
           @if(signUpForm.get('password')?.errors?.['required']){ <p>password is required</p>}
           @if(signUpForm.get('password')?.errors?.['pattern']){ <p>Password is invalid</p>}
         </div>
@@ -80,7 +81,7 @@
         </div>
   <!-------error handle------>
         @if (signUpForm.get('confirmedPassword')?.errors && signUpForm.get('confirmedPassword')?.touched) {
-        <div class="text-error">
+        <div class="text-error  pt-1">
           @if(signUpForm.get('confirmedPassword')?.errors?.['required']){ <p>password is required</p>
           }
         
@@ -90,7 +91,7 @@
         @if (signUpForm.hasError('passwordMisMatch') && signUpForm.get('confirmedPassword')?.touched) {
        <p class="text-error">Passwords don't match</p> 
 }
-</div>
+        </div>
       </div>
       <!---------------password validation checky-------------->
         <div class="bg-[#E8EDFF] p-4 rounded-md my-5 text-grayText text-xs text-label-sm hidden md:block">
