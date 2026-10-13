@@ -29,14 +29,7 @@
     @if (isLoading()) {
       <!-------skeleton--------->
       <div class="bg-white rounded-lg mt-12">
-        <!-- Header -->
-        <!-- <div class="grid grid-cols-5 gap-4 p-4 border-b font-semibold">
-    <div>Task</div>
-    <div>Assignee</div>
-    <div>Status</div>
-    <div>Priority</div>
-    <div>Due Date</div>
-  </div> -->
+    
 
         <!-- Skeleton Rows -->
         @for (item of [1, 2, 3, 4, 5, 6]; track item) {
@@ -59,34 +52,28 @@
     } @else if (members()) {
       <!-------------desktop view---------->
 
-      <div class="hidden lg:block ml-26.5 mr-32.25 mt-12 rounded-lg">
-        <div class="grid grid-cols-3">
+      <div class="hidden lg:block mx-47.75 mt-12 rounded-lg">
+        <div class="membertable grid grid-cols-2 w-fit">
           <div
-            class="bg-[#E0E8FF4D] py-5 px-13 text-left text-grayText text-label-sm font-bold uppercase"
+            class="bg-[#E0E8FF4D] py-5 px-8  text-grayText text-label-sm font-bold uppercase"
           >
             member
           </div>
           <div
-            class="bg-[#E0E8FF4D] py-5 px-13 text-center text-grayText text-label-sm font-bold uppercase"
+            class="bg-[#E0E8FF4D] py-5 px-8  text-grayText text-label-sm font-bold uppercase"
           >
             role
           </div>
-          <div
-            class="bg-[#E0E8FF4D] py-5 px-13 text-right text-grayText text-label-sm font-bold uppercase"
-          >
-            action
-          </div>
+         
 
           @for (m of members(); track m) {
             <!---------------name and email---->
             <div class="bg-white px-8 py-5 border-t border-t-[#E8EDFF]">
               <div class="flex gap-4 items-center w-81">
                 <div
-                  [class.bg-[#82F9BE]]="m.role === 'member'"
-                  [class.text-[#002113]]="m.role === 'member'"
-                  [class.text-[primary]]="m.role === 'owner'"
-                  [class.bg-[#DAE2FF]]="m.role === 'owner'"
-                  class="w-12 h-12 text-[16px] font-bold content-center text-center rounded-xl"
+                
+              
+                  class="w-12 h-12 text-[16px] text-primary bg-[#DAE2FF] font-bold content-center text-center rounded-xl"
                 >
                   @if (m.metadata.name) {
                     {{ getInitials(m.metadata.name || '') }}
@@ -105,29 +92,25 @@
 
             <!---------------------  roles------->
 
-            <div class="bg-white px-8 py-8.5 border-t border-t-[#E8EDFF] place-items-center">
+            <div class="bg-white px-8 py-8.5 border-t  border-t-[#E8EDFF] place-items-left">
               <div
                 [class.bg-[#D7E2FF]]="m.role === 'member'"
                 [class.text-[#434654]]="m.role === 'member'"
                 [class.text-white]="m.role === 'owner'"
                 [class.bg-primary-container]="m.role === 'owner'"
-                class="py-1 px-3 rounded-xl w-fit text-[10px] font-bold uppercase"
+                class="py-1 px-3 rounded-xl  text-[10px] font-bold uppercase w-fit"
               >
-                {{ m.role }}
+               <p class=" tracking-[0.5px]"> {{ m.role }}</p>
               </div>
             </div>
 
-            <!---------------------  actions------->
-
-            <div class="bg-white px-8 py-8.5 border-t border-t-[#E8EDFF]">
-              <img src="../../../../../assets/actions.png" alt="" class="float-right" />
-            </div>
+           
           }
         </div>
       </div>
 
       <!-------------mobile view----------->
-      <div class="lg:hidden">
+      <div class="lg:hidden pt-3">
         <ul>
           @for (m of members(); track m) {
             <li class="bg-white p-4 rounded-lg mt-3">
@@ -146,13 +129,13 @@
                   </div>
                 </div>
 
-                <div class="">
+                <div class="content-center">
                   <p
-                    class="text-[10px] text-grayText font-bold py-0.5 px-2 bg-surface-highest uppercase"
+                    class="text-[10px] rounded-lg text-grayText font-bold px-2 bg-surface-highest uppercase"
                   >
                     viewer
                   </p>
-                  <img class="float-right pt-2" src="../../../../../assets/actions.png" alt="" />
+                 
                 </div>
               </div>
             </li>
